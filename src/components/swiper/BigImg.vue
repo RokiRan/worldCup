@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
-
 // Import Swiper styles
 import "swiper/css";
 
@@ -12,19 +11,24 @@ import "swiper/css/thumbs";
 // import "./style.css";
 
 // import required modules
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
 
 const imgs = [];
 for (let i = 2; i < 10; i++) {
   imgs.push(`https://swiperjs.com/demos/images/nature-${i}.jpg`);
 }
 const thumbsSwiper = ref(null);
-
 function setThumbsSwiper(swiper: any) {
   thumbsSwiper.value = swiper;
 }
-
-const modules = [FreeMode, Navigation, Thumbs];
+const effect = {
+  rotate: 10, // 滑动时旋转角度
+  stretch: 206, // 聚合宽度
+  depth: 200, // 景深
+  modifier: 1, // 覆盖叠加层数
+  slideShadows: false, // 是否阴影
+};
+const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
 </script>
 
 <template>
@@ -34,15 +38,10 @@ const modules = [FreeMode, Navigation, Thumbs];
         '--swiper-navigation-color': 'red',
         '--swiper-pagination-color': 'red',
       }"
-      :coverflow-effect="{
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-      }"
+      :coverflow-effect="effect"
       effect="coverflow"
       :grab-cursor="true"
+      :loop="true"
       :space-between="10"
       :navigation="true"
       :thumbs="{ swiper: thumbsSwiper }"
@@ -50,9 +49,11 @@ const modules = [FreeMode, Navigation, Thumbs];
       class="mySwiper2"
     >
       <SwiperSlide v-for="img in imgs" :key="img">
-        <img
-          :src="img"
-        >
+        <div class="myImg">
+          <img
+            :src="img"
+          >
+        </div>
       </SwiperSlide>
     </Swiper>
     <Swiper
@@ -81,35 +82,14 @@ const modules = [FreeMode, Navigation, Thumbs];
     height: 600px;
 }
 
-.swiper {
-    width: 100%;
-    height: 100%;
+.swiper-slide .myImg > img{
+    width: 90%;
+    margin: 0 auto;
+    object-fit: cover;
 }
-
-.swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
 .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
     object-fit: cover;
 }
 
