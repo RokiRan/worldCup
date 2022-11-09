@@ -7,10 +7,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BigImg: typeof import('./../src/components/swiper/BigImg.vue')['default']
+    copy: typeof import('./../src/components/swiper/PostItem copy.vue')['default']
+    CreditItem: typeof import('./../src/components/swiper/CreditItem.vue')['default']
+    DailyItem: typeof import('./../src/components/swiper/DailyItem.vue')['default']
     Footer: typeof import('./../src/components/layout/Footer/index.vue')['default']
+    HeadSliderItem: typeof import('./../src/components/swiper/HeadSliderItem.vue')['default']
     Navbar: typeof import('./../src/components/layout/Navbar/index.vue')['default']
+    PostItem: typeof import('./../src/components/swiper/PostItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SmallImg: typeof import('./../src/components/layout/News/SmallImg.vue')['default']
+    SubTitile: typeof import('./../src/components/layout/Title/SubTitile.vue')['default']
     ThemeChange: typeof import('./../src/components/layout/Navbar/components/ThemeChange.vue')['default']
   }
 }
