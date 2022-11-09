@@ -1,11 +1,12 @@
 import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 import NProgress from "nprogress";
-
+// 判断是否是移动端
+import { isMobile } from "~/utils/isMobile";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    component: () => import("~/views/home/index.vue"),
+    component: isMobile() ? () => import("~/views/h5/index.vue") : () => import("~/views/pc/index.vue"),
   },
   {
     path: "/404",
@@ -13,19 +14,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import("~/views/errorPages/index.vue"),
   },
   {
-    path: "/home",
-    name: "Home",
-    component: () => import("~/views/home/index.vue"),
+    path: "/pc",
+    name: "Pc",
+    component: () => import("~/views/pc/index.vue"),
   },
   {
-    path: "/hero",
-    name: "Hero",
-    component: () => import("~/views/home/components/Hero.vue"),
-  },
-  {
-    path: "/StoreTest",
-    name: "StoreTest",
-    component: () => import("~/views/home/components/StoreTest.vue"),
+    path: "/h5",
+    name: "H5",
+    component: () => import("~/views/h5/index.vue"),
   },
   {
     path: "/:pathMatch(.*)*",

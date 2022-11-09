@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { logLabeled } from "./utils/logger";
-import Navbar from "./components/layout/Navbar/index.vue";
-import Footer from "./components/layout/Footer/index.vue";
+import ThemeChange from "./components/layout/Navbar/components/ThemeChange.vue";
 logLabeled("I'm ready!  ⸜(๑'ᵕ'๑)⸝⋆*", "log", "", "color: #66ccff");
 </script>
 
 <template>
-  <div class="font-chinese antialiased">
+  <div class="antialiased font-chinese">
     <div class="min-h-screen">
-      <Navbar />
+      <ThemeChange v-show="false" />
       <RouterView />
     </div>
-    <Footer />
   </div>
 </template>

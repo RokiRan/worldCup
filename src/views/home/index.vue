@@ -4,7 +4,7 @@ import StoreTest from "./components/StoreTest.vue";
 </script>
 
 <template>
-  <Hero />
+  <!-- <Hero /> -->
   <StoreTest />
 </template>
 

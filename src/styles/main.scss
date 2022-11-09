@@ -1,5 +1,14 @@
 @import "variables";
 @import "nprogress";
 html.dark {
-  //background: #22272e;
+  background: #22272e;
+}
+html.light {
+  background: #eeeff1;
+}
+@font-face {
+  font-family: 'Lato', sans-serif;
+  src: url('/src/assets//font/icomoon.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
