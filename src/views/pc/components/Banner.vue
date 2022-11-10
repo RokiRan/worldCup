@@ -5,7 +5,7 @@ import { firework } from "~/utils/fire";
 const scene = ref();
 
 onMounted(() => {
-  firework();
+  firework(500);
   // eslint-disable-next-line no-new
   new Parallax(scene.value);
 });

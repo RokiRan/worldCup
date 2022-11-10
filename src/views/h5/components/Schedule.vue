@@ -8,11 +8,19 @@ import "swiper/css";
 
 import ScheduleItemVue from "./item/ScheduleItem.vue";
 import ScheduleBigImgItemVue from "./item/ScheduleBigImgItem.vue";
+
+const emit = defineEmits<{
+  (e: "more", id: any): void;
+}>();
+
+const sendEvent = () => {
+  emit("more", null);
+};
 </script>
 
 <template>
   <div>
-    <BlockVue title="赛程">
+    <BlockVue title="赛程" :show="true" @more="sendEvent()">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
         <SwiperSlide v-for="item in 10" :key="item">
           <ScheduleItemVue />
@@ -53,11 +61,6 @@ import ScheduleBigImgItemVue from "./item/ScheduleBigImgItem.vue";
 
         }
     }
-    // .swiper-button-disabled{
-    //     opacity: .35;
-    //     pointer-events: none;
-    //     z-index: 9999999;
-    // }
     .swiper-button-prev::before {
         content: "";
         display: inline-block;

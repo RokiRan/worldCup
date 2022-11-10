@@ -32,7 +32,7 @@ const change = (index: number) => {
     /*粘性布局*/
     position: sticky;
     top: 0;
-    z-index: 9999999999999999;
+    z-index: 9999;
     ul{
         display: inline-block;
         min-width: 1040px;

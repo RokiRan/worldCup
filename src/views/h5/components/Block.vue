@@ -6,13 +6,23 @@ export default {
       type: String,
       default: "",
     },
+    show: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: ["more"],
   setup(props) {
     const { title } = toRefs(props);
     return {
       // eslint-disable-next-line vue/no-dupe-keys
       title,
     };
+  },
+  methods: {
+    more() {
+      this.$emit("more");
+    },
   },
 };
 </script>
@@ -30,7 +40,7 @@ export default {
         <div class="dot dot4" />
         <div class="dot dot5" />
       </div>
-      <div class="block-more">
+      <div v-if="show" class="block-more" @click="more()">
         查看更多>
       </div>
     </div>
