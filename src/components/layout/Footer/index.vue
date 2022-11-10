@@ -1,5 +1,7 @@
-<script setup lang="ts">
-import Avatar from "~/assets/avatar.jpg";
+<script>
+export default {
+  name: "Foot",
+};
 </script>
 
 <template>

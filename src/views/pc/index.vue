@@ -8,7 +8,7 @@ import DingResVue from "./components/DingRes.vue";
 import PostVue from "./components/Post.vue";
 import NewsVue from "./components/News.vue";
 import DailyVue from "./components/Daily.vue";
-import Footer from "~/components/layout/Footer/index.vue";
+import Foot from "~/components/layout/Footer/index.vue";
 export default defineComponent({
   name: "Index",
   components: {
@@ -21,7 +21,7 @@ export default defineComponent({
     DingResVue,
     NewsVue,
     DailyVue,
-    Footer,
+    Foot,
   },
   setup() {
     const schedule = ref(null);
@@ -67,7 +67,7 @@ export default defineComponent({
       <DailyVue />
       <NewsVue />
     </div>
-    <Footer />
+    <Foot />
   </div>
 </template>
 
