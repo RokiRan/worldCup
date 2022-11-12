@@ -1,23 +1,41 @@
-<script>
-export default {
+<script lang="ts">
+import type { PropType } from "vue";
+// import dayjs from "dayjs"
 
+interface Item {
+  sessions: string;
+  teamOne: string;
+  teamOneCover: string;
+  teamTwo: string;
+  teamTwoCover: string;
+  createTime: string;
+  createTimeStamp: string;
+  mode: string;
+}
+
+export default {
+  props: {
+    item: {
+      type: Object as PropType<Item>,
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="container">
+  <div class="containerSechdule">
     <div class="groupTime">
       <div class="groupTimeInfo">
-        <div>世界杯小组赛-A组 第一轮</div>
-        <div>11月21日 00:00</div>
+        <div>{{ $props.item?.sessions }}</div>
+        <div>{{ $props.item?.createTime }}</div>
       </div>
       <div class="contestant">
         <div class="team">
           <div class="teamLogo">
-            <img src="/src/assets/England.png" alt="">
+            <img :src="$props.item?.teamOneCover" alt="">
           </div>
           <div class="teamName">
-            英格兰
+            {{ $props.item?.teamOne }}
           </div>
         </div>
         <div class="info">
@@ -27,10 +45,10 @@ export default {
         </div>
         <div class="team">
           <div class="teamLogo">
-            <img src="/src/assets/Iran.png" alt="">
+            <img :src="$props.item?.teamTwoCover" alt="">
           </div>
           <div class="teamName">
-            伊朗
+            {{ $props.item?.teamTwo }}
           </div>
         </div>
       </div>
@@ -39,8 +57,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.container{
+.containerSechdule{
     padding: 20px;
+    width: 242.5px;
 }
 .groupTime div {
   font-size: 13px;
@@ -82,7 +101,9 @@ export default {
 }
 
 .teamLogo img {
-  width: 100%;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .groupTime div.teamName {

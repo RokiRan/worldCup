@@ -11,7 +11,13 @@ export default defineConfig({
     port: 8888,
     open: true,
     https: false,
-    proxy: {},
+    proxy: {
+      "/controller": {
+        target: "https://testvoteone.cqcb.com/vote/2022project/q4/2022word_cup",
+        changeOrigin: true,
+        // rewrite: (path: string) => path.replace(/^\/controller.php/, "/controller.php"),
+      },
+    },
   },
   plugins: [
     vue({

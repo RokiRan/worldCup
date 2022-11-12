@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import PostItemVue from "~/components/swiper/PostItem.vue";
-
+import type { PostItem } from "~/types/News";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 
+const props = defineProps<{
+  images: {
+    type: PostItem[];
+  };
+}>();
 const groupingBtNext = ref(null);
 const groupingBtPrev = ref(null);
 const ReditSwiper = ref();
@@ -14,6 +19,18 @@ const next = () => {
 const prev = () => {
   ReditSwiper.value.slidePrev();
 };
+
+const imageArr = computed(() => {
+  // reduce 一位数组转二维数组
+  return props.images.reduce((acc: PostItem[], cur: PostItem, index: number) => {
+    const page = Math.floor(index / 4);
+    if (!acc[page]) {
+      acc[page] = [];
+    }
+    acc[page].push(cur);
+    return acc;
+  }, []);
+});
 </script>
 
 <template>
@@ -30,10 +47,11 @@ const prev = () => {
               :navigation="false"
               next-el=".groupingBtNext"
               prev-el=".groupingBtPrev"
+              class="postSlider"
             >
-              <SwiperSlide v-for="item in 4" :key="item">
+              <SwiperSlide v-for="item in imageArr" :key="item">
                 <div class="flex">
-                  <PostItemVue v-for="item_ in (item % 2 !== 0 ? 4 : 2)" :key="`${item_}abc`" />
+                  <PostItemVue v-for="item_ in item" :key="`${item_}`" :post="item_" />
                 </div>
               </SwiperSlide>
             </Swiper>
@@ -45,9 +63,6 @@ const prev = () => {
 </template>
 
 <style lang="scss" scoped>
-.swiper{
-  // width: 1130px;
-}
 .swiper-container {
   width: 100%;
   height: 100%;
@@ -55,9 +70,6 @@ const prev = () => {
   margin-right: auto;
 }
 
-.swiper-slide {
-
-}
 .container5{
   width: 100vw;
   background-image: url(/src/assets/bg3.png);

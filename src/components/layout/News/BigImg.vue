@@ -1,16 +1,17 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { NewsItem } from "~/types/News";
+defineProps<{
+  image: NewsItem;
+}>();
 </script>
 
 <template>
-  <div class="contentATLeft bigImg">
+  <div v-if="Object.hasOwn($props.image, 'title')" class="contentATLeft bigImg">
     <div class="BigImgAT">
-      <img src="/src/assets/nme.jpg">
+      <img :src="$props.image?.imageUrl[0]">
     </div>
     <div class="BigImgTitle">
-      <a href="#">[国际足球]卡塔尔世界杯出行攻略 搭乘地铁最便捷[国际足球]卡塔尔世界杯出行攻略 搭乘地铁最便捷</a>
+      <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
     </div>
   </div>
 </template>
@@ -29,6 +30,7 @@ export default {
 
 .BigImgAT img {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 10px 10px 0px 0px;

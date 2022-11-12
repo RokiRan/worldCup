@@ -1,16 +1,18 @@
-<script>
-export default {
+<script lang="ts" setup>
+import type { PostItem } from "~/types/News";
 
-};
+defineProps<{
+  post: PostItem;
+}>();
 </script>
 
 <template>
   <div class="postItem2">
     <div class="image">
-      <img src="/src/assets/nature-3.jpg" alt="" srcset="">
+      <img :src="$props.post.cover" alt="" srcset="">
     </div>
     <div class="title">
-      格子波霸姆巴佩破门 法国4-2克罗地亚再夺世界杯
+      {{ $props.post.name }}
     </div>
   </div>
 </template>

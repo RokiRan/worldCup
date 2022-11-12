@@ -4,6 +4,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  show: {
+    type: Boolean,
+    default: false,
+  },
 });
 const emit = defineEmits(["more"]);
 </script>
@@ -14,7 +18,7 @@ const emit = defineEmits(["more"]);
     <div class="integral">
       {{ props.title }}
     </div>
-    <span class="colMore" @click="emit('more')">查看更多></span>
+    <span v-if="props.show" class="colMore" @click="emit('more')">查看更多></span>
   </div>
 </template>
 

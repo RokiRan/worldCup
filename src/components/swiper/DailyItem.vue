@@ -1,16 +1,19 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { NewsItem } from "~/types/News";
+defineProps<{
+  news: NewsItem;
+}>();
 </script>
 
 <template>
   <div class="postItem">
     <div class="image">
-      <img src="/src/assets/nature-3.jpg" alt="" srcset="">
+      <img :src="$props.news.imageUrl[0]" alt="" srcset="">
     </div>
     <div class="title">
-      格子波霸姆巴佩破门 法国4-2克罗地亚再夺世界杯
+      <div class="text line-clamp-2">
+        {{ $props.news.title }}
+      </div>
     </div>
   </div>
 </template>
@@ -38,6 +41,9 @@ export default {
     text-align: left;
     padding: 8px;
     background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
+    .text{
+      height: 42px;
+    }
   }
 }
 </style>

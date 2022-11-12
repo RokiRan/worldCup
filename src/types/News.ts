@@ -31,3 +31,9 @@ export interface NewsItem {
   buryValue: string;
 }
 
+export interface PostItem {
+  id: string;
+  name: string;
+  cover: string;
+  createtime: string;
+}

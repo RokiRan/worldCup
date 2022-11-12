@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { type PropType } from "vue";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
@@ -13,10 +14,45 @@ import "swiper/css/thumbs";
 // import required modules
 import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
 
-const imgs = [];
-for (let i = 2; i < 10; i++) {
-  imgs.push(`https://swiperjs.com/demos/images/nature-${i}.jpg`);
+interface Item {
+  id: number;
+  classId: number;
+  title: string;
+  dataType: number;
+  showType: number;
+  publishTime: string;
+  lastDoTime: number;
+  imageUrl: string[];
+  isVideo: number;
+  videoUrl: string;
+  videoTime: string;
+  doLikeNum: number;
+  isDoLike: number;
+  isTop: number;
+  label: string;
+  plNum: string;
+  interactNum: string;
+  isAd: number;
+  pv: string;
+  imageNum: number;
+  category: string;
+  targetUrl: string;
+  sourceImage: string;
+  sourceName: string;
+  smallText: string;
+  traceInfo: string;
+  traceId: string;
+  contentLength: number;
+  adId: number;
+  buryValue: string;
 }
+const props = defineProps({
+  sliderItems: {
+    type: Array as PropType<Item[]>,
+    default: () => [],
+  },
+});
+
 const thumbsSwiper = ref(null);
 function setThumbsSwiper(swiper: any) {
   thumbsSwiper.value = swiper;
@@ -48,10 +84,10 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       :modules="modules"
       class="mySwiper2"
     >
-      <SwiperSlide v-for="img in imgs" :key="img">
+      <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <div class="myImg">
           <img
-            :src="img"
+            :src="img.imageUrl[0]"
           >
         </div>
       </SwiperSlide>
@@ -66,9 +102,9 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       class="mySwiper"
       @swiper="setThumbsSwiper"
     >
-      <SwiperSlide v-for="img in imgs" :key="img">
+      <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <img
-          :src="img"
+          :src="img.imageUrl[0]"
         >
       </SwiperSlide>
     </Swiper>

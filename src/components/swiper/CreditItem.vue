@@ -1,14 +1,28 @@
-<script>
-export default {
+<script lang="ts" setup>
+import { type PropType } from "vue";
+interface Item {
+  team: string;
+  teamCover: string;
+  groups: string;
+  source: string;
+  ranking: string;
+}
 
-};
+const props = defineProps<{
+  item: {
+    typp: PropType<Item>;
+  };
+  group: {
+    type: String;
+  };
+}>();
 </script>
 
 <template lang="">
   <div class="listBox">
     <div class="listTop">
       <div class="GroupName">
-        A组
+        {{ props.group }}组
       </div>
       <div class="fraction">
         积分

@@ -3,7 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import DailyItem from "~/components/swiper/DailyItem.vue";
 
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
-
+import type { NewsItem } from "~/types/News";
+const props = defineProps<{
+  arch: string;
+  news: NewsItem[];
+}>();
 const groupingBtNext = ref(null);
 const groupingBtPrev = ref(null);
 const ReditSwiper = ref();
@@ -14,12 +18,23 @@ const next = () => {
 const prev = () => {
   ReditSwiper.value.slidePrev();
 };
+const imageArr = computed(() => {
+  // reduce 一位数组转二维数组
+  return props.news.reduce((acc: NewsItem[], cur: NewsItem, index: number) => {
+    const page = Math.floor(index / 4);
+    if (!acc[page]) {
+      acc[page] = [];
+    }
+    acc[page].push(cur);
+    return acc;
+  }, []);
+});
 </script>
 
 <template>
   <div class="container4">
     <div class="columnBox">
-      <SubTitileVue title="赛果海报" @more="null" />
+      <SubTitileVue title="世界杯日报" @more="null" />
       <div class="groupingPosetion3">
         <div class="grouping">
           <div class="groupingInfo">
@@ -31,9 +46,9 @@ const prev = () => {
               next-el=".groupingBtNext"
               prev-el=".groupingBtPrev"
             >
-              <SwiperSlide v-for="item in 4" :key="item">
+              <SwiperSlide v-for="item, inde in imageArr" :key="inde">
                 <div class="flex">
-                  <DailyItem v-for="item_ in (item % 2 !== 0 ? 4 : 2)" :key="`${item_}abc`" />
+                  <DailyItem v-for="item_, ind in item" :key="`${ind}daily`" :news="item_" />
                 </div>
               </SwiperSlide>
             </Swiper>

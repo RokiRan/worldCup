@@ -1,13 +1,18 @@
 <script lang="ts" setup>
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import SmallImgVue from "~/components/layout/News/SmallImg.vue";
+import type { NewsItem } from "~/types/News";
+defineProps<{
+  title: string;
+  news: NewsItem[];
+}>();
 </script>
 
-<template lang="">
+<template>
   <div class="newsblock">
-    <SubTitileVue title="今日看点" @more="null" />
+    <SubTitileVue :title="$props.title" @more="null" />
     <div class="news">
-      <SmallImgVue v-for="item in 6" :key="item" />
+      <SmallImgVue v-for="item in $props.news" :key="item.id" :image="item" />
     </div>
   </div>
 </template>

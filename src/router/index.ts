@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
-import NProgress from "nprogress";
+
 // 判断是否是移动端
 import { isMobile } from "~/utils/isMobile";
 const routes: RouteRecordRaw[] = [
@@ -34,13 +34,11 @@ const index = createRouter({
   routes,
 });
 index.beforeEach(() => {
-  if (!NProgress.isStarted()) {
-    NProgress.start();
-  }
+
 });
 
 index.afterEach(() => {
-  NProgress.done();
+
 });
 
 export default index;

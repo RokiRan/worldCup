@@ -1,16 +1,21 @@
-<script>
-export default {
+<script lang="ts" setup>
+import { type PropType } from "vue";
+import type { NewsItem } from "~/types/News";
 
-};
+defineProps({
+  image: {
+    type: Object as PropType<NewsItem>,
+  },
+});
 </script>
 
 <template lang="">
   <div class="listCont listMB">
     <div class="listContT">
-      <p>[国际足球]卡塔尔世界杯出行攻略 搭乘地铁最便捷[国际足球]卡塔尔世界杯出行攻略 搭乘地铁最便捷</p>
+      <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
     </div>
     <div class="listContImg">
-      <img src="/src/assets/nme.jpg">
+      <img :src="$props.image?.imageUrl[0]">
       <i class="v-icon" />
     </div>
   </div>
@@ -47,7 +52,7 @@ export default {
   width: 243px;
   margin: 20px;
 }
-.listContT p{
+.listContT a{
   font-size: 16px;
   color: #fff;
   line-height: 24px;

@@ -14,6 +14,17 @@ export default {
     HeadSliderItemVue,
     BigImgVue,
   },
+  props: {
+    slider: {
+      type: Array,
+      default: () => [],
+    },
+    schedule: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  emits: ["showSchedule"],
   setup() {
     const onSwiper = (swiper) => {
       // console.log(swiper);
@@ -26,6 +37,11 @@ export default {
       onSlideChange,
     };
   },
+  methods: {
+    showSchedule() {
+      this.$emit("showSchedule");
+    },
+  },
 };
 </script>
 
@@ -36,17 +52,18 @@ export default {
         :slides-per-view="4"
         :space-between="20"
         :navigation="false"
+        class="headSwiper"
         @swiper="onSwiper"
         @slideChange="onSlideChange"
       >
-        <SwiperSlide v-for="item in 10" :key="item">
-          <HeadSliderItemVue />
+        <SwiperSlide v-for="item in $props.schedule" :key="item">
+          <HeadSliderItemVue :item="item" />
         </SwiperSlide>
       </Swiper>
       <div class="groupmore">
         <div class="Dot" />
         <div class="Dot" />
-        <div class="moreBt">
+        <div class="moreBt" @click="showSchedule">
           查看更多
         </div>
         <div class="Dot" />
@@ -54,7 +71,7 @@ export default {
       </div>
     </div>
     <div class="bigImg">
-      <BigImgVue />
+      <BigImgVue :slider-items="slider" />
     </div>
   </div>
 </template>
@@ -190,5 +207,12 @@ export default {
 
 .swiper-button-next {
   right: 0;
+}
+.headSwiper{
+  .swiper-wrapper{
+    .swiper-slide{
+      width: 282.5px !important;
+    }
+  }
 }
 </style>

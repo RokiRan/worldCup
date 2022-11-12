@@ -1,23 +1,19 @@
 <script lang="ts" setup>
+import { menuItems } from "~/utils/menu";
+
 const emit = defineEmits(["change"]);
-const menu = ["赛程", "上游探营", "阿汤锅打\"卡\"", "今日看点", "今日综述", "热点聚焦", "上游评球", "赛果海报", "上游世界杯"];
-const arch = ["schedule",
-  "credites",
-  "ding",
-  "post",
-];
-const active = ref(2);
-const change = (index: number) => {
-  active.value = index;
-  emit("change", arch[index]);
+const active = ref(menuItems[0].arch);
+const change = (arch: string) => {
+  active.value = arch;
+  emit("change", arch);
 };
 </script>
 
 <template>
   <div class="nav">
     <ul>
-      <li v-for="m, key in menu" :key="m" :class="active === key ? 'currentTab' : ''" @click="change(key)">
-        {{ m }}
+      <li v-for="m in menuItems" :key="m.arch" :class="active === m.arch ? 'currentTab' : ''" @click="change(m.arch)">
+        {{ m.name }}
       </li>
     </ul>
   </div>

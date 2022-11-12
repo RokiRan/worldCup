@@ -1,17 +1,53 @@
-<script lang="ts" setup>
+<script lang="ts">
+import { type PropType } from "vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import BigImgVue from "~/components/layout/News/BigImg.vue";
 import SmallImgVue from "~/components/layout/News/SmallImg.vue";
+import type { NewsItem } from "~/types/News";
+export default {
+  components: {
+    SubTitileVue,
+    BigImgVue,
+    SmallImgVue,
+  },
+  props: {
+    card: {
+      type: Array as PropType<NewsItem[]>,
+      default: () => [],
+    },
+  },
+  emits: ["showNewsList"],
+  setup(props, { emit }) {
+    const change = (index: number) => {
+      emit("showNewsList", index);
+    };
+    return {
+      change,
+    };
+  },
+  computed: {
+    cardOne() {
+      if (this.$props?.card?.length > 0) {
+        return this.$props?.card[0];
+      } else {
+        return {};
+      }
+    },
+    cards() {
+      return this.$props?.card?.slice(1, 4) || [];
+    },
+  },
+};
 </script>
 
-<template lang="">
-  <div class="containter3">
+<template>
+  <div class="containter3" arch="ding">
     <div class="columnBox">
-      <SubTitileVue title="阿汤锅打“卡”" @more="null" />
+      <SubTitileVue title="阿汤锅打“卡”" :show="true" @more="change" />
       <div class="contentBoxAT">
-        <BigImgVue />
+        <BigImgVue :image="cardOne" />
         <div class="contentATRigth">
-          <SmallImgVue v-for="item in 3" :key="item" />
+          <SmallImgVue v-for="item, ind in cards" :key="ind" :image="item" />
         </div>
       </div>
     </div>

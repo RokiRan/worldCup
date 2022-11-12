@@ -1,19 +1,36 @@
 <script lang="ts" setup>
+import { type PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import CreditItemVue from "~/components/swiper/CreditItem.vue";
 
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
+interface OneGroup {
+  team: string;
+  teamCover: string;
+  groups: string;
+  source: string;
+  ranking: string;
+}
+interface AllGroup {
+  A: OneGroup[];
+  B: OneGroup[];
+  C: OneGroup[];
+  D: OneGroup[];
+  E: OneGroup[];
+  F: OneGroup[];
+  G: OneGroup[];
+  H: OneGroup[];
+}
+const props = defineProps<{
+  source: {
+    typp: PropType<AllGroup>;
+  };
+}>();
 
-const groupingBtNext = ref(null);
-const groupingBtPrev = ref(null);
+const allGroup = computed(() => {
+  return props.source;
+});
 const ReditSwiper = ref();
-
-const next = () => {
-  ReditSwiper.value.slideNext();
-};
-const prev = () => {
-  ReditSwiper.value.slidePrev();
-};
 </script>
 
 <template>
@@ -25,26 +42,20 @@ const prev = () => {
           <div class="groupingInfo">
             <Swiper
               ref="ReditSwiper"
-              :slides-per-view="1"
+              :slides-per-view="4"
               :space-between="2"
               :navigation="false"
               next-el=".groupingBtNext"
               prev-el=".groupingBtPrev"
             >
-              <SwiperSlide v-for="item in 4" :key="item">
+              <SwiperSlide v-for="item, ind in props.source" :key="ind">
                 <div class="flex">
-                  <CreditItemVue v-for="item_ in (item % 2 !== 0 ? 4 : 2)" :key="`${item_}abc`" />
+                  <CreditItemVue v-for="item_ in item" :key="`${item_}`" :item="item_" :group="ind" />
                 </div>
               </SwiperSlide>
             </Swiper>
           </div>
         </div>
-        <!-- <div ref="groupingBtPrev" class="groupingBtPrev" @click="prev">
-          <div />
-        </div>
-        <div ref="groupingBtNext" class="groupingBtNext" @click="next">
-          <div />
-        </div> -->
       </div>
     </div>
   </div>
