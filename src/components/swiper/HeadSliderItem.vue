@@ -1,22 +1,12 @@
 <script lang="ts">
 import type { PropType } from "vue";
+import type { ScheduleItem } from "~/types/News";
 // import dayjs from "dayjs"
-
-interface Item {
-  sessions: string;
-  teamOne: string;
-  teamOneCover: string;
-  teamTwo: string;
-  teamTwoCover: string;
-  createTime: string;
-  createTimeStamp: string;
-  mode: string;
-}
 
 export default {
   props: {
     item: {
-      type: Object as PropType<Item>,
+      type: Object as PropType<ScheduleItem>,
     },
   },
 };
@@ -32,7 +22,7 @@ export default {
       <div class="contestant">
         <div class="team">
           <div class="teamLogo">
-            <img :src="$props.item?.teamOneCover" alt="">
+            <img v-loadFail :src="$props.item?.teamOneCover" alt="">
           </div>
           <div class="teamName">
             {{ $props.item?.teamOne }}
@@ -45,7 +35,7 @@ export default {
         </div>
         <div class="team">
           <div class="teamLogo">
-            <img :src="$props.item?.teamTwoCover" alt="">
+            <img v-loadFail :src="$props.item?.teamTwoCover" alt="">
           </div>
           <div class="teamName">
             {{ $props.item?.teamTwo }}

@@ -7,6 +7,8 @@ import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 // Import Swiper styles
 import "swiper/css";
 
+import { getSchedule } from "~/http";
+
 const dates = [{
   date: "11-21",
   week: "周一",
@@ -70,6 +72,11 @@ const dates = [{
 ];
 
 const currentTab = ref("11-21");
+onMounted(() =>
+  getSchedule().then((res) => {
+
+  }),
+);
 </script>
 
 <template>

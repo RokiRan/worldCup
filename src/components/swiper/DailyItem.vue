@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <div class="postItem">
     <div class="image">
-      <img :src="$props.news.imageUrl[0]" alt="" srcset="">
+      <img v-loadFail :src="$props.news.imageUrl[0]" alt="" srcset="">
     </div>
     <div class="title">
       <div class="text line-clamp-2">
@@ -18,7 +18,7 @@ defineProps<{
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .postItem {
   width: 25%;
   height: 100%;

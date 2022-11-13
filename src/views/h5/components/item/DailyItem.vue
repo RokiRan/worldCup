@@ -1,15 +1,20 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+const props = defineProps<{
+  news: NewsItem;
+}>();
+const img = computed(() => {
+  return newsImgFmt(props.news);
+});
 </script>
 
 <template>
   <div class="dailyItems">
-    <img src="/src/assets/fenmianAir2.png" alt="">
+    <img v-loadFail :src="img" alt="">
     <div class="content">
       <div class="line-clamp-2">
-        哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+        {{ $props.news.title }}
       </div>
     </div>
   </div>
@@ -21,6 +26,9 @@ export default {
     border-radius: .3rem;
     overflow: hidden;
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     img{
         width: 100%;
         height: 8rem;
@@ -31,10 +39,14 @@ export default {
     .content{
         width: 100%;
         padding: .4rem;
+        flex: 1;
         color: #fff;
         font-size: .85rem;
         background: linear-gradient(342deg, #A1003A 10%, #E50C49 100%);
         overflow-y: hidden;
+        div{
+          text-align: left;
+        }
     }
 }
 </style>

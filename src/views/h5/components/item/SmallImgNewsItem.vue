@@ -1,18 +1,23 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { PropType } from "vue";
+import type { NewsItem } from "~/types/News";
+defineProps({
+  news: {
+    type: Object as PropType<NewsItem>,
+    default: () => {},
+  },
+});
 </script>
 
 <template>
   <div class="smallImgNews">
     <div class="title">
       <div class="line-clamp-2">
-        哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+        {{ $props.news?.title }}
       </div>
     </div>
     <div class="img">
-      <img src="/src/assets/fenmianAir2.png" alt="">
+      <img v-loadFail :src="$props.news?.imageUrl[0]" alt="">
       <span class="video" />
     </div>
   </div>
@@ -40,7 +45,7 @@ export default {
         padding: .3rem;
         img{
             width: 100%;
-            height: 100%;
+            height: 5rem;
             object-fit: cover;
             border-radius: .4rem;
         }

@@ -6,11 +6,17 @@ defineProps<{
   title: string;
   news: NewsItem[];
 }>();
+const emit = defineEmits<{
+  (event: "showNewsList", index: number): void;
+}>();
+const change = (index: number) => {
+  emit("showNewsList", index);
+};
 </script>
 
 <template>
   <div class="newsblock">
-    <SubTitileVue :title="$props.title" @more="null" />
+    <SubTitileVue :title="$props.title" :show="true" @more="change" />
     <div class="news">
       <SmallImgVue v-for="item in $props.news" :key="item.id" :image="item" />
     </div>

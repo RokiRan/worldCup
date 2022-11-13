@@ -5,14 +5,19 @@ import BlockVue from "./Block.vue";
 import "swiper/css";
 
 import PostItemVue from "./item/PostItem.vue";
+import type { PostItem } from "~/types/News";
+
+defineProps<{
+  images: PostItem[];
+}>();
 </script>
 
 <template>
   <div>
     <BlockVue title="小组赛积分">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="item in 10" :key="item">
-          <PostItemVue />
+        <SwiperSlide v-for="item in $props.images" :key="item.id">
+          <PostItemVue :post="item" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>
@@ -30,6 +35,7 @@ import PostItemVue from "./item/PostItem.vue";
 
         .swiper-slide {
             width: 60%;
+            height: 100%;
         }
     }
 }

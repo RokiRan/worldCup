@@ -6,7 +6,7 @@ export default {
 
 <template lang="">
   <div class="rankDing">
-    <img src="/src/assets/rank.png" alt="" srcset="" class="w-100vw">
+    <img v-loadFail src="/src/assets/rank.png" alt="" srcset="" class="w-100vw">
   </div>
 </template>
 

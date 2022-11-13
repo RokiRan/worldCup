@@ -14,6 +14,7 @@ import NewsListVue from "./components/NewsList.vue";
 import Foot from "~/components/layout/Footer/index.vue";
 
 import { getHome } from "~/http";
+import { isMobile } from "~/utils/isMobile";
 export default defineComponent({
   name: "Index",
   components: {
@@ -34,10 +35,12 @@ export default defineComponent({
   setup() {
     const isShowSchedule = ref(false);
     const isShowNesList = ref(false);
+    const curNewsTitle = ref("");
     const toggleSchedule = () => {
       isShowSchedule.value = !isShowSchedule.value;
     };
-    const toggleNewsList = () => {
+    const toggleNewsList = (title: string) => {
+      curNewsTitle.value = title;
       isShowNesList.value = !isShowNesList.value;
     };
     return {
@@ -45,6 +48,7 @@ export default defineComponent({
       isShowNesList,
       toggleSchedule,
       toggleNewsList,
+      curNewsTitle,
     };
   },
   data() {
@@ -56,7 +60,7 @@ export default defineComponent({
       card: [],
       poster: [],
       hot: [],
-      watch: [],
+      watches: [],
       bigTalk: [],
       godReplies: [],
       daily: [],
@@ -72,7 +76,7 @@ export default defineComponent({
       this.card = res.data.card;
       this.poster = res.data.poster;
       this.hot = res.data.hot;
-      this.watch = res.data.watch;
+      this.watches = res.data.watch;
       this.bigTalk = res.data.bigTalk;
       this.godReplies = res.data.godReplies;
       this.daily = res.data.daily;
@@ -80,6 +84,9 @@ export default defineComponent({
       this.shooter = res.data.shooter;
       this.loaded = true;
     });
+  },
+  beforeCreate() {
+    isMobile() && window.location.replace("/h5/home");
   },
   methods: {
     scrollTo(key: number) {
@@ -105,35 +112,39 @@ export default defineComponent({
     <NavVue @change="scrollTo" />
     <div v-if="loaded">
       <div v-show="!isShowSchedule && !isShowNesList">
-        <HeadSliderVue :slider="titleNews" :schedule="schedule" @showSchedule="toggleSchedule" />
-        <CreditsVue :source="source" />
-        <DingVue arch="ding" :card="card" @showNewsList="toggleNewsList" />
-        <PostVue :images="poster" />
+        <HeadSliderVue
+          v-animate="'fadeAnimation'" :slider="titleNews" :schedule="schedule"
+          @showSchedule="toggleSchedule"
+        />
+        <CreditsVue v-animate="'fadeAnimation'" :source="source" />
+        <DingVue v-animate="'fadeAnimation'" arch="ding" :card="card" @showNewsList="toggleNewsList('阿汤哥打“卡”')" />
+        <PostVue v-animate="'fadeAnimation'" :images="poster" />
         <div class="newsBlock">
-          <DingResVue arch="hotFocus" :card="hot" />
-          <NewsVue arch="today" title="今日看点" :news="[]" />
-          <NewsVue arch="talk" title="大话世界杯" :news="bigTalk" />
-          <NewsVue arch="reply" title="世界杯神回复" :news="godReplies" />
-          <DailyVue arch="daily" :news="daily" />
-          <NewsVue arch="score" title="比分速报" :news="expressReport" />
+          <DingResVue v-animate="'fadeAnimation'" arch="hotFocus" :card="hot" @showNewsList="toggleNewsList('热点聚焦')" />
+          <NewsVue v-animate="'fadeAnimation'" arch="today" title="今日看点" :news="watches" @showNewsList="toggleNewsList('今日看点')" />
+          <NewsVue v-animate="'fadeAnimation'" arch="talk" title="大话世界杯" :news="bigTalk" @showNewsList="toggleNewsList('大话世界杯')" />
+          <NewsVue v-animate="'fadeAnimation'" arch="reply" title="世界杯神回复" :news="godReplies" @showNewsList="toggleNewsList('世界杯神回复')" />
+          <DailyVue v-animate="'fadeAnimation'" arch="daily" :news="daily" @showNewsList="toggleNewsList('世界杯日报')" />
+          <NewsVue v-animate="'fadeAnimation'" arch="score" title="比分速报" :news="expressReport" @showNewsList="toggleNewsList('比分速报')" />
         </div>
       </div>
       <div v-show="isShowSchedule">
         <ScheduleVue />
       </div>
-      <div v-show="isShowNesList">
-        <NewsListVue />
+      <div v-if="isShowNesList">
+        <NewsListVue :title="curNewsTitle" />
       </div>
     </div>
-    <RankVue />
+    <RankVue :items="shooter" />
     <Foot />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.blockHolder{
+.blockHolder {
   min-width: $min-width;
-  .newsBlock{
+
+  .newsBlock {
     width: 100%;
     margin-top: -20px;
     background: url(/src/assets/topBJ.png);

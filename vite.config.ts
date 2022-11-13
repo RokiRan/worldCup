@@ -17,6 +17,10 @@ export default defineConfig({
         changeOrigin: true,
         // rewrite: (path: string) => path.replace(/^\/controller.php/, "/controller.php"),
       },
+      "/v1": {
+        target: "https://goapi.cqcb.com/",
+        changeOrigin: true,
+      },
     },
   },
   plugins: [

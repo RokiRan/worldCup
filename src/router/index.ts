@@ -6,7 +6,7 @@ import { isMobile } from "~/utils/isMobile";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    component: isMobile() ? () => import("~/views/h5/index.vue") : () => import("~/views/pc/index.vue"),
+    component: whereToGo(),
   },
   {
     path: "/404",
@@ -22,6 +22,24 @@ const routes: RouteRecordRaw[] = [
     path: "/h5",
     name: "H5",
     component: () => import("~/views/h5/index.vue"),
+    redirect: "/h5/home",
+    children: [
+      {
+        path: "home",
+        name: "Home",
+        component: () => import("~/views/h5/pages/home.vue"),
+      },
+      {
+        path: "news",
+        name: "News",
+        component: () => import("~/views/h5/pages/news.vue"),
+      },
+      {
+        path: "schedule",
+        name: "Schedule",
+        component: () => import("~/views/h5/pages/schedule.vue"),
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
@@ -40,5 +58,7 @@ index.beforeEach(() => {
 index.afterEach(() => {
 
 });
-
+function whereToGo() {
+  return isMobile() ? () => import("~/views/h5/index.vue") : () => import("~/views/pc/index.vue");
+}
 export default index;

@@ -6,7 +6,7 @@ logLabeled("I'm ready!  ⸜(๑'ᵕ'๑)⸝⋆*", "log", "", "color: #66ccff");
 
 <template>
   <div class="antialiased font-chinese">
-    <div class="min-h-screen">
+    <div class="min-h-screen" style="background-color: #6c0a20;">
       <ThemeChange v-show="false" />
       <RouterView />
     </div>

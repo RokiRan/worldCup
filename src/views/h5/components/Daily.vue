@@ -5,14 +5,18 @@ import BlockVue from "./Block.vue";
 import "swiper/css";
 
 import DailyItemVue from "./item/DailyItem.vue";
+import type { NewsItem } from "~/types/News";
+defineProps<{
+  news: NewsItem[];
+}>();
 </script>
 
 <template>
   <div>
     <BlockVue title="世界杯日报">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="item in 10" :key="item">
-          <DailyItemVue />
+        <SwiperSlide v-for="item in $props.news" :key="item.id">
+          <DailyItemVue :news="item" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>
@@ -30,6 +34,7 @@ import DailyItemVue from "./item/DailyItem.vue";
 
         .swiper-slide {
             width: 60%;
+            height: 11.5rem;
         }
     }
 }

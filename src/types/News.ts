@@ -37,3 +37,37 @@ export interface PostItem {
   cover: string;
   createtime: string;
 }
+
+export interface Shooter {
+  name: string;
+  team: string;
+  teamCover: string;
+  goals: string;
+  ranking: string;
+}
+
+export interface AppState {
+  schedule: []; // 赛程
+  titleNews: NewsItem[];
+  source: []; // 积分
+  card: NewsItem[];
+  poster: PostItem[];
+  hot: NewsItem[];
+  watches: NewsItem[];
+  bigTalk: NewsItem[];
+  godReplies: NewsItem[];
+  daily: NewsItem[];
+  expressReport: NewsItem[];
+  shooter: Shooter[];
+}
+
+export interface ScheduleItem {
+  sessions: string;
+  teamOne: string;
+  teamOneCover: string;
+  teamTwo: string;
+  teamTwoCover: string;
+  createTime: string;
+  createTimeStamp: string;
+  mode: string;
+}

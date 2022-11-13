@@ -76,8 +76,8 @@ const ReditSwiper = ref();
 
 }
 .container2{
-    width: 100vw;
- background-image: url(/src/assets/groupBJ.png);
+  width: 100vw;
+  background-image: url(/src/assets/groupBJ.png);
   background-position: center;
 
 /* 小组赛积分 */

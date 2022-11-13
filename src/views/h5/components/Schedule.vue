@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { type PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
 import BlockVue from "./Block.vue";
@@ -8,6 +9,18 @@ import "swiper/css";
 
 import ScheduleItemVue from "./item/ScheduleItem.vue";
 import ScheduleBigImgItemVue from "./item/ScheduleBigImgItem.vue";
+import type { NewsItem, ScheduleItem } from "~/types/News";
+
+defineProps({
+  slider: {
+    type: Array as PropType<NewsItem[]>,
+    default: () => [],
+  },
+  schedule: {
+    type: Array as PropType<ScheduleItem[]>,
+    default: () => [],
+  },
+});
 
 const emit = defineEmits<{
   (e: "more", id: any): void;
@@ -22,13 +35,13 @@ const sendEvent = () => {
   <div>
     <BlockVue title="赛程" :show="true" @more="sendEvent()">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="item in 10" :key="item">
-          <ScheduleItemVue />
+        <SwiperSlide v-for="item in $props.schedule" :key="item.teamOne">
+          <ScheduleItemVue :item="item" />
         </SwiperSlide>
       </Swiper>
       <Swiper slides-per-view="auto" :loop="true" :space-between="10" class="mySwiper2" :navigation="true" :modules="[Navigation]">
-        <SwiperSlide v-for="item in 10" :key="item">
-          <ScheduleBigImgItemVue />
+        <SwiperSlide v-for="item in $props.slider" :key="item.id">
+          <ScheduleBigImgItemVue :news="item" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>
@@ -46,6 +59,7 @@ const sendEvent = () => {
 
         .swiper-slide {
             width: 60%;
+            overflow: hidden;
         }
     }
 }
@@ -58,7 +72,7 @@ const sendEvent = () => {
         font-size: 18px;
 
         .swiper-slide {
-
+          overflow: hidden !important;
         }
     }
     .swiper-button-prev::before {

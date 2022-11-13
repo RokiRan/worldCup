@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import type { Shooter } from "~/types/News";
+
+defineProps<{
+  items: Shooter[];
+}>();
 const emits = defineEmits(["close"]);
 </script>
 
@@ -7,10 +12,10 @@ const emits = defineEmits(["close"]);
     <div class="content">
       <div class="head">
         <div class="title">
-          <img src="/src/assets/rankHeader.png" alt="" srcset="">
+          <img v-loadFail src="/src/assets/rankHeader.png" alt="" srcset="">
         </div>
         <div class="close" @click="emits('close')">
-          <img src="/src/assets/close.png" alt="" srcset="">
+          <img v-loadFail src="/src/assets/close.png" alt="" srcset="">
         </div>
       </div>
       <div class="record">
@@ -20,10 +25,10 @@ const emits = defineEmits(["close"]);
           <div>进球</div>
         </div>
         <div class="tbody">
-          <div v-for="l in 14" :key="l" class="line">
-            <div>苏牙雷斯</div>
-            <div>中国</div>
-            <div>20</div>
+          <div v-for="item in items" :key="item.name" class="line">
+            <div>{{ item.name }}</div>
+            <div>{{ item.team }}</div>
+            <div>{{ item.goals }}</div>
           </div>
         </div>
       </div>

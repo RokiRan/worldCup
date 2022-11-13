@@ -15,7 +15,7 @@ defineProps({
       <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
     </div>
     <div class="listContImg">
-      <img :src="$props.image?.imageUrl[0]">
+      <img v-loadFail :src="$props.image?.imageUrl[0]">
       <i class="v-icon" />
     </div>
   </div>

@@ -91,13 +91,10 @@ export default {
   padding: 10px 0;
   display: flex;
 }
-.swiper{
-  // width: 1130px;
-}
 .swiper-container {
   width: 100%;
   height: 100%;
-  margin-left: auto;
+  // margin-left: auto;
   margin-right: auto;
 }
 
@@ -209,6 +206,7 @@ export default {
   right: 0;
 }
 .headSwiper{
+  margin-left: 0;
   .swiper-wrapper{
     .swiper-slide{
       width: 282.5px !important;

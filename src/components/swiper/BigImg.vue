@@ -13,42 +13,11 @@ import "swiper/css/thumbs";
 
 // import required modules
 import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
+import type { NewsItem } from "~/types/News";
 
-interface Item {
-  id: number;
-  classId: number;
-  title: string;
-  dataType: number;
-  showType: number;
-  publishTime: string;
-  lastDoTime: number;
-  imageUrl: string[];
-  isVideo: number;
-  videoUrl: string;
-  videoTime: string;
-  doLikeNum: number;
-  isDoLike: number;
-  isTop: number;
-  label: string;
-  plNum: string;
-  interactNum: string;
-  isAd: number;
-  pv: string;
-  imageNum: number;
-  category: string;
-  targetUrl: string;
-  sourceImage: string;
-  sourceName: string;
-  smallText: string;
-  traceInfo: string;
-  traceId: string;
-  contentLength: number;
-  adId: number;
-  buryValue: string;
-}
 const props = defineProps({
   sliderItems: {
-    type: Array as PropType<Item[]>,
+    type: Array as PropType<NewsItem[]>,
     default: () => [],
   },
 });
@@ -87,6 +56,7 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <div class="myImg">
           <img
+            v-loadFail
             :src="img.imageUrl[0]"
           >
         </div>
@@ -104,6 +74,7 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <img
+          v-loadFail
           :src="img.imageUrl[0]"
         >
       </SwiperSlide>
@@ -149,6 +120,14 @@ body {
 .mySwiper2 {
     height: 80%;
     width: 100%;
+    .swiper-wrapper{
+      .swiper-slide-prev{
+        overflow: hidden;
+      }
+      .swiper-slide-next{
+        overflow: hidden;
+      }
+    }
 }
 
 .mySwiper {

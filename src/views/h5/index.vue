@@ -1,56 +1,88 @@
-<script lang="ts" setup>
+<script lang="ts">
+import { useRoute, useRouter } from "vue-router";
 import BannerVue from "./components/Banner.vue";
-import ScheduleVue from "./components/Schedule.vue";
-import CreditesVue from "./components/Credites.vue";
-import NewsVue from "./components/NewsBig.vue";
-import NewsSmallVue from "./components/NewsSmall.vue";
-import PostVue from "./components/Post.vue";
-import DailyVue from "./components/Daily.vue";
 import RankVue from "./components/Rank.vue";
 import RankPopVue from "./components/RankPop.vue";
-import ScheduleListVue from "./components/ScheduleList.vue";
-const showRankPop = ref(false);
-const showScheduleList = ref(false);
-const toggleRankPop = () => {
-  showRankPop.value = !showRankPop.value;
-};
-const toggleScheduleList = () => {
-  showScheduleList.value = !showScheduleList.value;
+import type { AppState } from "~/types/News";
+import { useAppStore } from "~/store/app";
+import { isMobile } from "~/utils/isMobile";
+export default {
+  name: "Index",
+  components: {
+    BannerVue,
+    RankVue,
+    RankPopVue,
+  },
+  setup() {
+    const appStore = useAppStore();
+    return {
+      appStore,
+    };
+  },
+  data(): {
+    loaded: boolean;
+    showRankPop: boolean;
+    showScheduleList: boolean;
+  } & Partial<AppState> {
+    return {
+      loaded: false,
+      showRankPop: false,
+      showScheduleList: false,
+      shooter: [],
+    };
+  },
+  beforeCreate() {
+    !isMobile() && window.location.replace("/");
+    const router = useRouter();
+    const route = useRoute();
+    if (route.query.title === "世界杯首页") {
+      router.push({
+        name: "Home",
+      });
+    }
+  },
+  async mounted() {
+    await this.appStore.getHome();
+    this.shooter = this.appStore.shooter;
+
+    this.loaded = true;
+  },
+  methods: {
+    toggleRankPop() {
+      this.showRankPop = !this.showRankPop;
+    },
+    toggleScheduleList() {
+      this.showScheduleList = !this.showScheduleList;
+    },
+  },
 };
 </script>
 
 <template>
   <div class="h5Container" :class="showRankPop ? 'disableScroll' : ''">
-    <img src="/src/assets/banner-h5.png" class="w-100vw" alt="" srcset="">
+    <img v-loadFail src="/src/assets/banner-h5.png" class="w-100vw" alt="" srcset="">
     <BannerVue />
-    <div v-show="!showScheduleList">
-      <ScheduleVue @more="toggleScheduleList" />
-      <CreditesVue />
-      <NewsVue />
-      <PostVue />
-      <NewsVue />
-      <NewsSmallVue />
-      <DailyVue />
-    </div>
-    <div v-show="showScheduleList">
-      <ScheduleListVue />
+    <div v-if="loaded">
+      <RouterView />
     </div>
     <RankVue @click="toggleRankPop" />
     <Transition name="fade">
-      <RankPopVue v-show="showRankPop" @close="toggleRankPop" />
+      <RankPopVue v-show="showRankPop" :items="appStore.shooter" @close="toggleRankPop" />
     </Transition>
   </div>
 </template>
 
-<style lang="scss">
-.h5Container{
-    background-color: #6C0A20;
-    padding-bottom: 2rem;
+<style lang="scss" scoped>
+.h5Container {
+  background-color: #6C0A20;
+  padding-bottom: 2rem;
 }
-.disableScroll{
+
+.disableScroll {
   overflow-y: hidden !important;
   // scroll-behavior: smooth;
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;

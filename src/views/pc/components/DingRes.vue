@@ -16,6 +16,14 @@ export default {
       default: () => [],
     },
   },
+  setup(props, { emit }) {
+    const change = (index: number) => {
+      emit("showNewsList", index);
+    };
+    return {
+      change,
+    };
+  },
   computed: {
     cardOne() {
       if (this.$props?.card?.length > 0) {
@@ -33,7 +41,7 @@ export default {
 
 <template>
   <div class="containter3">
-    <SubTitileVue title="热点聚焦" @more="null" />
+    <SubTitileVue title="热点聚焦" :show="true" @more="change" />
     <div class="columnBox">
       <div class="contentBoxAT">
         <div class="contentATRigth">

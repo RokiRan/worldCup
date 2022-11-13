@@ -1,13 +1,15 @@
-<script>
-export default {
+<script lang="ts" setup>
+import type { NewsItem } from "~/types/News";
 
-};
+defineProps<{
+  news: NewsItem;
+}>();
 </script>
 
 <template>
   <div class="bigImg">
-    <img src="/src/assets/fenmianAir2.png" alt="" srcset="">
-    <div>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
+    <img v-loadFail :src="$props.news.imageUrl[0]" alt="" srcset="">
+    <div>{{ $props.news.title }}</div>
   </div>
 </template>
 
@@ -31,6 +33,8 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: #FFF;
+        text-align: left;
     }
 }
 </style>

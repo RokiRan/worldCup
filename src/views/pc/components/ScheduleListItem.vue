@@ -1,7 +1,5 @@
-<script>
-export default {
+<script lang="ts" setup>
 
-};
 </script>
 
 <template>
@@ -18,7 +16,7 @@ export default {
       </div>
     </div>
     <div class="flag">
-      <img src="/src/assets/Senegal.png" alt="" srcset="">
+      <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
       <div class="country">
         卡塔尔
       </div>
@@ -33,7 +31,7 @@ export default {
       </div>
     </div>
     <div class="flag">
-      <img src="/src/assets/Senegal.png" alt="" srcset="">
+      <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
       <div class="country">
         卡塔尔
       </div>

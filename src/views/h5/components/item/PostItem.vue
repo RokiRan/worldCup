@@ -1,15 +1,16 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { PostItem } from "~/types/News";
+defineProps<{
+  post: PostItem;
+}>();
 </script>
 
 <template>
   <div class="postItems">
-    <img src="/src/assets/fenmianAir2.png" alt="">
+    <img v-loadFail :src="$props.post.cover" alt="">
     <div>
       <div class="line-clamp-1">
-        哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+        {{ $props.post.name }}
       </div>
     </div>
   </div>

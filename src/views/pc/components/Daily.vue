@@ -5,19 +5,11 @@ import DailyItem from "~/components/swiper/DailyItem.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import type { NewsItem } from "~/types/News";
 const props = defineProps<{
-  arch: string;
   news: NewsItem[];
 }>();
-const groupingBtNext = ref(null);
-const groupingBtPrev = ref(null);
-const ReditSwiper = ref();
-
-const next = () => {
-  ReditSwiper.value.slideNext();
-};
-const prev = () => {
-  ReditSwiper.value.slidePrev();
-};
+const emit = defineEmits<{
+  (event: "showNewsList", index: number): void;
+}>();
 const imageArr = computed(() => {
   // reduce 一位数组转二维数组
   return props.news.reduce((acc: NewsItem[], cur: NewsItem, index: number) => {
@@ -29,12 +21,15 @@ const imageArr = computed(() => {
     return acc;
   }, []);
 });
+const change = (index: number) => {
+  emit("showNewsList", index);
+};
 </script>
 
 <template>
   <div class="container4">
     <div class="columnBox">
-      <SubTitileVue title="世界杯日报" @more="null" />
+      <SubTitileVue title="世界杯日报" :show="true" @more="change" />
       <div class="groupingPosetion3">
         <div class="grouping">
           <div class="groupingInfo">
@@ -60,9 +55,6 @@ const imageArr = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.swiper{
-  // width: 1130px;
-}
 .swiper-container {
   width: 100%;
   height: 100%;
@@ -70,9 +62,6 @@ const imageArr = computed(() => {
   margin-right: auto;
 }
 
-.swiper-slide {
-
-}
 .container4{
   width: 100vw;
 }

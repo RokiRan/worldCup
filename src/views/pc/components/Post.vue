@@ -9,17 +9,6 @@ const props = defineProps<{
     type: PostItem[];
   };
 }>();
-const groupingBtNext = ref(null);
-const groupingBtPrev = ref(null);
-const ReditSwiper = ref();
-
-const next = () => {
-  ReditSwiper.value.slideNext();
-};
-const prev = () => {
-  ReditSwiper.value.slidePrev();
-};
-
 const imageArr = computed(() => {
   // reduce 一位数组转二维数组
   return props.images.reduce((acc: PostItem[], cur: PostItem, index: number) => {
@@ -38,16 +27,11 @@ const imageArr = computed(() => {
     <div class="columnBox">
       <SubTitileVue title="赛果海报" @more="null" />
       <div class="groupingPosetion">
-        <div class="grouping">
+        <div class="grouping5">
           <div class="groupingInfo">
             <Swiper
-              ref="ReditSwiper"
-              :slides-per-view="1"
-              :space-between="2"
-              :navigation="false"
-              next-el=".groupingBtNext"
-              prev-el=".groupingBtPrev"
-              class="postSlider"
+              :slides-per-view="1" :space-between="2" :navigation="false"
+              next-el=".groupingBtNext" prev-el=".groupingBtPrev" class="postSlider"
             >
               <SwiperSlide v-for="item in imageArr" :key="item">
                 <div class="flex">
@@ -63,29 +47,26 @@ const imageArr = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.swiper-container {
-  width: 100%;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.container5{
+.container5 {
   width: 100vw;
   background-image: url(/src/assets/bg3.png);
-  background-position: center;
-}
-.groupingPosetion {
-  position: relative;
-  width: 100%;
-  height: 660px;
-  margin: 20px auto;
-}
+  background-size: cover;
+  background-repeat: no-repeat;
 
-.grouping {
-  width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
+  .columnBox {
+    .groupingPosetion {
+      position: relative;
+      width: 100%;
+      height: 660px;
+      margin: 20px auto;
+
+      .grouping5 {
+        width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+  }
 }
 </style>

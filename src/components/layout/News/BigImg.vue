@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <div v-if="Object.hasOwn($props.image, 'title')" class="contentATLeft bigImg">
     <div class="BigImgAT">
-      <img :src="$props.image?.imageUrl[0]">
+      <img v-loadFail :src="$props.image?.imageUrl[0]">
     </div>
     <div class="BigImgTitle">
       <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>

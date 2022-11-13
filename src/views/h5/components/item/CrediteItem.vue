@@ -20,7 +20,7 @@ export default {
           1
         </div>
         <div class="sologn">
-          <img src="/src/assets/Senegal.png" alt="" srcset="">
+          <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
         </div>
         <div class="name">
           卡塔尔
@@ -31,7 +31,7 @@ export default {
       </div>
     </div>
     <div class="footImg">
-      <img src="/src/assets/listBottomIcon.png" alt="" srcset="">
+      <img v-loadFail src="/src/assets/listBottomIcon.png" alt="" srcset="">
     </div>
   </div>
 </template>

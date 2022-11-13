@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <div class="postItem2">
     <div class="image">
-      <img :src="$props.post.cover" alt="" srcset="">
+      <img v-loadFail :src="$props.post.cover" alt="" srcset="">
     </div>
     <div class="title">
       {{ $props.post.name }}
@@ -17,7 +17,7 @@ defineProps<{
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .postItem2 {
   width: 25%;
   height: 100%;

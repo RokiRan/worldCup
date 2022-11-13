@@ -7,6 +7,7 @@ import NProgress from "nprogress";
 const interceptor = axios.create();
 const router = useRouter();
 const baseURL = import.meta.env.VITE_BASE_URL;
+const newsUrl = import.meta.env.VITE_NEWS_URL;
 interceptor.interceptors.request.use(
   (config) => {
     // 设置headers传入用户的token
@@ -38,8 +39,11 @@ interceptor.interceptors.request.use(
         };
       }
     }
-
-    config.baseURL = baseURL;
+    if (config.url?.startsWith("/v1")) {
+      config.baseURL = newsUrl;
+    } else {
+      config.baseURL = baseURL;
+    }
     if (!NProgress.isStarted()) {
       NProgress.start();
     }

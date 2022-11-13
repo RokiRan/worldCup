@@ -1,13 +1,22 @@
-<script>
-export default {
-
-};
+<script lang="ts" setup>
+import type { PropType } from "vue";
+import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+const props = defineProps({
+  news: {
+    type: Object as PropType<NewsItem>,
+    default: () => {},
+  },
+});
+const imgs = computed(() => {
+  return newsImgFmt(props.news);
+});
 </script>
 
 <template>
   <div class="bigImgNews">
-    <img src="/src/assets/fenmianAir2.png" alt="">
-    <div>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
+    <img v-loadFail :src="imgs" alt="">
+    <div>{{ $props.news?.title }}</div>
     <span class="video" />
   </div>
 </template>

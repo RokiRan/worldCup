@@ -33,7 +33,7 @@ const props = defineProps<{
         <li>
           <span>1</span>
           <div class="flag-icon">
-            <img src="/src/assets/kataer.png">
+            <img v-loadFail src="/src/assets/kataer.png">
           </div>
           <div class="flagName">
             卡塔尔
@@ -45,7 +45,7 @@ const props = defineProps<{
         <li>
           <span>2</span>
           <div class="flag-icon">
-            <img src="/src/assets/Ecuador.png">
+            <img v-loadFail src="/src/assets/Ecuador.png">
           </div>
           <div class="flagName">
             厄瓜多尔
@@ -57,7 +57,7 @@ const props = defineProps<{
         <li>
           <span>3</span>
           <div class="flag-icon">
-            <img src="/src/assets/Senegal.png">
+            <img v-loadFail src="/src/assets/Senegal.png">
           </div>
           <div class="flagName">
             塞内加尔
@@ -69,7 +69,7 @@ const props = defineProps<{
         <li>
           <span>4</span>
           <div class="flag-icon">
-            <img src="/src/assets/Netherlands.png">
+            <img v-loadFail src="/src/assets/Netherlands.png">
           </div>
           <div class="flagName">
             荷兰

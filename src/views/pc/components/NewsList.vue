@@ -2,12 +2,15 @@
 import ListItemSmallVue from "~/components/layout/News/ListItemSmall.vue";
 import ListItemBigVue from "~/components/layout/News/ListItemBig.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
+defineProps<{
+  title: string;
+}>();
 </script>
 
 <template>
   <div class="newsListPage">
     <div class="newsListCtn">
-      <SubTitileVue title="阿汤锅打“卡”" />
+      <SubTitileVue :title="$props.title" />
       <div class="itemList">
         <div class="container">
           <ListItemSmallVue />

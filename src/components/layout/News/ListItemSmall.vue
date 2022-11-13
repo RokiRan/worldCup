@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="right">
-      <img src="/src/assets/fenmianAir2.png" alt="" srcset="">
+      <img v-loadFail src="/src/assets/fenmianAir2.png" alt="" srcset="">
       <div class="time">
         00:30
       </div>

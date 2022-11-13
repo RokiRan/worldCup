@@ -1,17 +1,28 @@
 <script lang="ts" setup>
+import { useRoute, useRouter } from "vue-router";
 import { firework } from "~/utils/fire";
+import { menuItems } from "~/utils/menu";
 const emit = defineEmits(["change"]);
-const menu = ["赛程", "上游探营", "阿汤锅打\"卡\"", "今日看点", "今日综述", "热点聚焦", "上游评球", "赛果海报", "上游世界杯"];
-const arch = ["schedule",
-  "credites",
-  "ding",
-  "post",
-];
-const active = ref(2);
-const change = (index: number) => {
-  active.value = index;
-  emit("change", arch[index]);
+const router = useRouter();
+const route = useRoute();
+// const active = ref("home");
+const change = (arch: string) => {
+  // active.value = arch;
+  emit("change", arch);
+
+  const path = arch === "home" ? "/h5/home" : "/h5/news";
+  router.push({ path, query: { title: menuItems.find(item => item.arch === arch)?.name } });
 };
+const active = computed(() => {
+  const arch = menuItems.find(item => item.name === route.query.title)?.arch;
+  const menuDom = document.querySelector(`div[pos=${arch}]`);
+  // 滚动到对应的菜单
+  nextTick(() => {
+    menuDom?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  // !menuDom && document.querySelector("div[pos=home]")!.scrollIntoView({ behavior: "smooth", block: "start" });
+  return arch || "home";
+});
 onMounted(() => {
   firework(200);
 });
@@ -21,9 +32,9 @@ onMounted(() => {
   <div id="navBlock">
     <div class="navLine">
       <div class="nav">
-        <div v-for="m, key in menu" :key="m" class="nav-item" :class="active === key ? 'nav-item-active' : ''">
-          <div class="nav-title">
-            {{ m }}
+        <div v-for="m in menuItems" :key="m.name" class="nav-item" :class="active === m.arch ? 'nav-item-active' : ''">
+          <div class="nav-title" :pos="m.arch" @click="change(m.arch)">
+            {{ m.name }}
           </div>
         </div>
       </div>
@@ -48,6 +59,12 @@ onMounted(() => {
       display: flex;
       align-items: center;
 
+      .nav-item-active {
+          .nav-title {
+            color: #fff !important;
+            font-weight: 800;
+          }
+        }
       .nav-item {
         text-align: center;
         display: inline-block;
@@ -61,12 +78,6 @@ onMounted(() => {
           border-right: solid 2px #C1111F;
           line-height: 1rem;
           font-size: 1rem;
-        }
-
-        .nav-item-active {
-          .nav-title {
-            color: #fff;
-          }
         }
 
         .nav-title:last-child {

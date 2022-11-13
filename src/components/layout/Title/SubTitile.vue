@@ -29,31 +29,31 @@ const emit = defineEmits(["more"]);
   margin: 0 auto;
   display: flex;
   padding: 20px 0;
-}
 
-.columnIcon {
-  width: 82px;
-  height: 80px;
-  background-image: url(/src/assets/column-icon.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  display: inline-block;
-}
+  .columnIcon {
+    width: 82px;
+    height: 80px;
+    background-image: url(/src/assets/column-icon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+  }
 
-.integral {
-  font-size: 32px;
-  color: #fff;
-  line-height: 80px;
-  display: inline-block;
-  font-weight: 600;
-  margin-left: 10px;
-}
+  .integral {
+    font-size: 32px;
+    color: #fff;
+    line-height: 80px;
+    display: inline-block;
+    font-weight: 600;
+    margin-left: 10px;
+  }
 
-.colMore {
-  font-size: 16px;
-  line-height: 80px;
-  color: #fff;
-  cursor: pointer;
-  margin-left: auto;
+  .colMore {
+    font-size: 16px;
+    line-height: 80px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: auto;
+  }
 }
 </style>

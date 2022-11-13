@@ -1,6 +1,19 @@
-<script>
+<script lang="ts">
+import type { PropType } from "vue";
+import dayjs from "dayjs";
+import type { ScheduleItem } from "~/types/News";
 export default {
-
+  props: {
+    item: {
+      type: Object as PropType<ScheduleItem>,
+    },
+  },
+  setup(props) {
+    const time = dayjs(props.item?.createTime).format("MM-DD HH:mm");
+    return {
+      time,
+    };
+  },
 };
 </script>
 
@@ -8,19 +21,19 @@ export default {
   <div class="scheduleItem">
     <div class="title">
       <div class="matchName">
-        世界杯小组赛-A组 第一轮
+        {{ $props.item?.sessions }}
       </div>
       <div class="date">
-        11月10日 12点19分
+        {{ time }}
       </div>
     </div>
     <div class="dz">
       <div class="match">
         <div class="teamLogo">
-          <img src="/src/assets/Netherlands.png" alt="">
+          <img v-loadFail :src="$props.item?.teamOneCover" alt="">
         </div>
         <div class="teamName">
-          日版
+          {{ $props.item?.teamOne }}
         </div>
       </div>
       <div class="score">
@@ -38,10 +51,10 @@ export default {
       </div>
       <div class="match">
         <div class="teamLogo">
-          <img src="/src/assets/Netherlands.png" alt="">
+          <img v-loadFail :src="$props.item?.teamTwoCover" alt="">
         </div>
         <div class="teamName">
-          米国
+          {{ $props.item?.teamTwo }}
         </div>
       </div>
     </div>
@@ -76,7 +89,7 @@ export default {
                 justify-content: center;
                 align-items: center;
                 .teamLogo{
-                    width: 2rem;
+                    // width: 2rem;
                     height: 2rem;
                     img{
                         width: 100%;
@@ -92,13 +105,14 @@ export default {
                 flex-direction: column;
                 align-items: center;
                 .ing{
-                    display: flex;
+                    // display: flex;
+                    display: none;
                     .scoreNum{
                         font-size: 1.2rem;
                     }
                 }
                 .pre{
-                    display: none;
+
                     font-size: 1.2rem;
                     margin-top: .5rem;
                 }
