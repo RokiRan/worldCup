@@ -48,7 +48,6 @@ const imageArr = computed(() => {
 
 <style lang="scss" scoped>
 .container5 {
-  width: 100vw;
   background-image: url(/src/assets/bg3.png);
   background-size: cover;
   background-repeat: no-repeat;

@@ -51,7 +51,6 @@ defineProps<{
 
 }
 .container2{
-  width: 100vw;
   background-image: url(/src/assets/groupBJ.png);
   background-position: center;
 

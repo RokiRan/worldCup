@@ -320,7 +320,7 @@ export default {
 
 .contentATRigth {
   width: 530px;
-  margin-left: 16px;
+  // margin-left: 16px;
 }
 
 .listCont {

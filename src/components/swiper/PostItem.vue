@@ -18,13 +18,15 @@ defineProps<{
 
 <style lang="scss" scoped>
 .postItem2 {
-  width: 25%;
+  // width: 288px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  // padding: 5px;
+  border: 4px solid #00000000;
   .image img {
     width: 288px;
     height: 574px;
@@ -43,5 +45,11 @@ defineProps<{
     padding: 8px;
     background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
   }
+}
+.postItem2:first-child{
+  border-left: 0px solid #00000000;
+}
+.postItem2:last-child{
+  border-right: 0px solid #00000000;
 }
 </style>
