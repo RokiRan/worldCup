@@ -5,14 +5,19 @@ import BlockVue from "./Block.vue";
 import "swiper/css";
 
 import CrediteItemVue from "./item/CrediteItem.vue";
+import type { OneGroup } from "~/types/News";
+
+defineProps<{
+  source: Record<string, OneGroup[]>;
+}>();
 </script>
 
 <template>
   <div>
     <BlockVue title="小组赛积分">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="item in 10" :key="item">
-          <CrediteItemVue />
+        <SwiperSlide v-for="(item, key, index) in $props.source" :key="key">
+          <CrediteItemVue :key="index" :items="item" :group="key" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>

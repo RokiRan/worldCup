@@ -6,6 +6,7 @@ import "swiper/css";
 
 import DailyItemVue from "./item/DailyItem.vue";
 import type { NewsItem } from "~/types/News";
+import { openPage } from "~/utils/menu";
 defineProps<{
   news: NewsItem[];
 }>();
@@ -16,7 +17,7 @@ defineProps<{
     <BlockVue title="世界杯日报">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
         <SwiperSlide v-for="item in $props.news" :key="item.id">
-          <DailyItemVue :news="item" />
+          <DailyItemVue :news="item" @click="openPage(item)" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>

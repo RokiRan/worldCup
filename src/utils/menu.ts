@@ -1,3 +1,7 @@
+import { isMobile } from "./isMobile";
+import type { NewsItem } from "~/types/News";
+import { getPcNewsUrl } from "~/http";
+
 export const menuItems = [
   {
     name: "世界杯首页",
@@ -40,3 +44,19 @@ export const menuItems = [
     id: "8",
   },
 ];
+
+export const openPage = (target: NewsItem | null | undefined) => {
+  if (!target) {
+    return;
+  }
+  const newsId = target.id;
+  const classId = target.classId;
+  if (isMobile()) {
+    const h5Url = `https://wap.cqcb.com/shangyou_news/NewsDetail?classId=${classId}&newsId=${newsId}`;
+    window.open(h5Url);
+  } else {
+    getPcNewsUrl(`${classId}:${newsId}`).then((res: any) => {
+      res.data && res.data.length && window.open(res.data[0].url);
+    });
+  }
+};

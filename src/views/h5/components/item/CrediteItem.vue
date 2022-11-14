@@ -1,37 +1,40 @@
-<script>
-export default {
+<script lang="ts" setup>
+import type { OneGroup } from "~/types/News";
 
-};
+defineProps<{
+  items: OneGroup[];
+  group: String;
+}>();
 </script>
 
 <template>
   <div class="crediteItem">
     <div class="head">
       <div class="group">
-        A组
+        {{ $props.group }}组
       </div>
       <div class="score">
         积分
       </div>
     </div>
     <div class="matches">
-      <div v-for="m in 4" :key="m" class="match">
+      <div v-for="item, key in $props.items" :key="key" class="match">
         <div class="sort">
           1
         </div>
         <div class="sologn">
-          <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
+          <img v-loadFail :src="item.teamCover">
         </div>
         <div class="name">
-          卡塔尔
+          {{ item.team }}
         </div>
         <div class="num">
-          0
+          {{ item.ranking }}
         </div>
       </div>
     </div>
     <div class="footImg">
-      <img v-loadFail src="/src/assets/listBottomIcon.png" alt="" srcset="">
+      <img src="/src/assets/listBottomIcon.png" alt="" srcset="">
     </div>
   </div>
 </template>

@@ -7,15 +7,15 @@ defineProps<{
 const emits = defineEmits(["close"]);
 </script>
 
-<template lang="">
+<template>
   <div class="rankPop">
     <div class="content">
       <div class="head">
         <div class="title">
-          <img v-loadFail src="/src/assets/rankHeader.png" alt="" srcset="">
+          <img src="/src/assets/rankHeader.png" alt="" srcset="">
         </div>
         <div class="close" @click="emits('close')">
-          <img v-loadFail src="/src/assets/close.png" alt="" srcset="">
+          <img src="/src/assets/close.png" alt="" srcset="">
         </div>
       </div>
       <div class="record">

@@ -4,7 +4,7 @@ export default {
 };
 </script>
 
-<template lang="">
+<template>
   <div class="rankDing">
     <img v-loadFail src="/src/assets/rank.png" alt="" srcset="" class="w-100vw">
   </div>
@@ -19,7 +19,7 @@ export default {
     img{
         width: 100%;
         height: 8rem;
-        object-fit: cover;
+        object-fit: contain;
         /*透明图片阴影*/
         filter: drop-shadow(0 0 0.3rem #000);
     }

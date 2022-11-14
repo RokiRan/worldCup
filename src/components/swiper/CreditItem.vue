@@ -1,28 +1,17 @@
 <script lang="ts" setup>
-import { type PropType } from "vue";
-interface Item {
-  team: string;
-  teamCover: string;
-  groups: string;
-  source: string;
-  ranking: string;
-}
+import type { OneGroup } from "~/types/News";
 
-const props = defineProps<{
-  item: {
-    typp: PropType<Item>;
-  };
-  group: {
-    type: String;
-  };
+defineProps<{
+  items: OneGroup[];
+  group: String;
 }>();
 </script>
 
-<template lang="">
+<template>
   <div class="listBox">
     <div class="listTop">
       <div class="GroupName">
-        {{ props.group }}组
+        {{ $props.group }}组
       </div>
       <div class="fraction">
         积分
@@ -30,52 +19,16 @@ const props = defineProps<{
     </div>
     <div class="contBox">
       <ul>
-        <li>
-          <span>1</span>
+        <li v-for="item, key in $props.items" :key="key">
+          <span>{{ key }}</span>
           <div class="flag-icon">
-            <img v-loadFail src="/src/assets/kataer.png">
+            <img v-loadFail :src="item.teamCover">
           </div>
           <div class="flagName">
-            卡塔尔
+            {{ item.team }}
           </div>
           <div class="flagNub">
-            0
-          </div>
-        </li>
-        <li>
-          <span>2</span>
-          <div class="flag-icon">
-            <img v-loadFail src="/src/assets/Ecuador.png">
-          </div>
-          <div class="flagName">
-            厄瓜多尔
-          </div>
-          <div class="flagNub">
-            0
-          </div>
-        </li>
-        <li>
-          <span>3</span>
-          <div class="flag-icon">
-            <img v-loadFail src="/src/assets/Senegal.png">
-          </div>
-          <div class="flagName">
-            塞内加尔
-          </div>
-          <div class="flagNub">
-            0
-          </div>
-        </li>
-        <li>
-          <span>4</span>
-          <div class="flag-icon">
-            <img v-loadFail src="/src/assets/Netherlands.png">
-          </div>
-          <div class="flagName">
-            荷兰
-          </div>
-          <div class="flagNub">
-            0
+            {{ item.ranking }}
           </div>
         </li>
       </ul>

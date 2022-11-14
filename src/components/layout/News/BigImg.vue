@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
+
 defineProps<{
-  image: NewsItem;
+  image: NewsItem | null | undefined;
 }>();
 </script>
 
 <template>
-  <div v-if="Object.hasOwn($props.image, 'title')" class="contentATLeft bigImg">
+  <div v-if="Object.hasOwn($props.image || {}, 'title')" class="contentATLeft bigImg" @click="openPage($props.image)">
     <div class="BigImgAT">
-      <img v-loadFail :src="$props.image?.imageUrl[0]">
+      <img v-loadFail :src="newsImgFmt($props.image)">
+      <i v-if="$props.image?.isVideo" class="v-icon" />
     </div>
     <div class="BigImgTitle">
       <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
@@ -26,6 +30,15 @@ defineProps<{
 .BigImgAT {
   width: 654px;
   height: 366px;
+  position: relative;
+  .v-icon{
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: url(/src/assets/vIcon.png) no-repeat;
+    right: 12px;
+    bottom: 12px;
+  }
 }
 
 .BigImgAT img {

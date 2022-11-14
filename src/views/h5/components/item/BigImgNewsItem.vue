@@ -2,6 +2,7 @@
 import type { PropType } from "vue";
 import type { NewsItem } from "~/types/News";
 import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
 const props = defineProps({
   news: {
     type: Object as PropType<NewsItem>,
@@ -14,10 +15,10 @@ const imgs = computed(() => {
 </script>
 
 <template>
-  <div class="bigImgNews">
+  <div class="bigImgNews" @click="openPage($props.news)">
     <img v-loadFail :src="imgs" alt="">
     <div>{{ $props.news?.title }}</div>
-    <span class="video" />
+    <span v-if="$props.news?.isVideo" class="video" />
   </div>
 </template>
 

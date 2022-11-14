@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { PostItem } from "~/types/News";
-
 defineProps<{
   post: PostItem;
 }>();

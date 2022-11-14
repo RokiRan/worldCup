@@ -1,5 +1,5 @@
 import type { Directive } from "vue";
-
+import defaultImage from "/src/assets/errimg.png";
 // vue 动画指令
 export const faseAnimate: Directive = {
   created(el: HTMLElement, binding: any) {
@@ -25,7 +25,6 @@ export const faseAnimate: Directive = {
   },
 };
 
-const defaultImage = "/src/assets/topBJ.png";
 // 图片失效 加载默认图片
 export const loadErrImg: Directive = {
 

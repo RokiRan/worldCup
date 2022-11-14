@@ -2,9 +2,10 @@
 import { type PropType } from "vue";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
 // Import Swiper styles
 import "swiper/css";
-
+import { newsImgFmt } from "~/utils/image";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -12,8 +13,10 @@ import "swiper/css/thumbs";
 // import "./style.css";
 
 // import required modules
-import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
+
 import type { NewsItem } from "~/types/News";
+
+import { openPage } from "~/utils/menu";
 
 const props = defineProps({
   sliderItems: {
@@ -54,10 +57,10 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       class="mySwiper2"
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
-        <div class="myImg">
+        <div class="myImg" @click="openPage(img)">
           <img
             v-loadFail
-            :src="img.imageUrl[0]"
+            :src="newsImgFmt(img)"
           >
         </div>
       </SwiperSlide>
@@ -75,7 +78,7 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <img
           v-loadFail
-          :src="img.imageUrl[0]"
+          :src="newsImgFmt(img)"
         >
       </SwiperSlide>
     </Swiper>

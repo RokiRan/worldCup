@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+import type { PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import HeadSliderItemVue from "~/components/swiper/HeadSliderItem.vue";
 import BigImgVue from "~/components/swiper/BigImg.vue";
@@ -6,6 +7,8 @@ import BigImgVue from "~/components/swiper/BigImg.vue";
 
 // Import Swiper styles
 import "swiper/css";
+
+import type { NewsItem, ScheduleItem } from "~/types/News";
 
 export default {
   components: {
@@ -16,27 +19,15 @@ export default {
   },
   props: {
     slider: {
-      type: Array,
+      type: Array as PropType<NewsItem[]>,
       default: () => [],
     },
     schedule: {
-      type: Array,
+      type: Array as PropType<ScheduleItem[]>,
       default: () => [],
     },
   },
   emits: ["showSchedule"],
-  setup() {
-    const onSwiper = (swiper) => {
-      // console.log(swiper);
-    };
-    const onSlideChange = () => {
-      // console.log("slide change");
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-    };
-  },
   methods: {
     showSchedule() {
       this.$emit("showSchedule");
@@ -53,10 +44,8 @@ export default {
         :space-between="20"
         :navigation="false"
         class="headSwiper"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
-        <SwiperSlide v-for="item in $props.schedule" :key="item">
+        <SwiperSlide v-for="item in $props.schedule" :key="item.sessions">
           <HeadSliderItemVue :item="item" />
         </SwiperSlide>
       </Swiper>

@@ -9,7 +9,7 @@ defineProps<{
   <div class="postItems">
     <img v-loadFail :src="$props.post.cover" alt="">
     <div>
-      <div class="line-clamp-1">
+      <div class="text-left line-clamp-1">
         {{ $props.post.name }}
       </div>
     </div>

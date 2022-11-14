@@ -15,6 +15,7 @@ import Foot from "~/components/layout/Footer/index.vue";
 
 import { getHome } from "~/http";
 import { isMobile } from "~/utils/isMobile";
+import type { OneGroup } from "~/types/News";
 export default defineComponent({
   name: "Index",
   components: {
@@ -51,7 +52,7 @@ export default defineComponent({
       curNewsTitle,
     };
   },
-  data() {
+  data(): any {
     return {
       loaded: false,
       schedule: [],
@@ -72,7 +73,7 @@ export default defineComponent({
     getHome().then((res) => {
       this.schedule = res.data.schedule;
       this.titleNews = res.data.titleNews;
-      this.source = res.data.source;
+      this.source = res.data.source as Record<string, OneGroup[]>;
       this.card = res.data.card;
       this.poster = res.data.poster;
       this.hot = res.data.hot;

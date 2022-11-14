@@ -1,45 +1,67 @@
 <script lang="ts" setup>
+import dayjs from "dayjs";
 import BlockVue from "./Block.vue";
-
 import ScheduleListItemVue from "./item/ScheduleListItem.vue";
+import { getSchedule } from "~/http";
 
-const dates = [{
-  date: "11-21",
-  week: "周一",
-},
-{
-  date: "11-22",
-  week: "周二",
-},
-{
-  date: "11-23",
-  week: "周三",
-},
-{
-  date: "11-24",
-  week: "周四",
-},
-{
-  date: "11-25",
-  week: "周五",
-},
-{
-  date: "11-26",
-  week: "周六",
-},
-{
-  date: "11-27",
-  week: "周日",
-},
-{
-  date: "11-28",
-  week: "周一",
-},
-{
-  date: "11-29",
-  week: "周二",
-},
-];
+import type { ScheduleItem } from "~/types/News";
+
+const schedule = ref<ScheduleItem[]>([]);
+const weekCn = ["日", "一", "二", "三", "四", "五", "六"];
+// 按日期分组
+const scheduleList = computed(() => {
+  const list = schedule.value;
+  const map = new Map<string, ScheduleItem[]>();
+  const dateWeekMap = new Map<string, string>();
+  list.forEach((item) => {
+    const date = dayjs(item.createTime).format("MM-DD");
+    const date2 = dayjs(item.createTime).format("YYYY-MM-DD");
+    const week = `周${weekCn[dayjs(item.createTime).day()]}`;
+    const arr = map.get(date2) || [];
+    dateWeekMap.set(date, week);
+    arr.push(item);
+    map.set(date2, arr);
+  });
+  return { scheduleMap: map, dateWeekMap };
+});
+
+const listContainer = ref<HTMLElement>();
+const dataContainer = ref<HTMLElement>();
+const currentTab = ref("12-02");
+
+onMounted(() => {
+  getSchedule().then((res) => {
+    const { data } = res;
+    if (data) {
+      schedule.value = data;
+    }
+    // 移动到当前日期
+    tabScrollTo(currentTab.value);
+  });
+});
+
+function chooseTab(date: string) {
+  currentTab.value = date;
+  scrollTo(date);
+}
+function scrollTo(key: string) {
+  nextTick(() => {
+    const el = document.querySelector(`div[arch='${key}']`) as HTMLElement;
+    listContainer.value!.scrollTo({
+      top: (el?.offsetTop || 0),
+      behavior: "smooth",
+    });
+  });
+}
+function tabScrollTo(key: string) {
+  nextTick(() => {
+    const el = document.querySelector(`div[archdate='${key}']`) as HTMLElement;
+    dataContainer.value!.scrollTo({
+      left: (el?.offsetLeft || 0) - 10,
+      behavior: "smooth",
+    });
+  });
+}
 </script>
 
 <template>
@@ -47,23 +69,25 @@ const dates = [{
     <BlockVue title="赛程">
       <div class="sheduleList">
         <div class="dateLine">
-          <div class="dataContainer">
-            <div v-for="date in dates" :key="date.date" class="dateItem" :class=" date.week === '周一' ? 'dataActive' : ''">
+          <div ref="dataContainer" class="dataContainer">
+            <div v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}abc`" :archdate="item[0]" class="dateItem" :class=" currentTab === item[0] ? 'dataActive' : ''" @click="chooseTab(item[0])">
               <div class="date">
-                {{ date.date }}
+                {{ item[0] }}
               </div>
               <div class="week">
-                {{ date.week }}
+                {{ item[1] }}
               </div>
             </div>
           </div>
         </div>
-        <div v-for="d in 4" :key="d" class="oneDay">
-          <div class="date">
-            2021-07-01 星期一
-          </div>
-          <div class="list">
-            <ScheduleListItemVue v-for="n in 3" :key="n" />
+        <div ref="listContainer" class="scheduleContainer">
+          <div v-for="schedule in scheduleList.scheduleMap" :key="schedule[0]" class="oneDay">
+            <div class="date" :arch="schedule[0].slice(5, 10)">
+              {{ schedule[0] }} {{ `星期${weekCn[dayjs(schedule[0]).day()]}` }}
+            </div>
+            <div class="list">
+              <ScheduleListItemVue v-for="n in schedule[1]" :key="n.teamOne + n.teamTwo" :item="n" />
+            </div>
           </div>
         </div>
       </div>
@@ -86,7 +110,8 @@ const dates = [{
             width: 100%;
             display: flex;
             overflow-x: scroll;
-
+            /*隐藏滚动条*/
+            -ms-overflow-style: none;
             .dateItem {
                 display: flex;
                 flex-direction: column;
@@ -133,8 +158,11 @@ const dates = [{
         right: 0;
         bottom: 50%;
     }
-
-    .oneDay {
+    .scheduleContainer{
+      height: 100vh;
+      overflow-y: scroll;
+      position: relative;
+      .oneDay {
         margin-bottom: .3rem;
 
         .date {
@@ -149,5 +177,7 @@ const dates = [{
             }
         }
     }
+    }
+
 }
 </style>

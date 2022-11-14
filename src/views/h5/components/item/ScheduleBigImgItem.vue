@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { newsImgFmt } from "~/utils/image";
 import type { NewsItem } from "~/types/News";
 
 defineProps<{
@@ -8,7 +9,7 @@ defineProps<{
 
 <template>
   <div class="bigImg">
-    <img v-loadFail :src="$props.news.imageUrl[0]" alt="" srcset="">
+    <img v-loadFail :src="newsImgFmt($props.news)" alt="" srcset="">
     <div>{{ $props.news.title }}</div>
   </div>
 </template>

@@ -35,6 +35,14 @@ export default {
     !isMobile() && window.location.replace("/");
     const router = useRouter();
     const route = useRoute();
+    if (route.path === "/") {
+      router.push({
+        name: "Home",
+        query: {
+          title: "世界杯首页",
+        },
+      });
+    } else
     if (route.query.title === "世界杯首页") {
       router.push({
         name: "Home",
@@ -60,7 +68,7 @@ export default {
 
 <template>
   <div class="h5Container" :class="showRankPop ? 'disableScroll' : ''">
-    <img v-loadFail src="/src/assets/banner-h5.png" class="w-100vw" alt="" srcset="">
+    <img src="/src/assets/banner-h5.png" class="w-100vw" alt="" srcset="">
     <BannerVue />
     <div v-if="loaded">
       <RouterView />

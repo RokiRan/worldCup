@@ -5,6 +5,7 @@ import { menuItems } from "~/utils/menu";
 const emit = defineEmits(["change"]);
 const router = useRouter();
 const route = useRoute();
+const navLine = ref<HTMLDListElement>();
 // const active = ref("home");
 const change = (arch: string) => {
   // active.value = arch;
@@ -15,23 +16,24 @@ const change = (arch: string) => {
 };
 const active = computed(() => {
   const arch = menuItems.find(item => item.name === route.query.title)?.arch;
-  const menuDom = document.querySelector(`div[pos=${arch}]`);
-  // 滚动到对应的菜单
-  nextTick(() => {
-    menuDom?.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-  // !menuDom && document.querySelector("div[pos=home]")!.scrollIntoView({ behavior: "smooth", block: "start" });
   return arch || "home";
 });
+
 onMounted(() => {
   firework(200);
+  nextTick(() => {
+    const arch = menuItems.find(item => item.name === route.query.title)?.arch;
+    const menuDom = document.querySelector(`div[pos=${arch}]`) as HTMLDivElement;
+    // 滚动到对应的菜单
+    navLine.value?.scrollTo({ left: menuDom?.offsetLeft, behavior: "smooth" });
+  });
 });
 </script>
 
 <template>
   <div id="navBlock">
     <div class="navLine">
-      <div class="nav">
+      <div ref="navLine" class="nav">
         <div v-for="m in menuItems" :key="m.name" class="nav-item" :class="active === m.arch ? 'nav-item-active' : ''">
           <div class="nav-title" :pos="m.arch" @click="change(m.arch)">
             {{ m.name }}

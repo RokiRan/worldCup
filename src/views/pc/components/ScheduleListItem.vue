@@ -1,39 +1,46 @@
 <script lang="ts" setup>
+import dayjs from "dayjs";
+import type { ScheduleItem } from "~/types/News";
 
+defineProps<{
+  item: ScheduleItem;
+}>();
 </script>
 
 <template>
   <div class="scheduleMatch">
     <div class="time">
-      00:00
+      {{ dayjs($props.item?.createTime).format("HH:mm") }}
     </div>
     <div class="group">
       <div class="groupA">
-        小组赛A组
-      </div>
-      <div class="groupB">
-        第一轮
+        {{ $props.item?.sessions }}
       </div>
     </div>
     <div class="flag">
-      <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
+      <img v-loadFail :src="$props.item.teamOneCover" alt="" srcset="">
       <div class="country">
-        卡塔尔
+        {{ $props.item?.teamOne }}
       </div>
     </div>
     <div class="score">
-      <div class="scoreA">
-        0
-      </div>
-      :
-      <div class="scoreB">
-        0
-      </div>
+      <template v-if="$props.item.mode !== '1'">
+        <div class="scoreA">
+          {{ $props.item?.team_one_score }}
+        </div>
+        :
+        <div class="scoreB">
+          {{ $props.item?.team_two_score }}
+        </div>
+      </template>
+      <template v-else>
+        VS
+      </template>
     </div>
     <div class="flag">
-      <img v-loadFail src="/src/assets/Senegal.png" alt="" srcset="">
+      <img v-loadFail :src="$props.item.teamTwoCover" alt="" srcset="">
       <div class="country">
-        卡塔尔
+        {{ $props.item?.teamTwo }}
       </div>
     </div>
   </div>
@@ -46,6 +53,7 @@
   align-items: center;
   padding: .4rem;
   background-color: #8F0F36;
+  margin-bottom: 1px;
   .time{
     font-size: .8rem;
     color: #fff;
@@ -81,7 +89,7 @@
     .country{
       font-size: .8rem;
       color: #fff;
-      max-width: 2.5rem;
+      max-width: 4.5rem;
     }
   }
   .score{

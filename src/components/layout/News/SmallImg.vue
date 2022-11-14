@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { type PropType } from "vue";
 import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
 
 defineProps({
   image: {
@@ -9,14 +11,14 @@ defineProps({
 });
 </script>
 
-<template lang="">
-  <div class="listCont listMB">
+<template>
+  <div class="listCont listMB" @click="openPage($props.image)">
     <div class="listContT">
       <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
     </div>
     <div class="listContImg">
-      <img v-loadFail :src="$props.image?.imageUrl[0]">
-      <i class="v-icon" />
+      <img v-loadFail :src="newsImgFmt($props.image!)">
+      <i v-if="$props.image?.isVideo" class="v-icon" />
     </div>
   </div>
 </template>

@@ -20,20 +20,20 @@ onMounted(() => {
       <li class="layer" data-depth="0.2">
         <div class="layer2 animation-fadeInQuickInv">
           <div id="container">
-            <img v-loadFail class="fenmianImg" src="/src/assets/piaodai.png">
+            <img class="fenmianImg" src="/src/assets/piaodai.png">
           </div>
         </div>
       </li>
       <li class="layer" data-depth="0">
         <div class="layer3">
           <div class="logo animation-fadeInQuickInv">
-            <img v-loadFail src="/src/assets/2022Logo.png">
+            <img src="/src/assets/2022Logo.png">
           </div>
         </div>
       </li>
     </ul>
     <div class="desertImg animation-desert">
-      <img v-loadFail src="/src/assets/shamojianzhu.png">
+      <img src="/src/assets/shamojianzhu.png">
     </div>
   </div>
 </template>

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
 defineProps({
   news: {
     type: Object as PropType<NewsItem>,
@@ -10,15 +12,15 @@ defineProps({
 </script>
 
 <template>
-  <div class="smallImgNews">
+  <div class="smallImgNews" @click="openPage($props.news)">
     <div class="title">
       <div class="line-clamp-2">
         {{ $props.news?.title }}
       </div>
     </div>
     <div class="img">
-      <img v-loadFail :src="$props.news?.imageUrl[0]" alt="">
-      <span class="video" />
+      <img v-loadFail :src="newsImgFmt($props.news!)" alt="">
+      <span v-if="$props.news?.isVideo" class="video" />
     </div>
   </div>
 </template>

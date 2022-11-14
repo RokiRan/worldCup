@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
 import { type PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
@@ -22,12 +23,11 @@ defineProps({
   },
 });
 
-const emit = defineEmits<{
-  (e: "more", id: any): void;
-}>();
-
+const router = useRouter();
 const sendEvent = () => {
-  emit("more", null);
+  router.push({
+    name: "Schedule",
+  });
 };
 </script>
 

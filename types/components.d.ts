@@ -8,9 +8,9 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BigImg: typeof import('./../src/components/swiper/BigImg.vue')['default']
-    copy: typeof import('./../src/components/layout/News/ListItemSmall copy.vue')['default']
     CreditItem: typeof import('./../src/components/swiper/CreditItem.vue')['default']
     DailyItem: typeof import('./../src/components/swiper/DailyItem.vue')['default']
+    Empty: typeof import('./../src/components/layout/Empty/index.vue')['default']
     Footer: typeof import('./../src/components/layout/Footer/index.vue')['default']
     HeadSliderItem: typeof import('./../src/components/swiper/HeadSliderItem.vue')['default']
     ListItemBig: typeof import('./../src/components/layout/News/ListItemBig.vue')['default']

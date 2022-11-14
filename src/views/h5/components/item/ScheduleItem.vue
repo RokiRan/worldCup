@@ -94,6 +94,7 @@ export default {
                     img{
                         width: 100%;
                         height: 100%;
+                        object-fit: contain;
                     }
                 }
                 .teamName{
@@ -104,6 +105,8 @@ export default {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                text-align: center;
+                flex: 1;
                 .ing{
                     // display: flex;
                     display: none;

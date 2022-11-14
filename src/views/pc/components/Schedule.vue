@@ -2,81 +2,59 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper";
 
+import dayjs from "dayjs";
+
 import ScheduleListItemVue from "./ScheduleListItem.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 // Import Swiper styles
 import "swiper/css";
 
 import { getSchedule } from "~/http";
+import type { ScheduleItem } from "~/types/News";
 
-const dates = [{
-  date: "11-21",
-  week: "周一",
-},
-{
-  date: "11-22",
-  week: "周二",
-},
-{
-  date: "11-23",
-  week: "周三",
-},
-{
-  date: "11-24",
-  week: "周四",
-},
-{
-  date: "11-25",
-  week: "周五",
-},
-{
-  date: "11-26",
-  week: "周六",
-},
-{
-  date: "11-27",
-  week: "周日",
-},
-{
-  date: "11-28",
-  week: "周一",
-},
-{
-  date: "11-29",
-  week: "周二",
-},
-{
-  date: "11-27",
-  week: "周日",
-},
-{
-  date: "11-28",
-  week: "周一",
-},
-{
-  date: "11-29",
-  week: "周二",
-},
-{
-  date: "11-27",
-  week: "周日",
-},
-{
-  date: "11-28",
-  week: "周一",
-},
-{
-  date: "11-29",
-  week: "周二",
-},
-];
+const schedule = ref<ScheduleItem[]>([]);
+const weekCn = ["日", "一", "二", "三", "四", "五", "六"];
+// 按日期分组
+const scheduleList = computed(() => {
+  const list = schedule.value;
+  const map = new Map<string, ScheduleItem[]>();
+  const dateWeekMap = new Map<string, string>();
+  list.forEach((item) => {
+    const date = dayjs(item.createTime).format("MM-DD");
+    const date2 = dayjs(item.createTime).format("YYYY-MM-DD");
+    const week = `周${weekCn[dayjs(item.createTime).day()]}`;
+    const arr = map.get(date2) || [];
+    dateWeekMap.set(date, week);
+    arr.push(item);
+    map.set(date2, arr);
+  });
+  return { scheduleMap: map, dateWeekMap };
+});
 
-const currentTab = ref("11-21");
+// const currentTab = ref(dayjs().format("MM-DD"));
+const listContainer = ref<HTMLElement>();
+const currentTab = ref("11-25");
 onMounted(() =>
   getSchedule().then((res) => {
-
+    const { data } = res;
+    if (data) {
+      schedule.value = data;
+    }
   }),
 );
+function chooseTab(date: string) {
+  currentTab.value = date;
+  scrollTo(date);
+}
+function scrollTo(key: string) {
+  nextTick(() => {
+    const el = document.querySelector(`div[arch='${key}']`) as HTMLElement;
+    listContainer.value!.scrollTo({
+      top: (el?.offsetTop || 0),
+      behavior: "smooth",
+    });
+  });
+}
 </script>
 
 <template>
@@ -84,25 +62,27 @@ onMounted(() =>
     <div class="scheduleCtn">
       <SubTitileVue title="赛程" @more="null" />
       <div class="dateLine">
-        <Swiper :modules="[Navigation]" :slides-per-view="8" :navigation="true" class="ScheduleSwiper">
-          <SwiperSlide v-for="item in dates" :key="`${item.date}abc`">
-            <div class="dateItem" :class="currentTab === item.date ? 'dataActive' : ''">
+        <Swiper ref="mySwiper" :modules="[Navigation]" :slides-per-view="8" :navigation="true" class="ScheduleSwiper" :hash-navigation="{ replaceState: true }">
+          <SwiperSlide v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}abc`" :data-hash="item[0]" @click="chooseTab(item[0])">
+            <div class="dateItem" :class="currentTab === item[0] ? 'dataActive' : ''">
               <div class="date">
-                {{ item.date }}
+                {{ item[0] }}
               </div>
               <div class="week">
-                {{ item.week }}
+                {{ item[1] }}
               </div>
             </div>
           </SwiperSlide>
         </Swiper>
       </div>
-      <div v-for="d in 4" :key="d" class="oneDay">
-        <div class="date">
-          2021-07-01 星期一
-        </div>
-        <div class="list">
-          <ScheduleListItemVue v-for="n in 3" :key="n" />
+      <div ref="listContainer" class="listContainer">
+        <div v-for="schedule in scheduleList.scheduleMap" :key="schedule[0]" class="oneDay">
+          <div class="date" :arch="schedule[0].slice(5, 10)">
+            {{ schedule[0] }} {{ `星期${weekCn[dayjs(schedule[0]).day()]}` }}
+          </div>
+          <div class="list">
+            <ScheduleListItemVue v-for="n in schedule[1]" :key="n.teamOne + n.teamTwo" :item="n" />
+          </div>
         </div>
       </div>
     </div>
@@ -124,8 +104,16 @@ onMounted(() =>
             border-radius: 20px;
             margin-top: 20px;
         }
-
-        .oneDay {
+        .listContainer{
+          max-height: 100vh;
+          overflow-y: scroll;
+          margin-top: 1px;
+          position: relative;
+          /*隐藏滚动条*/
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          .oneDay {
             width: 100%;
             .date {
                 font-size: 14px;
@@ -141,6 +129,8 @@ onMounted(() =>
                 flex-direction: column;
             }
         }
+        }
+
     }
 }
 

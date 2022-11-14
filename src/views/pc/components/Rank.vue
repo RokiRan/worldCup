@@ -12,7 +12,7 @@ const toggleRankPop = () => {
 
 <template>
   <div class="rankDing">
-    <img v-loadFail src="/src/assets/rank.png" alt="" srcset="" class="w-100vw" @click="toggleRankPop">
+    <img src="/src/assets/rank.png" alt="" srcset="" class="w-100vw" @click="toggleRankPop">
     <transition name="fase">
       <div v-show="showRankPop" class="rankList">
         <div class="rankItem rankHead">

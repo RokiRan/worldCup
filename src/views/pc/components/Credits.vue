@@ -4,33 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import CreditItemVue from "~/components/swiper/CreditItem.vue";
 
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
-interface OneGroup {
-  team: string;
-  teamCover: string;
-  groups: string;
-  source: string;
-  ranking: string;
-}
-interface AllGroup {
-  A: OneGroup[];
-  B: OneGroup[];
-  C: OneGroup[];
-  D: OneGroup[];
-  E: OneGroup[];
-  F: OneGroup[];
-  G: OneGroup[];
-  H: OneGroup[];
-}
-const props = defineProps<{
-  source: {
-    typp: PropType<AllGroup>;
-  };
-}>();
+import type { OneGroup } from "~/types/News";
 
-const allGroup = computed(() => {
-  return props.source;
-});
-const ReditSwiper = ref();
+defineProps<{
+  source: Record<string, OneGroup[]>;
+}>();
 </script>
 
 <template>
@@ -41,17 +19,14 @@ const ReditSwiper = ref();
         <div class="grouping">
           <div class="groupingInfo">
             <Swiper
-              ref="ReditSwiper"
               :slides-per-view="4"
               :space-between="2"
               :navigation="false"
               next-el=".groupingBtNext"
               prev-el=".groupingBtPrev"
             >
-              <SwiperSlide v-for="item, ind in props.source" :key="ind">
-                <div class="flex">
-                  <CreditItemVue v-for="item_ in item" :key="`${item_}`" :item="item_" :group="ind" />
-                </div>
+              <SwiperSlide v-for="(item, key, index) in $props.source" :key="key">
+                <CreditItemVue :key="index" :items="item" :group="key" />
               </SwiperSlide>
             </Swiper>
           </div>

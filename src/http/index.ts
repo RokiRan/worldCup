@@ -14,3 +14,10 @@ export const getNews = async (id: string) => {
   const res = await http.get(`/v1/news/topicList?classId=${id}`);
   return res;
 };
+
+// 获取pc真实详情地址
+export const getPcNewsUrl = async (id: string) => {
+  // https://goapi.cqcb.com/v1/news/getPcUrl?ids=9456:5080128
+  const res = await http.get(`/v1/news/getPcUrl?ids=${id}`);
+  return res;
+};

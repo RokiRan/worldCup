@@ -49,7 +49,7 @@ export interface Shooter {
 export interface AppState {
   schedule: []; // 赛程
   titleNews: NewsItem[];
-  source: []; // 积分
+  source: Record<string, OneGroup[]>; // 积分
   card: NewsItem[];
   poster: PostItem[];
   hot: NewsItem[];
@@ -70,4 +70,14 @@ export interface ScheduleItem {
   createTime: string;
   createTimeStamp: string;
   mode: string;
+  team_one_score?: string;
+  team_two_score?: string;
+}
+
+export interface OneGroup {
+  team: string;
+  teamCover: string;
+  groups: string;
+  source: string;
+  ranking: string;
 }

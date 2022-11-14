@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const index = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/worldCup"),
   routes,
 });
 index.beforeEach(() => {

@@ -1,28 +1,40 @@
 <script lang="ts" setup>
-
+import type { PropType } from "vue";
+import dayjs from "dayjs";
+import type { NewsItem } from "~/types/News";
+import { newsImgFmt } from "~/utils/image";
+const props = defineProps({
+  news: {
+    type: Object as PropType<NewsItem>,
+    default: () => {},
+  },
+});
+const imgs = computed(() => {
+  return newsImgFmt(props.news);
+});
 </script>
 
 <template>
   <div class="smallNews">
     <div class="title line-clamp-2">
-      世界杯32强巡礼|最后一舞，梅西能否带领阿根廷圆梦？世界杯32强巡礼|最后一舞，梅西能否带领阿根廷圆梦？
+      {{ $props.news?.title }}
     </div>
     <div class="right">
-      <img v-loadFail src="/src/assets/fenmianAir2.png" alt="" srcset="">
-      <div class="time">
-        00:30
+      <img v-loadFail :src="imgs" alt="" srcset="">
+      <div v-if="news.isVideo" class="time">
+        {{ news.videoTime }}
       </div>
     </div>
     <div class="left">
       <div class="desc">
-        <div class="source">
-          上游新闻
+        <div v-if="$props.news?.sourceName" class="source">
+          {{ $props.news?.sourceName }}
         </div>
-        <div class="date">
-          2022-11-11 16:51:12
+        <div v-if="$props.news?.lastDoTime" class="date">
+          {{ dayjs(($props.news?.lastDoTime || 1) * 1000).format("YYYY-MM-DD HH:mm:ss") }}
         </div>
-        <div class="tag">
-          原创
+        <div v-if="$props.news?.label" class="tag">
+          {{ $props.news?.label }}
         </div>
       </div>
     </div>

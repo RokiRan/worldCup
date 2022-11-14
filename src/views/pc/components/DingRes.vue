@@ -29,7 +29,7 @@ export default {
       if (this.$props?.card?.length > 0) {
         return this.$props?.card[0];
       } else {
-        return {};
+        return null;
       }
     },
     cards() {
