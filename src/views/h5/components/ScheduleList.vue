@@ -37,6 +37,7 @@ onMounted(() => {
     }
     // 移动到当前日期
     tabScrollTo(currentTab.value);
+    scrollTo(currentTab.value);
   });
 });
 

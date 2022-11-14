@@ -129,7 +129,7 @@ export default defineComponent({
           <NewsVue v-animate="'fadeAnimation'" arch="score" title="比分速报" :news="expressReport" @showNewsList="toggleNewsList('比分速报')" />
         </div>
       </div>
-      <div v-show="isShowSchedule">
+      <div v-if="isShowSchedule">
         <ScheduleVue />
       </div>
       <div v-if="isShowNesList">
