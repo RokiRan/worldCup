@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import DailyItem from "~/components/swiper/DailyItem.vue";
-
+import EmptyVue from "~/components/layout/Empty/index.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import type { NewsItem } from "~/types/News";
 const props = defineProps<{
@@ -47,6 +47,7 @@ const change = (index: number) => {
                 </div>
               </SwiperSlide>
             </Swiper>
+            <EmptyVue v-if="imageArr.length === 0" />
           </div>
         </div>
       </div>
@@ -63,7 +64,7 @@ const change = (index: number) => {
 }
 
 .container4{
-  width: 100vw;
+
 }
 .groupingPosetion3 {
   position: relative;

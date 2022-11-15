@@ -47,8 +47,8 @@ const imgs = computed(() => {
     }
     .video{
         position: absolute;
-        bottom: 3rem;
-        right: 1rem;
+        bottom: 2.7rem;
+        right: 8px;
         width: 3rem;
         height: 3rem;
         border-radius: 100%;

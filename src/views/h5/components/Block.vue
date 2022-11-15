@@ -52,7 +52,7 @@ export default {
 
 <style lang="scss">
 .block {
-    margin: 1rem 1rem 0 1rem;
+    margin: .5rem .5rem 0 .5rem;
     background-color: #880525;
     border-bottom-left-radius: .3rem;
     border-bottom-right-radius: .3rem;
@@ -77,7 +77,8 @@ export default {
 
         .block-title-text {
             font-size: 1.1rem;
-            font-weight: bold;
+            // font-weight: bold;
+            font-family: HeadFont;
         }
 
         .block-dot {

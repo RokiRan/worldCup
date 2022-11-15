@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center justify-center mx-auto ">
     <div class="img">
       <img src="/src/assets/empty.png" alt="" srcset="">
     </div>

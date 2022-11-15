@@ -4,7 +4,7 @@ import { newsImgFmt } from "~/utils/image";
 import { openPage } from "~/utils/menu";
 
 defineProps<{
-  image: NewsItem | null | undefined;
+  image: NewsItem | null;
 }>();
 </script>
 

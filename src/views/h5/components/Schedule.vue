@@ -39,7 +39,7 @@ const sendEvent = () => {
           <ScheduleItemVue :item="item" />
         </SwiperSlide>
       </Swiper>
-      <Swiper slides-per-view="auto" :loop="true" :space-between="10" class="mySwiper2" :navigation="true" :modules="[Navigation]">
+      <Swiper v-if="$props.slider?.length" slides-per-view="auto" :loop="true" :space-between="10" class="mySwiper2" :navigation="true" :modules="[Navigation]">
         <SwiperSlide v-for="item in $props.slider" :key="item.id">
           <ScheduleBigImgItemVue :news="item" />
         </SwiperSlide>

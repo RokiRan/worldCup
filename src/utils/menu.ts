@@ -1,8 +1,10 @@
 import { isMobile } from "./isMobile";
 import type { NewsItem } from "~/types/News";
 import { getPcNewsUrl } from "~/http";
-
-export const menuItems = [
+const isProduction = process.env.NODE_ENV === "production";
+const devMenuId = [1, 3135, 3136, 3137, 3138, 3139, 3140, 3141];
+const proMenu = [1, 3135, 3136, 3137, 3138, 3139, 3140, 3141];
+const menuItems = [
   {
     name: "世界杯首页",
     arch: "home",
@@ -11,39 +13,47 @@ export const menuItems = [
   {
     name: "阿汤锅打“卡”",
     arch: "ding",
-    id: "2",
+    id: "3135",
   },
   {
     name: "热点聚焦",
     arch: "hotFocus",
-    id: "3",
+    id: "3136",
   },
   {
     name: "今日看点",
     arch: "today",
-    id: "4",
+    id: "3137",
   },
   {
     name: "大话世界杯",
     arch: "talk",
-    id: "5",
+    id: "3138",
   },
   {
     name: "世界杯神回复",
     arch: "reply",
-    id: "6",
+    id: "3139",
   },
   {
     name: "世界杯日报",
     arch: "daily",
-    id: "7",
+    id: "3140",
   },
   {
     name: "比分速报",
     arch: "score",
-    id: "8",
+    id: "3141",
   },
 ];
+
+export const getMenuItems = () => {
+  const menu = isProduction ? proMenu : devMenuId;
+  menuItems.forEach((item, key) => {
+    item.id = menu[key].toString();
+  });
+  return menuItems;
+};
 
 export const openPage = (target: NewsItem | null | undefined) => {
   if (!target) {

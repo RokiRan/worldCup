@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
+import { useRouter } from "vue-router";
 import BlockVue from "./Block.vue";
-
 import BigImgNewsItemVue from "./item/BigImgNewsItem.vue";
+import EmptyVue from "~/components/layout/Empty/index.vue";
 import type { NewsItem } from "~/types/News";
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: "",
@@ -19,12 +20,22 @@ defineProps({
     default: () => [],
   },
 });
+const router = useRouter();
+function more() {
+  router.push({
+    name: "News",
+    query: {
+      title: props.title,
+    },
+  });
+}
 </script>
 
 <template>
   <div>
-    <BlockVue :title="$props.title">
+    <BlockVue :title="$props.title" :show="true" @more="more">
       <BigImgNewsItemVue v-for="n in $props.news" :key="n.id" :news="n" />
+      <EmptyVue v-show="$props.news?.length === 0 || !$props.news" />
     </BlockVue>
   </div>
 </template>

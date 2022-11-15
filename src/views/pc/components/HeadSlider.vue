@@ -59,7 +59,7 @@ export default {
         <div class="Dot" />
       </div>
     </div>
-    <div class="bigImg">
+    <div v-if="slider.length" class="bigImg">
       <BigImgVue :slider-items="slider" />
     </div>
   </div>
@@ -77,7 +77,7 @@ export default {
   z-index: 999;
   margin: auto;
   height: auto;
-  padding: 10px 0;
+  padding: 16px 0;
   display: flex;
 }
 .swiper-container {

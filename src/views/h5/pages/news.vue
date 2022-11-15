@@ -6,8 +6,9 @@ import SmallImgNewsItemVue from "../components/item/SmallImgNewsItem.vue";
 import Empty from "~/components/layout/Empty/index.vue";
 import { getNews } from "~/http";
 import type { NewsItem } from "~/types/News";
-import { menuItems, openPage } from "~/utils/menu";
+import { getMenuItems, openPage } from "~/utils/menu";
 
+const menuItems = getMenuItems();
 const router = useRoute();
 const newsList = ref<NewsItem[]>([]);
 const loaded = ref(false);
@@ -28,8 +29,13 @@ onMounted(async () => {
 //   getNewsList();
 });
 async function getNewsList(id = "1") {
+  if (id === "1") {
+    return loaded.value = true;
+  }
   const res = await getNews(id);
-  newsList.value = res.data?.data[0]?.list;
+  if (res?.data?.data && res.data.data.length > 0) {
+    newsList.value = res?.data?.data[0].list;
+  }
   loaded.value = true;
 }
 </script>

@@ -12,33 +12,32 @@ const toggleRankPop = () => {
 
 <template>
   <div class="rankDing">
-    <img src="/src/assets/rank.png" alt="" srcset="" class="w-100vw" @click="toggleRankPop">
-    <transition name="fase">
-      <div v-show="showRankPop" class="rankList">
-        <div class="rankItem rankHead">
-          <div class="rankNum">
-            <span class="num">球员</span>
-          </div>
-          <div class="rankName">
-            <span class="name">球队</span>
-          </div>
-          <div class="rankScore">
-            <span class="score">进球</span>
-          </div>
+    <img src="/src/assets/rank.png" alt="" srcset="" class="bigBtn" @click="toggleRankPop">
+    <div class="cursor-pointer arror" :class="showRankPop ? 'arrReverse' : ''" @click.stop="toggleRankPop" />
+    <div class="rankList" :class="!showRankPop ? 'rankListHide' : ''">
+      <div class="rankItem">
+        <div class="rankNum">
+          <span class="num rankHead">球员</span>
         </div>
-        <div v-for="item in items" :key="item.name" class="rankItem">
-          <div class="rankNum">
-            <span class="num line-clamp-1">{{ item.name }}</span>
-          </div>
-          <div class="rankName">
-            <span class="name line-clamp-1">{{ item.team }}</span>
-          </div>
-          <div class="rankScore">
-            <span class="score">{{ item.goals }}</span>
-          </div>
+        <div class="rankName">
+          <span class="name rankHead">球队</span>
+        </div>
+        <div class="rankScore">
+          <span class="score rankHead">进球</span>
         </div>
       </div>
-    </transition>
+      <div v-for="item in items" :key="item.name" class="rankItem">
+        <div class="rankNum">
+          <span class="num line-clamp-1">{{ item.name }}</span>
+        </div>
+        <div class="rankName">
+          <span class="name line-clamp-1">{{ item.team }}</span>
+        </div>
+        <div class="rankScore">
+          <span class="score">{{ item.goals }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,11 +47,26 @@ const toggleRankPop = () => {
   right: .1rem;
   top: 40%;
   z-index: 9999;
-
-  img {
-    width: 100%;
-    height: 200px;
+  .arror{
+    position: absolute;
+    top: 144px;
+    right: 53px;
+    width: 14px;
+    height: 14px;
+    /*朝左的三角形*/
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 10px solid #fff;
+    &.arrReverse{
+      transform: rotate(180deg);
+    }
+    transition: all .3s;
+  }
+  .bigBtn {
+    width: 88px;
+    height: 280px;
     object-fit: cover;
+    cursor: pointer;
     /*透明图片阴影*/
     filter: drop-shadow(0 0 0.3rem #000);
   }
@@ -65,16 +79,22 @@ const toggleRankPop = () => {
   .rankList {
     position: absolute;
     top: 0;
-    right: 60px;
+    right: 75px;
     width: 250px;
     max-height: 400px;
     overflow-y: scroll;
     background-color: #8F0F36;
     /*阴影*/
     box-shadow: 0 0 0.3rem #000;
-
+    /*淡入淡出*/
+    transition: all .3s;
+    &.rankListHide{
+      opacity: 0;
+      transform: translateX(200%);
+    }
     .rankHead {
       color: #FCEBB8 !important;
+      font-weight: 500;
     }
 
     .rankItem {

@@ -27,16 +27,16 @@ defineProps({
 
 <style lang="scss">
 .smallImgNews{
-    padding: .4rem;
+    margin-bottom: .6rem;
+    padding: .6rem;
     border-radius: .4rem;
-    margin-bottom: .3rem;
     display: flex;
     background: linear-gradient(180deg, #B70A3F 0%, #880525 100%);
     .title{
         width: 100%;
-        padding: .5rem;
+        // padding: .5rem;
         color: #fff;
-
+        padding-right: .6rem;
         div{
           overflow-y: hidden;
         }
@@ -44,7 +44,7 @@ defineProps({
     .img{
         width: 15rem;
         position: relative;
-        padding: .3rem;
+        // padding: .3rem;
         img{
             width: 100%;
             height: 5rem;
@@ -53,8 +53,8 @@ defineProps({
         }
         .video{
             position: absolute;
-            bottom: .7rem;
-            right: .7rem;
+            bottom: 8px;
+            right: 8px;
             width: 2rem;
             height: 2rem;
             border-radius: 100%;

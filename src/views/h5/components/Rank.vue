@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 .rankDing{
     position: fixed;
-    right: .1rem;
+    right: 1px;
     top: 40%;
     z-index: 9999;
     img{
@@ -21,7 +21,7 @@ export default {
         height: 8rem;
         object-fit: contain;
         /*透明图片阴影*/
-        filter: drop-shadow(0 0 0.3rem #000);
+        filter: drop-shadow(0 0 0.1rem #00000050);
     }
 }
 </style>

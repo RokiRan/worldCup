@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { menuItems } from "~/utils/menu";
-
+import { getMenuItems } from "~/utils/menu";
 const emit = defineEmits(["change"]);
+const menuItems = getMenuItems();
 const active = ref(menuItems[0].arch);
 const change = (arch: string) => {
   active.value = arch;
@@ -31,7 +31,10 @@ const change = (arch: string) => {
     z-index: 9999;
     ul{
         display: inline-block;
-        min-width: 1040px;
+        width: 1200px;
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
         .currentTab {
             font-size: 16px;
             font-weight: 600;

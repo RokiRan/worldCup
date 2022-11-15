@@ -16,8 +16,8 @@ defineProps<{
   <div>
     <BlockVue title="小组赛积分">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="(item, key, index) in $props.source" :key="key">
-          <CrediteItemVue :key="index" :items="item" :group="key" />
+        <SwiperSlide v-for="(item, key, index) in $props.source" :key="`${index}mySwiper`">
+          <CrediteItemVue :key="`${index}crediteSwiperItem`" :items="item" :group="key" />
         </SwiperSlide>
       </Swiper>
     </BlockVue>

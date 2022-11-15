@@ -15,8 +15,12 @@ export default {
   },
   setup() {
     const appStore = useAppStore();
+    const router = useRouter();
+    const route = useRoute();
     return {
       appStore,
+      router,
+      route,
     };
   },
   data(): {
@@ -31,20 +35,23 @@ export default {
       shooter: [],
     };
   },
+  computed: {
+    isShowRankPop() {
+      return this.route.path === "/h5/home";
+    },
+  },
   beforeCreate() {
     !isMobile() && window.location.replace("/");
-    const router = useRouter();
-    const route = useRoute();
-    if (route.path === "/") {
-      router.push({
+    if (this.route.path === "/") {
+      this.router.push({
         name: "Home",
         query: {
           title: "世界杯首页",
         },
       });
     } else
-    if (route.query.title === "世界杯首页") {
-      router.push({
+    if (this.route.query.title === "世界杯首页") {
+      this.router.push({
         name: "Home",
       });
     }
@@ -73,7 +80,7 @@ export default {
     <div v-if="loaded">
       <RouterView />
     </div>
-    <RankVue @click="toggleRankPop" />
+    <RankVue v-show="isShowRankPop" @click="toggleRankPop" />
     <Transition name="fade">
       <RankPopVue v-show="showRankPop" :items="appStore.shooter" @close="toggleRankPop" />
     </Transition>
@@ -83,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 .h5Container {
   background-color: #6C0A20;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .disableScroll {

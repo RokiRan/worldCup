@@ -1,6 +1,7 @@
 <script lang="ts">
 import { type PropType } from "vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
+import EmptyVue from "~/components/layout/Empty/index.vue";
 import BigImgVue from "~/components/layout/News/BigImg.vue";
 import SmallImgVue from "~/components/layout/News/SmallImg.vue";
 import type { NewsItem } from "~/types/News";
@@ -9,6 +10,7 @@ export default {
     SubTitileVue,
     BigImgVue,
     SmallImgVue,
+    EmptyVue,
   },
   props: {
     card: {
@@ -44,12 +46,13 @@ export default {
   <div class="containter3" arch="ding">
     <div class="columnBox">
       <SubTitileVue title="阿汤锅打“卡”" :show="true" @more="change" />
-      <div class="contentBoxAT">
+      <div v-if="cardOne" class="contentBoxAT">
         <BigImgVue :image="cardOne" />
         <div class="contentATRigth">
           <SmallImgVue v-for="item, ind in cards" :key="ind" :image="item" />
         </div>
       </div>
+      <EmptyVue v-else />
     </div>
   </div>
 </template>

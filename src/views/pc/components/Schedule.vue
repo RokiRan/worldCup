@@ -134,7 +134,6 @@ function drag(e: MouseEvent) {
 
 <style lang="scss">
 .schedulePage {
-  width: 100vw;
   margin: 0 auto;
   background-color: #56031A;
 

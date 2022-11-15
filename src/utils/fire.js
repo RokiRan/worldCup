@@ -130,11 +130,11 @@ const Progress = (function () {
     },
   }]); return Confetti;
 }());
-const firework = function (h) {
+const firework = function (h, length = 100) {
   // DURATION速度, LENGTH个数
   const height = h;
   const DURATION = 15000;
-  const LENGTH = 100;
+  const LENGTH = length;
   new Confetti({
     width: window.innerWidth, height, length: LENGTH, duration: DURATION,
   });

@@ -2,6 +2,7 @@
 import { type PropType } from "vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import BigImgVue from "~/components/layout/News/BigImg.vue";
+import EmptyVue from "~/components/layout/Empty/index.vue";
 import SmallImgVue from "~/components/layout/News/SmallImg.vue";
 import type { NewsItem } from "~/types/News";
 export default {
@@ -9,6 +10,7 @@ export default {
     SubTitileVue,
     BigImgVue,
     SmallImgVue,
+    EmptyVue,
   },
   props: {
     card: {
@@ -43,12 +45,13 @@ export default {
   <div class="containter3">
     <SubTitileVue title="热点聚焦" :show="true" @more="change" />
     <div class="columnBox">
-      <div class="contentBoxAT">
+      <div v-if="cardOne" class="contentBoxAT">
         <div class="contentATRigth">
           <SmallImgVue v-for="item, ind in cards" :key="ind" :image="item" />
         </div>
         <BigImgVue :image="cardOne" />
       </div>
+      <EmptyVue v-else />
     </div>
   </div>
 </template>

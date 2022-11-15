@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     ListItemSmall: typeof import('./../src/components/layout/News/ListItemSmall.vue')['default']
     Navbar: typeof import('./../src/components/layout/Navbar/index.vue')['default']
     PostItem: typeof import('./../src/components/swiper/PostItem.vue')['default']
+    Reviewer: typeof import('./../src/components/reviewer/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SmallImg: typeof import('./../src/components/layout/News/SmallImg.vue')['default']

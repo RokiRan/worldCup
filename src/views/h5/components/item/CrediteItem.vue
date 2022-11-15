@@ -20,7 +20,7 @@ defineProps<{
     <div class="matches">
       <div v-for="item, key in $props.items" :key="key" class="match">
         <div class="sort">
-          1
+          {{ item.ranking }}
         </div>
         <div class="sologn">
           <img v-loadFail :src="item.teamCover">
@@ -29,7 +29,7 @@ defineProps<{
           {{ item.team }}
         </div>
         <div class="num">
-          {{ item.ranking }}
+          {{ item.source }}
         </div>
       </div>
     </div>

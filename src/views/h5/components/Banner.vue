@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router";
 import { firework } from "~/utils/fire";
-import { menuItems } from "~/utils/menu";
+import { getMenuItems } from "~/utils/menu";
 const emit = defineEmits(["change"]);
 const router = useRouter();
 const route = useRoute();
 const navLine = ref<HTMLDListElement>();
+const menuItems = getMenuItems();
 // const active = ref("home");
 const change = (arch: string) => {
   // active.value = arch;
@@ -15,19 +16,23 @@ const change = (arch: string) => {
   router.push({ path, query: { title: menuItems.find(item => item.arch === arch)?.name } });
 };
 const active = computed(() => {
+  moveBar();
   const arch = menuItems.find(item => item.name === route.query.title)?.arch;
   return arch || "home";
 });
 
 onMounted(() => {
-  firework(200);
+  firework(200, 30);
   nextTick(() => {
-    const arch = menuItems.find(item => item.name === route.query.title)?.arch;
-    const menuDom = document.querySelector(`div[pos=${arch}]`) as HTMLDivElement;
-    // 滚动到对应的菜单
-    navLine.value?.scrollTo({ left: menuDom?.offsetLeft, behavior: "smooth" });
+    moveBar();
   });
 });
+function moveBar() {
+  const arch = menuItems.find(item => item.name === route.query.title)?.arch;
+  const menuDom = document.querySelector(`div[pos=${arch}]`) as HTMLDivElement;
+  // 滚动到对应的菜单
+  navLine.value?.scrollTo({ left: menuDom?.offsetLeft, behavior: "smooth" });
+}
 </script>
 
 <template>
@@ -50,7 +55,7 @@ onMounted(() => {
   position: sticky;
   z-index: 999999;
   /*底部阴影*/
-  box-shadow: 0 0 6px #000000;
+  box-shadow: 0 0 6px #00000050;
   .navLine {
     background: linear-gradient(0deg, #C20A3C 0%, #790025 100%);
 

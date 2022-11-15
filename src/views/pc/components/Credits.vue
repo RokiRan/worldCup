@@ -67,7 +67,7 @@ defineProps<{
   height: 80px;
   margin: 0 auto;
   display: flex;
-  padding: 20px 0;
+  padding: 16px 0;
 }
 
 .columnIcon {

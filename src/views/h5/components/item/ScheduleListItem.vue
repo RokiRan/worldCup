@@ -14,7 +14,10 @@ defineProps<{
     </div>
     <div class="group">
       <div class="groupA">
-        {{ $props.item?.sessions }}
+        {{ $props.item?.sessions.slice(0, $props.item?.sessions.length - 3) }}
+      </div>
+      <div class="groupA">
+        {{ $props.item?.sessions.slice($props.item?.sessions.lastIndexOf(' '), 20) }}
       </div>
     </div>
     <div class="flag">
@@ -57,6 +60,7 @@ defineProps<{
   .time{
     font-size: .8rem;
     color: #fff;
+    margin-right: 1rem;
   }
   .group{
     display: flex;
@@ -66,7 +70,7 @@ defineProps<{
     .groupA{
       font-size: .8rem;
       color: #fff;
-      width: 6.7rem;
+      min-width: 6.7rem;
       text-align: center;
     }
     .groupB{
@@ -79,15 +83,16 @@ defineProps<{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    flex: 1;
     img{
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
       object-fit: cover;
     }
     .country{
       font-size: .8rem;
       color: #fff;
-      max-width: 2.5rem;
+      // max-width: 2.5rem;
     }
   }
   .score{

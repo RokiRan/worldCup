@@ -6,12 +6,12 @@ import Empty from "~/components/layout/Empty/index.vue";
 
 import { getNews } from "~/http";
 import type { NewsItem } from "~/types/News";
-import { menuItems } from "~/utils/menu";
+import { getMenuItems } from "~/utils/menu";
 
 const props = defineProps<{
   title: string;
 }>();
-
+const menuItems = getMenuItems();
 const newsList = ref<NewsItem[]>([]);
 const loaded = ref(false);
 

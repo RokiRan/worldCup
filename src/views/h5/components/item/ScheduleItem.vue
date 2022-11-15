@@ -37,12 +37,12 @@ export default {
         </div>
       </div>
       <div class="score">
-        <div class="ing">
+        <div v-if="$props.item?.mode !== '1'" class="ing">
           <div class="scoreNum">
-            0
+            {{ $props.item?.team_one_score }}
           </div>:
           <div class="scoreNum">
-            0
+            {{ $props.item?.team_two_score }}
           </div>
         </div>
         <div class="pre">

@@ -107,6 +107,7 @@ function tabScrollTo(key: string) {
         width: 100%;
         position: relative;
         padding: 0 1rem;
+        background-color: #AA0838;
         .dataContainer {
             width: 100%;
             display: flex;
@@ -169,7 +170,8 @@ function tabScrollTo(key: string) {
         .date {
             color: #fff;
             margin-bottom: .2rem;
-            font-size: .9rem;
+            font-size: 1rem;
+            line-height: 36px;
         }
 
         .list {

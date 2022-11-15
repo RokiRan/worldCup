@@ -118,6 +118,7 @@ const emits = defineEmits(["close"]);
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    height: 38px;
                     div{
                         width: 33.33%;
                         display: flex;
@@ -129,10 +130,10 @@ const emits = defineEmits(["close"]);
                         font-family: FZLanTingHei-R-GBK-Reg;
                     }
                 }
-                .line:nth-child(2n){
+                .line:nth-child(2n-1){
                     background-color: #960830;
                 }
-                .line:nth-child(2n - 1){
+                .line:nth-child(2n){
                     background-color: #B70830;
                 }
             }
