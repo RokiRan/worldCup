@@ -3,6 +3,7 @@ import type { PropType } from "vue";
 import dayjs from "dayjs";
 import type { NewsItem } from "~/types/News";
 import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
 const props = defineProps({
   news: {
     type: Object as PropType<NewsItem>,
@@ -15,7 +16,7 @@ const imgs = computed(() => {
 </script>
 
 <template>
-  <div class="smallNews">
+  <div class="smallNews" @click="openPage(props.news)">
     <div class="left">
       <div class="title line-clamp-2">
         {{ $props.news?.title }}
@@ -33,7 +34,9 @@ const imgs = computed(() => {
       </div>
     </div>
     <div class="right">
-      <img v-loadFail :src="imgs" alt="" srcset="">
+      <div class="img">
+        <img v-loadFail :src="imgs" alt="" srcset="">
+      </div>
       <div v-if="$props.news?.isVideo !== 0" class="time">
         {{ $props.news?.videoTime }}
       </div>
@@ -81,13 +84,18 @@ const imgs = computed(() => {
     .right {
         width: 20%;
         position: relative;
-        img {
-            width: 100%;
-            object-fit: cover;
-            object-position: 50% 50%;
-            border-radius: 10px;
-            display: block;
-            overflow: hidden;
+        .img {
+            width: 226px;
+            height: 158px;
+            img{
+              object-fit: cover;
+              object-position: 50% 50%;
+              border-radius: 10px;
+              display: block;
+              overflow: hidden;
+              width: 100%;
+              height: 100%;
+            }
         }
         .time {
             font-size: 12px;

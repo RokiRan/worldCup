@@ -16,8 +16,14 @@ export default {
   <div class="containerSechdule">
     <div class="groupTime">
       <div class="groupTimeInfo">
-        <div>{{ $props.item?.sessions }}</div>
-        <div>{{ $props.item?.createTime }}</div>
+        <div class="line-clamp-1">
+          {{ $props.item?.sessions }}
+        </div>
+        <div>
+          <div class="line-clamp-1">
+            {{ $props.item?.createTime }}
+          </div>
+        </div>
       </div>
       <div class="contestant">
         <div class="team">
@@ -30,7 +36,7 @@ export default {
         </div>
         <div class="info">
           <div class="score">
-            VS
+            {{ $props.item?.mode === '2' ? (`${$props.item?.team_one_score} : ${$props.item?.team_two_score}`) : 'VS' }}
           </div>
         </div>
         <div class="team">
@@ -59,11 +65,14 @@ export default {
 
 .groupTimeInfo {
   margin-bottom: 10px;
+  word-break: break-all;
 }
 
 .contestant {
-  width: 236px;
+  // width: 236px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
 }
 
 .groupmore {
@@ -79,7 +88,7 @@ export default {
 
 .groupTime div.team {
   display: inline-block;
-  width: 33%;
+  // width: 33%;
   vertical-align: middle;
   text-align: center;
 }

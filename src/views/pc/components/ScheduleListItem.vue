@@ -24,7 +24,7 @@ defineProps<{
       </div>
     </div>
     <div class="score">
-      <template v-if="$props.item.mode !== '1'">
+      <template v-if="$props.item.mode === '2'">
         <div class="scoreA">
           {{ $props.item?.team_one_score }}
         </div>

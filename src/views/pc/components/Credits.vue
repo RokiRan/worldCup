@@ -317,7 +317,7 @@ defineProps<{
 }
 
 .listCont {
-  width: 530px;
+  // width: 530px;
   height: 156px;
   background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
   border-radius: 0px 20px 0px 0px;
@@ -330,7 +330,7 @@ defineProps<{
 }
 
 .listCont:hover {
-  width: 530px;
+  // width: 530px;
   height: 156px;
   -webkit-transition: transform .5s;
   -moz-transition: transform .5s;

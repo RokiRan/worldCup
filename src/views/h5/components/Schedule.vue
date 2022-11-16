@@ -34,16 +34,20 @@ const sendEvent = () => {
 <template>
   <div>
     <BlockVue title="赛程" :show="true" @more="sendEvent()">
-      <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
-        <SwiperSlide v-for="item in $props.schedule" :key="item.teamOne">
-          <ScheduleItemVue :item="item" />
-        </SwiperSlide>
-      </Swiper>
-      <Swiper v-if="$props.slider?.length" slides-per-view="auto" :loop="true" :space-between="10" class="mySwiper2" :navigation="true" :modules="[Navigation]">
-        <SwiperSlide v-for="item in $props.slider" :key="item.id">
-          <ScheduleBigImgItemVue :news="item" />
-        </SwiperSlide>
-      </Swiper>
+      <div>
+        <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
+          <SwiperSlide v-for="item in $props.schedule" :key="item.teamOne">
+            <ScheduleItemVue :item="item" />
+          </SwiperSlide>
+        </Swiper>
+      </div>
+      <div>
+        <Swiper v-if="$props.slider?.length" slides-per-view="auto" :loop="true" :space-between="10" class="mySwiper2" :navigation="true" :modules="[Navigation]">
+          <SwiperSlide v-for="item in $props.slider" :key="item.id">
+            <ScheduleBigImgItemVue :news="item" />
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </BlockVue>
   </div>
 </template>

@@ -45,41 +45,24 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       :style="{
         '--swiper-navigation-color': 'red',
         '--swiper-pagination-color': 'red',
-      }"
-      :coverflow-effect="effect"
-      effect="coverflow"
-      :grab-cursor="true"
-      :loop="true"
-      :space-between="10"
-      :navigation="true"
-      :thumbs="{ swiper: thumbsSwiper }"
-      :modules="modules"
-      class="mySwiper2"
+      }" :coverflow-effect="effect" effect="coverflow" :grab-cursor="true" :loop="true" :space-between="10"
+      :navigation="true" :thumbs="{ swiper: thumbsSwiper }" :modules="modules" class="mySwiperBig"
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <div class="myImg" @click="openPage(img)">
-          <img
-            v-loadFail
-            :src="newsImgFmt(img)"
-          >
+          <img v-loadFail :src="newsImgFmt(img)">
+          <div class="title line-clamp-1">
+            {{ img.title }}
+          </div>
         </div>
       </SwiperSlide>
     </Swiper>
     <Swiper
-      ref="thumbsSwiper"
-      :space-between="10"
-      :slides-per-view="4"
-      :free-mode="false"
-      :watch-slides-progress="true"
-      :modules="modules"
-      class="mySwiper"
-      @swiper="setThumbsSwiper"
+      ref="thumbsSwiper" :space-between="10" :slides-per-view="4" :free-mode="false" :watch-slides-progress="true"
+      :modules="modules" class="mySwiperSmall" @swiper="setThumbsSwiper"
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
-        <img
-          v-loadFail
-          :src="newsImgFmt(img)"
-        >
+        <img v-loadFail :src="newsImgFmt(img)">
       </SwiperSlide>
     </Swiper>
   </div>
@@ -87,72 +70,72 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
 
 <style lang="scss" scoped>
 .container {
-    width: $min-width;
-    margin: 0 auto;
-    height: 600px;
+  width: $min-width;
+  margin: 0 auto;
 }
 
-.swiper-slide .myImg > img{
-    width: 90%;
-    margin: 0 auto;
-    object-fit: cover;
-}
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    object-fit: cover;
-}
+.mySwiperBig {
+  height: 80%;
+  width: 100%;
 
-body {
-    background: #000;
-    color: #000;
-}
+  .swiper-wrapper {
+    .swiper-slide {
+      .myImg {
+        position: relative;
+        img {
+          width: 970px;
+          height: 544px;
+          margin: 0 auto;
+          object-fit: cover;
+        }
 
-.swiper {
-    width: 100%;
-    height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.swiper-slide {
-    background-size: cover;
-    background-position: center;
-}
-
-.mySwiper2 {
-    height: 80%;
-    width: 100%;
-    .swiper-wrapper{
-      .swiper-slide-prev{
-        overflow: hidden;
-      }
-      .swiper-slide-next{
-        overflow: hidden;
+        .title {
+          position: absolute;
+          left: 115px;
+          bottom: 0;
+          /*渐变阴影*/
+          // background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+          background: linear-gradient(180deg, rgba(86,3,29,0) 0%, #171717 100%);
+          font-size: 20px;
+          padding: 5px;
+          color: #fff;
+          width: 970px;
+        }
       }
     }
+
+    .swiper-slide-prev {
+      overflow: hidden;
+    }
+
+    .swiper-slide-next {
+      overflow: hidden;
+    }
+  }
 }
 
-.mySwiper {
-    height: 20%;
-    box-sizing: border-box;
-    padding: 10px 0;
-}
+.mySwiperSmall {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
 
-.mySwiper .swiper-slide {
-    width: 25%;
-    height: 100%;
-    opacity: 0.4;
-}
+  .swiper-wrapper {
+    .swiper-slide {
+      width: 25%;
+      height: 129px;
+      opacity: 0.4;
 
-.mySwiper .swiper-slide-thumb-active {
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .swiper-slide-thumb-active {
     opacity: 1;
-}
-
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  }
 }
 </style>

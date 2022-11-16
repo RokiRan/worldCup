@@ -94,7 +94,7 @@ const toggleRankPop = () => {
     }
     .rankHead {
       color: #FCEBB8 !important;
-      font-weight: 500;
+      font-weight: bolder;
     }
 
     .rankItem {

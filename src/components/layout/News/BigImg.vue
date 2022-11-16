@@ -14,8 +14,8 @@ defineProps<{
       <img v-loadFail :src="newsImgFmt($props.image)">
       <i v-if="$props.image?.isVideo" class="v-icon" />
     </div>
-    <div class="BigImgTitle">
-      <a :href="$props.image?.targetUrl">{{ $props.image?.title }}</a>
+    <div class="BigImgTitle line-clamp-2">
+      <a class="">{{ $props.image?.title }}</a>
     </div>
   </div>
 </template>
@@ -28,8 +28,8 @@ defineProps<{
 }
 
 .BigImgAT {
-  width: 654px;
-  height: 366px;
+  width: 698px;
+  height: 398px;
   position: relative;
   .v-icon{
     position: absolute;
@@ -52,26 +52,18 @@ defineProps<{
 }
 
 .BigImgTitle {
-  width: 654px;
-  height: 120px;
+  width: 100%;
+  height: 82px;
   background: #3E0A12;
 }
 
 .BigImgTitle a {
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 32px;
-  padding: 20px;
+  padding: 14px;
   display: block;
   text-decoration: none;
-}
-
-.BigImgTitle a:hover {
-  color: #fff;
-  font-size: 20px;
-  line-height: 32px;
-  padding: 20px;
-  display: block;
-  text-decoration: underline;
+  cursor: default;
 }
 </style>

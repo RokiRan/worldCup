@@ -3,6 +3,7 @@ import type { PropType } from "vue";
 import dayjs from "dayjs";
 import type { NewsItem } from "~/types/News";
 import { newsImgFmt } from "~/utils/image";
+import { openPage } from "~/utils/menu";
 const props = defineProps({
   news: {
     type: Object as PropType<NewsItem>,
@@ -15,7 +16,7 @@ const imgs = computed(() => {
 </script>
 
 <template>
-  <div class="smallNews">
+  <div class="smallNews" @click="openPage(props.news)">
     <div class="title line-clamp-2">
       {{ $props.news?.title }}
     </div>

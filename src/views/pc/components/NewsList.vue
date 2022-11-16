@@ -23,7 +23,9 @@ async function getNewsList() {
   const title = props.title;
   const id = menuItems.find(item => item.name === title)?.id || "1";
   const res = await getNews(id);
-  newsList.value = res.data?.data[0]?.list;
+  if (res?.data?.data && res.data.data.length > 0) {
+    newsList.value = res?.data?.data[0].list;
+  }
   loaded.value = true;
 }
 </script>

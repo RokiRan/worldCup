@@ -3,7 +3,7 @@ import { type PropType } from "vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import BigImgVue from "~/components/layout/News/BigImg.vue";
 import EmptyVue from "~/components/layout/Empty/index.vue";
-import SmallImgVue from "~/components/layout/News/SmallImg.vue";
+import SmallImgVue from "~/components/layout/News/SmallImgDing.vue";
 import type { NewsItem } from "~/types/News";
 export default {
   components: {
@@ -327,7 +327,7 @@ export default {
 }
 
 .listCont {
-  width: 530px;
+  // width: 530px;
   height: 156px;
   background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
   border-radius: 0px 20px 0px 0px;
@@ -340,7 +340,7 @@ export default {
 }
 
 .listCont:hover {
-  width: 530px;
+  // width: 530px;
   height: 156px;
   -webkit-transition: transform .5s;
   -moz-transition: transform .5s;

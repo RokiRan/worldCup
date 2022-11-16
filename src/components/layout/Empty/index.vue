@@ -7,7 +7,7 @@
     <div class="img">
       <img src="/src/assets/empty.png" alt="" srcset="">
     </div>
-    <div class="">
+    <div class="text-white">
       暂无内容
     </div>
   </div>

@@ -6,12 +6,14 @@ import RankPopVue from "./components/RankPop.vue";
 import type { AppState } from "~/types/News";
 import { useAppStore } from "~/store/app";
 import { isMobile } from "~/utils/isMobile";
+import LoadingVue from "~/components/Loading.vue";
 export default {
   name: "Index",
   components: {
     BannerVue,
     RankVue,
     RankPopVue,
+    LoadingVue,
   },
   setup() {
     const appStore = useAppStore();
@@ -80,6 +82,7 @@ export default {
     <div v-if="loaded">
       <RouterView />
     </div>
+    <LoadingVue v-else h="8rem" />
     <RankVue v-show="isShowRankPop" @click="toggleRankPop" />
     <Transition name="fade">
       <RankPopVue v-show="showRankPop" :items="appStore.shooter" @close="toggleRankPop" />

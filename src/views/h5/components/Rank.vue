@@ -17,7 +17,7 @@ export default {
     top: 40%;
     z-index: 9999;
     img{
-        width: 100%;
+        width: 2.5rem;
         height: 8rem;
         object-fit: contain;
         /*透明图片阴影*/

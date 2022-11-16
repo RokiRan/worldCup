@@ -12,6 +12,7 @@ import RankVue from "./components/Rank.vue";
 import ScheduleVue from "./components/Schedule.vue";
 import NewsListVue from "./components/NewsList.vue";
 import Foot from "~/components/layout/Footer/index.vue";
+import LoadingVue from "~/components/Loading.vue";
 
 import { getHome } from "~/http";
 import { isMobile } from "~/utils/isMobile";
@@ -32,6 +33,7 @@ export default defineComponent({
     RankVue,
     ScheduleVue,
     NewsListVue,
+    LoadingVue,
   },
   setup() {
     const isShowSchedule = ref(false);
@@ -111,6 +113,7 @@ export default defineComponent({
   <div class="blockHolder">
     <BannerVue arch="home" />
     <NavVue @change="scrollTo" />
+
     <div v-if="loaded">
       <div v-show="!isShowSchedule && !isShowNesList">
         <HeadSliderVue
@@ -118,7 +121,7 @@ export default defineComponent({
           @showSchedule="toggleSchedule"
         />
         <CreditsVue v-animate="'fadeAnimation'" :source="source" />
-        <DingVue v-animate="'fadeAnimation'" arch="ding" :card="card" @showNewsList="toggleNewsList('阿汤哥打“卡”')" />
+        <DingVue v-animate="'fadeAnimation'" arch="ding" :card="card" @showNewsList="toggleNewsList('阿汤锅打“卡”')" />
         <PostVue v-animate="'fadeAnimation'" :images="poster" />
         <div class="newsBlock">
           <DingResVue v-animate="'fadeAnimation'" arch="hotFocus" :card="hot" @showNewsList="toggleNewsList('热点聚焦')" />
@@ -136,6 +139,7 @@ export default defineComponent({
         <NewsListVue :title="curNewsTitle" />
       </div>
     </div>
+    <LoadingVue v-else h="500px" />
     <RankVue :items="shooter" />
     <Foot />
   </div>

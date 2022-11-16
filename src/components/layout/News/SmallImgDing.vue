@@ -41,7 +41,7 @@ defineProps({
   cursor: pointer;
 
 .listContT2 {
-  width: 316px;
+  width: 220px;
   margin: 20px;
 }
 

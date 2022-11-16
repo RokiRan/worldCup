@@ -28,7 +28,7 @@ export default {
       </div>
     </div>
     <div class="dz">
-      <div class="match">
+      <div class="text-left match">
         <div class="teamLogo">
           <img v-loadFail :src="$props.item?.teamOneCover" alt="">
         </div>
@@ -37,7 +37,7 @@ export default {
         </div>
       </div>
       <div class="score">
-        <div v-if="$props.item?.mode !== '1'" class="ing">
+        <div v-if="$props.item?.mode === '2'" class="ing">
           <div class="scoreNum">
             {{ $props.item?.team_one_score }}
           </div>:
@@ -45,7 +45,7 @@ export default {
             {{ $props.item?.team_two_score }}
           </div>
         </div>
-        <div class="pre">
+        <div v-else class="pre">
           VS
         </div>
       </div>
@@ -67,15 +67,16 @@ export default {
         border-top-right-radius: 1rem;
         padding: 1rem 1rem .5rem 1rem;
         color: #fff;
+        min-height: 6.5rem;
         .title{
             display: flex;
             flex-direction: column;
             text-align: left;
             .matchName{
-                font-size: .8rem;
+                font-size: .95rem;
             }
             .date{
-                font-size: .7rem;
+                font-size: .95rem;
             }
         }
         .dz{
@@ -84,13 +85,11 @@ export default {
             align-items: center;
             .match{
                 display: flex;
-                align-items: center;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
                 .teamLogo{
-                    // width: 2rem;
                     height: 2rem;
+                    width: 2rem;
                     img{
                         width: 100%;
                         height: 100%;
@@ -98,7 +97,7 @@ export default {
                     }
                 }
                 .teamName{
-                    font-size: .8rem;
+                    font-size: .95rem;
                 }
             }
             .score{
@@ -108,8 +107,7 @@ export default {
                 text-align: center;
                 flex: 1;
                 .ing{
-                    // display: flex;
-                    display: none;
+                    display: flex;
                     .scoreNum{
                         font-size: 1.2rem;
                     }
