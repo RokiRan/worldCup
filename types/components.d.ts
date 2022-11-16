@@ -24,5 +24,7 @@ declare module '@vue/runtime-core' {
     SmallImgDing: typeof import('./../src/components/layout/News/SmallImgDing.vue')['default']
     SubTitile: typeof import('./../src/components/layout/Title/SubTitile.vue')['default']
     ThemeChange: typeof import('./../src/components/layout/Navbar/components/ThemeChange.vue')['default']
+    Toast: typeof import('./../src/components/Toast/Toast.vue')['default']
+    Watcher: typeof import('./../src/components/watcher/Watcher.vue')['default']
   }
 }

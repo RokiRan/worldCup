@@ -4,7 +4,7 @@ import { createPinia } from "pinia";
 import { faseAnimate, loadErrImg } from "./utils/directive";
 // Vue Router
 import index from "./router";
-
+// import Toast from "./components/Toast";
 import { registerStore } from "./store";
 import App from "~/App.vue";
 
@@ -14,7 +14,7 @@ import "~/styles/main.scss";
 const app = createApp(App);
 
 app.use(createPinia());
-
+// app.use(Toast); // 插件的方式引用Toast
 app.directive("animate", faseAnimate);
 app.directive("loadFail", loadErrImg);
 

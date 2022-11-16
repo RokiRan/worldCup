@@ -10,8 +10,8 @@ export const getSchedule = async () => {
   return res;
 };
 
-export const getNews = async (id: string) => {
-  const res = await http.get(`/v1/news/topicList?classId=${id}`);
+export const getNews = async (id: string, page = 1) => {
+  const res = await http.get(`/v1/news/topicList?classId=${id}&page=${page}`);
   return res;
 };
 

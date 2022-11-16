@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { type PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper";
+import { Navigation, type Swiper as SwiperType } from "swiper";
 import BlockVue from "./Block.vue";
 // Import Swiper styles
 import "swiper/css";
@@ -11,8 +11,9 @@ import "swiper/css";
 import ScheduleItemVue from "./item/ScheduleItem.vue";
 import ScheduleBigImgItemVue from "./item/ScheduleBigImgItem.vue";
 import type { NewsItem, ScheduleItem } from "~/types/News";
+import dayjs from "dayjs";
 
-defineProps({
+const props = defineProps({
   slider: {
     type: Array as PropType<NewsItem[]>,
     default: () => [],
@@ -29,13 +30,25 @@ const sendEvent = () => {
     name: "Schedule",
   });
 };
+function setSwiper(swiper: SwiperType) {
+  const today = dayjs().format("MM-DD");
+  props.schedule.forEach((item, index) => {
+    const target = dayjs(item.createTime).format("MM-DD");
+    if (target === today) {
+      setTimeout(() => {
+        swiper.slideTo(index);
+      }, 1000);
+      return false;
+    }
+  });
+}
 </script>
 
 <template>
   <div>
     <BlockVue title="赛程" :show="true" @more="sendEvent()">
       <div>
-        <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
+        <Swiper slides-per-view="auto" :space-between="10" class="mySwiper" @swiper="setSwiper">
           <SwiperSlide v-for="item in $props.schedule" :key="item.teamOne">
             <ScheduleItemVue :item="item" />
           </SwiperSlide>

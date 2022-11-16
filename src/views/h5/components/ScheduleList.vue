@@ -27,7 +27,7 @@ const scheduleList = computed(() => {
 
 const listContainer = ref<HTMLElement>();
 const dataContainer = ref<HTMLElement>();
-const currentTab = ref("12-02");
+const currentTab = ref(dayjs().format("MM-DD"));
 
 onMounted(() => {
   getSchedule().then((res) => {

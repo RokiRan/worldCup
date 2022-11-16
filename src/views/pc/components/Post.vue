@@ -10,6 +10,7 @@ const props = defineProps<{
     type: PostItem[];
   };
 }>();
+
 const imageArr = computed(() => {
   // reduce 一位数组转二维数组
   return props.images.reduce((acc: PostItem[], cur: PostItem, index: number) => {

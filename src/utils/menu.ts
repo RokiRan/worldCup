@@ -1,6 +1,7 @@
 import { isMobile } from "./isMobile";
 import type { NewsItem } from "~/types/News";
 import { getPcNewsUrl } from "~/http";
+import useToast from "~/components/Toast2";
 const isProduction = process.env.NODE_ENV === "production";
 const devMenuId = [1, 3135, 3136, 3137, 3138, 3139, 3140, 3141];
 const proMenu = [1, 3135, 3136, 3137, 3138, 3139, 3140, 3141];
@@ -56,8 +57,9 @@ export const getMenuItems = () => {
 };
 
 export const openPage = (target: NewsItem | null | undefined) => {
+  const toast = useToast();
   if (!target) {
-    return;
+    return toast("参数错误");
   }
   const newsId = target.id;
   const classId = target.classId;
@@ -67,6 +69,9 @@ export const openPage = (target: NewsItem | null | undefined) => {
   } else {
     getPcNewsUrl(`${classId}:${newsId}`).then((res: any) => {
       res.data && res.data.length && window.open(res.data[0].url);
+      if (!res.data) {
+        toast("暂无详情页");
+      }
     });
   }
 };

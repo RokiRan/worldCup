@@ -20,7 +20,7 @@ export default {
 <template>
   <div class="scheduleItem">
     <div class="title">
-      <div class="matchName">
+      <div class="matchName line-clamp-1">
         {{ $props.item?.sessions }}
       </div>
       <div class="date">
@@ -32,7 +32,7 @@ export default {
         <div class="teamLogo">
           <img v-loadFail :src="$props.item?.teamOneCover" alt="">
         </div>
-        <div class="teamName">
+        <div class="teamName line-clamp-1">
           {{ $props.item?.teamOne }}
         </div>
       </div>
@@ -53,7 +53,7 @@ export default {
         <div class="teamLogo">
           <img v-loadFail :src="$props.item?.teamTwoCover" alt="">
         </div>
-        <div class="teamName">
+        <div class="teamName line-clamp-1">
           {{ $props.item?.teamTwo }}
         </div>
       </div>
@@ -65,7 +65,7 @@ export default {
     .scheduleItem{
         background: linear-gradient(180deg,#C20A3C 0%, #790025 100%);
         border-top-right-radius: 1rem;
-        padding: 1rem 1rem .5rem 1rem;
+        padding: .5rem .5rem .25rem 1rem;
         color: #fff;
         min-height: 6.5rem;
         .title{

@@ -132,6 +132,9 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
         object-fit: cover;
       }
     }
+    .swiper-slide-thumb-active{
+      opacity: 1;
+    }
   }
 
   .swiper-slide-thumb-active {

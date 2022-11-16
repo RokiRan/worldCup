@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import type { PostItem } from "~/types/News";
+import useWatcher from "~/components/watcher";
 defineProps<{
   post: PostItem;
 }>();
+
+const watcher = useWatcher();
 </script>
 
 <template>
-  <div class="postItems">
+  <div class="postItems" @click="watcher($props.post.cover)">
     <img v-loadFail :src="$props.post.cover" alt="">
     <div>
       <div class="text-left line-clamp-1">

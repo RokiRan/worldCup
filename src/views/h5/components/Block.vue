@@ -76,7 +76,7 @@ export default {
         }
 
         .block-title-text {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             // font-weight: bold;
             font-family: HeadFont;
         }

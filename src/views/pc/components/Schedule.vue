@@ -3,7 +3,8 @@ import dayjs from "dayjs";
 
 import ScheduleListItemVue from "./ScheduleListItem.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
-
+import LoadingVue from "~/components/Loading.vue";
+import EmptyVue from "~/components/layout/Empty/index.vue";
 import { getSchedule } from "~/http";
 import type { ScheduleItem } from "~/types/News";
 
@@ -30,9 +31,11 @@ const scheduleList = computed(() => {
 
 // const currentTab = ref(dayjs().format("MM-DD"));
 const listContainer = ref<HTMLElement>();
-const currentTab = ref("11-25");
+const currentTab = ref(dayjs().format("MM-DD"));
+const loaded = ref(false);
 onMounted(() =>
   getSchedule().then((res) => {
+    loaded.value = true;
     const { data } = res;
     if (data) {
       schedule.value = data;
@@ -99,35 +102,39 @@ function drag(e: MouseEvent) {
   <div class="schedulePage">
     <div class="scheduleCtn">
       <SubTitileVue title="赛程" @more="null" />
-      <div class="flex w-full mt-4 mb-1">
-        <img src="/src/assets/arr.png" alt="" class="h-12 cursor-pointer" @click="left">
-        <div class="relative flex flex-1 overflow-hidden">
-          <div ref="dateNav" class="flex w-full overflow-x-scroll hideBar flex-nowrap">
-            <div
-              v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}pcDate`" :archdate="item[0]" class="dateItem"
-              :class="currentTab === item[0] ? 'dataActive' : ''" @click="chooseTab(item[0])"
-            >
-              <div class="date">
-                {{ item[0] }}
-              </div>
-              <div class="week">
-                {{ item[1] }}
+      <template v-if="loaded && schedule.length">
+        <div class="flex w-full mt-4 mb-1">
+          <img src="/src/assets/arr.png" alt="" class="h-12 cursor-pointer" @click="left">
+          <div class="relative flex flex-1 overflow-hidden">
+            <div ref="dateNav" class="flex w-full overflow-x-scroll hideBar flex-nowrap">
+              <div
+                v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}pcDate`" :archdate="item[0]" class="dateItem"
+                :class="currentTab === item[0] ? 'dataActive' : ''" @click="chooseTab(item[0])"
+              >
+                <div class="date">
+                  {{ item[0] }}
+                </div>
+                <div class="week">
+                  {{ item[1] }}
+                </div>
               </div>
             </div>
           </div>
+          <img src="/src/assets/arr.png" class="h-12 rotate-180 cursor-pointer" alt="" srcset="" @click="right">
         </div>
-        <img src="/src/assets/arr.png" class="h-12 rotate-180 cursor-pointer" alt="" srcset="" @click="right">
-      </div>
-      <div ref="listContainer" class="listContainer">
-        <div v-for="schedule in scheduleList.scheduleMap" :key="schedule[0]" class="oneDay">
-          <div class="date" :arch="schedule[0].slice(5, 10)">
-            {{ schedule[0] }} {{ `星期${weekCn[dayjs(schedule[0]).day()]}` }}
-          </div>
-          <div class="list">
-            <ScheduleListItemVue v-for="n in schedule[1]" :key="n.teamOne + n.teamTwo" :item="n" />
+        <div ref="listContainer" class="listContainer">
+          <div v-for="schedule in scheduleList.scheduleMap" :key="schedule[0]" class="oneDay">
+            <div class="date" :arch="schedule[0].slice(5, 10)">
+              {{ schedule[0] }} {{ `星期${weekCn[dayjs(schedule[0]).day()]}` }}
+            </div>
+            <div class="list">
+              <ScheduleListItemVue v-for="n in schedule[1]" :key="n.teamOne + n.teamTwo" :item="n" />
+            </div>
           </div>
         </div>
-      </div>
+      </template>
+      <LoadingVue v-if="!loaded" h="10rem" />
+      <EmptyVue v-if="loaded && !schedule.length" />
     </div>
   </div>
 </template>

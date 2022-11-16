@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { PropType } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper";
+import { Navigation, type Swiper as SwiperType } from "swiper";
+import dayjs from "dayjs";
 import HeadSliderItemVue from "~/components/swiper/HeadSliderItem.vue";
 import BigImgVue from "~/components/swiper/BigImg.vue";
 // Import Swiper Vue.js components
@@ -30,13 +31,25 @@ export default {
   },
   emits: ["showSchedule"],
   setup() {
+    const ScheduleSwiper = ref<SwiperType>();
     return {
       Navigation,
+      ScheduleSwiper,
     };
   },
   methods: {
     showSchedule() {
       this.$emit("showSchedule");
+    },
+    setSwiper(swiper: SwiperType) {
+      this.ScheduleSwiper = swiper;
+      const today = dayjs().format("MM-DD");
+      this.schedule.forEach((item, index) => {
+        const target = dayjs(item.createTime).format("MM-DD");
+        if (target === today) {
+          return swiper.slideTo(index);
+        }
+      });
     },
   },
 };
@@ -45,7 +58,7 @@ export default {
 <template>
   <div class="bg">
     <div class="contentArea">
-      <Swiper slides-per-view="auto" :space-between="10" :navigation="true" :modules="[Navigation]" class="headSwiper">
+      <Swiper slides-per-view="auto" :space-between="10" :navigation="true" :modules="[Navigation]" class="headSwiper" @swiper="setSwiper">
         <SwiperSlide v-for="item in $props.schedule" :key="item.sessions">
           <HeadSliderItemVue :item="item" />
         </SwiperSlide>
