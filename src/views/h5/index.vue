@@ -83,7 +83,7 @@ export default {
       <RouterView />
     </div>
     <LoadingVue v-else h="8rem" />
-    <RankVue v-show="isShowRankPop" @click="toggleRankPop" />
+    <RankVue v-show="isShowRankPop && appStore.shooter && appStore.shooter.length" @click="toggleRankPop" />
     <Transition name="fade">
       <RankPopVue v-show="showRankPop" :items="appStore.shooter" @close="toggleRankPop" />
     </Transition>

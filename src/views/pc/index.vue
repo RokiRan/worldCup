@@ -140,7 +140,7 @@ export default defineComponent({
       </div>
     </div>
     <LoadingVue v-else h="500px" />
-    <RankVue :items="shooter" />
+    <RankVue v-show="shooter && shooter.length" :items="shooter" />
     <Foot />
   </div>
 </template>

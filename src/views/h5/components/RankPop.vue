@@ -26,9 +26,17 @@ const emits = defineEmits(["close"]);
         </div>
         <div class="tbody">
           <div v-for="item in items" :key="item.name" class="line">
-            <div>{{ item.name }}</div>
-            <div>{{ item.team }}</div>
-            <div>{{ item.goals }}</div>
+            <div class="name item">
+              <div class="name_ line-clamp-1">
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="item">
+              {{ item.team }}
+            </div>
+            <div class="item">
+              {{ item.goals }}
+            </div>
           </div>
         </div>
       </div>
@@ -119,15 +127,21 @@ const emits = defineEmits(["close"]);
                     justify-content: space-between;
                     align-items: center;
                     height: 38px;
-                    div{
+                    .item{
                         width: 33.33%;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         font-size: .85rem;
-                        padding: .8rem;
+                        padding: .5rem;
                         color: #FFD8D8;
+                        text-align: center;
                         font-family: FZLanTingHei-R-GBK-Reg;
+                    }
+                    .name{
+                      .name_{
+                        width: 100%;
+                      }
                     }
                 }
                 .line:nth-child(2n-1){

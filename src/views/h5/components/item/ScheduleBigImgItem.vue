@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { newsImgFmt } from "~/utils/image";
 import type { NewsItem } from "~/types/News";
-
+import { openPage } from "~/utils/menu";
 defineProps<{
   news: NewsItem;
 }>();
 </script>
 
 <template>
-  <div class="bigImg">
+  <div class="bigImg" @click="openPage($props.news)">
     <img v-loadFail :src="newsImgFmt($props.news)" alt="" srcset="">
     <div>{{ $props.news.title }}</div>
   </div>
