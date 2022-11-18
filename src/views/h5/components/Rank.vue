@@ -17,8 +17,8 @@ export default {
     top: 40%;
     z-index: 9999;
     img{
-        width: 2.5rem;
-        height: 8rem;
+        width: 5.5rem;
+        height: 10rem;
         object-fit: contain;
         /*透明图片阴影*/
         filter: drop-shadow(0 0 0.1rem #00000050);

@@ -11,8 +11,8 @@ const watcher = useWatcher();
 <template>
   <div class="postItems" @click="watcher($props.post.cover)">
     <img v-loadFail :src="$props.post.cover" alt="">
-    <div>
-      <div class="text-left line-clamp-1">
+    <div class="title">
+      <div class="text-left line-clamp-2">
         {{ $props.post.name }}
       </div>
     </div>
@@ -32,16 +32,13 @@ const watcher = useWatcher();
         border-top-left-radius: .3rem;
         border-top-right-radius: .3rem;
     }
-    div{
+    .title{
         width: 100%;
         padding: .4rem;
         color: #fff;
         font-size: .85rem;
         background: linear-gradient(342deg, #A1003A 10%, #E50C49 100%);
-        /*文字超出省略号*/
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        height: 3.5rem;
     }
 }
 </style>

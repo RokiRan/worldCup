@@ -15,7 +15,7 @@ defineProps({
   <div class="listCont listMB" @click="openPage($props.image)">
     <div class="listContT2 ">
       <a :href="$props.image?.targetUrl">
-        <div class="line-clamp-2">
+        <div class="line-clamp-3">
           {{ $props.image?.title }}
         </div>
       </a>

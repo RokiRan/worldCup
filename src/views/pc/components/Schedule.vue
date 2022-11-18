@@ -14,10 +14,11 @@ const schedule = ref<ScheduleItem[]>([]);
 const weekCn = ["日", "一", "二", "三", "四", "五", "六"];
 // 按日期分组
 const scheduleList = computed(() => {
-  const list = schedule.value;
+  const list = shallowReactive(schedule.value);
   const map = new Map<string, ScheduleItem[]>();
   const dateWeekMap = new Map<string, string>();
-  list.forEach((item) => {
+  const listSort = list.sort((a, b) => dayjs(a.createTime).isBefore(b.createTime) ? -1 : 1);
+  listSort.forEach((item) => {
     const date = dayjs(item.createTime).format("MM-DD");
     const date2 = dayjs(item.createTime).format("YYYY-MM-DD");
     const week = `周${weekCn[dayjs(item.createTime).day()]}`;
@@ -38,10 +39,42 @@ onMounted(() =>
     loaded.value = true;
     const { data } = res;
     if (data) {
-      schedule.value = data;
+      schedule.value = data.sort((a: any, b: any) => dayjs(a.createTime).isBefore(b.createTime) ? -1 : 1);
     }
-    tabScrollTo(currentTab.value);
-    scrollTo(currentTab.value);
+    const list = schedule.value || [];
+
+    const first = dayjs(list[0].createTime).format("MM-DD");
+    const last = dayjs(list[list.length - 1].createTime).format("MM-DD");
+    // 是否未开始
+    if (dayjs().isBefore(list[0].createTime)) {
+      tabScrollTo(first);
+      scrollTo(first);
+    } else if (dayjs().isAfter(dayjs(list[list.length - 1].createTime))) {
+      tabScrollTo(last);
+      scrollTo(last);
+    } else {
+      // 移动到当前日期最近的一天
+      const index = list.findIndex(t => dayjs(t.createTime).format("MM-DD") === currentTab.value);
+      if (index !== -1) {
+        tabScrollTo(currentTab.value);
+        scrollTo(currentTab.value);
+      } else {
+        const today = dayjs().format("MM-DD");
+        const index = list.findIndex(t => dayjs(t.createTime).format("MM-DD") === today);
+        if (index !== -1) {
+          tabScrollTo(today);
+          scrollTo(today);
+        } else {
+          const index = list.findIndex(t => dayjs(t.createTime).isAfter(dayjs()));
+          if (index !== -1) {
+            const date = dayjs(list[index].createTime).format("MM-DD");
+            tabScrollTo(date);
+            scrollTo(date);
+            currentTab.value = date;
+          }
+        }
+      }
+    }
   }),
 );
 function chooseTab(date: string) {
@@ -61,7 +94,7 @@ function tabScrollTo(key: string) {
   nextTick(() => {
     const el = document.querySelector(`div[archdate='${key}']`) as HTMLElement;
     dateNav.value!.scrollTo({
-      left: (el?.offsetLeft || 0) - 10,
+      left: (el?.offsetLeft || 0) - 100,
       behavior: "smooth",
     });
   });
@@ -77,24 +110,6 @@ function right() {
     left: dateNav.value!.scrollLeft + 100,
     behavior: "smooth",
   });
-}
-function drag(e: MouseEvent) {
-  const { clientX } = e;
-  let x = clientX;
-  const move = (e: MouseEvent) => {
-    const { clientX } = e;
-    dateNav.value!.scrollTo({
-      left: dateNav.value!.scrollLeft + x - clientX,
-      behavior: "smooth",
-    });
-    x = clientX;
-  };
-  const up = () => {
-    document.removeEventListener("mousemove", move);
-    document.removeEventListener("mouseup", up);
-  };
-  document.addEventListener("mousemove", move);
-  document.addEventListener("mouseup", up);
 }
 </script>
 

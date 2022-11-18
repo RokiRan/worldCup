@@ -29,13 +29,16 @@ function more() {
     },
   });
 }
+const newsList = computed(() => {
+  return props.news.slice(0, 3);
+});
 </script>
 
 <template>
   <div>
     <BlockVue :title="$props.title" :show="true" @more="more">
-      <BigImgNewsItemVue v-for="n in $props.news" :key="n.id" :news="n" />
-      <EmptyVue v-show="$props.news?.length === 0 || !$props.news" />
+      <BigImgNewsItemVue v-for="n in newsList" :key="n.id" :news="n" />
+      <EmptyVue v-show="newsList?.length === 0 || !newsList" />
     </BlockVue>
   </div>
 </template>

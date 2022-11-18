@@ -32,17 +32,18 @@ export default {
 
 <template>
   <div>
-    <div v-animate="'fadeAnimation'">
+    <!-- v-animate="'fadeAnimation'" -->
+    <div>
       <ScheduleVue :slider="appStore.titleNews" :schedule="appStore.schedule" />
-      <CreditesVue :source="appStore.source" />
-      <NewsVue title="阿汤锅打“卡”" :news="appStore.card" />
-      <PostVue :images="appStore.poster" />
-      <NewsVue title="热点聚焦" :news="appStore.hot" />
-      <NewsSmallVue :news="appStore.watches" title="今日看点" />
-      <NewsSmallVue :news="appStore.bigTalk" title="大话世界杯" />
-      <NewsSmallVue :news="appStore.godReplies" title="世界杯神回复" />
-      <DailyVue :news="appStore.daily" />
-      <NewsSmallVue :news="appStore.expressReport" title="比分速报" />
+      <CreditesVue v-lazyShow="'fadeAnimation'" :source="appStore.source" />
+      <NewsVue v-lazyShow="'fadeAnimation'" title="阿汤锅打“卡”" :news="appStore.card.filter(t => t.showType === 2)" />
+      <PostVue v-lazyShow="'fadeAnimation'" :images="appStore.poster" />
+      <NewsVue v-lazyShow="'fadeAnimation'" title="热点聚焦" :news="appStore.hot.filter(t => t.showType === 2)" />
+      <NewsSmallVue v-lazyShow="'fadeAnimation'" :news="appStore.watches" title="今日看点" />
+      <NewsSmallVue v-lazyShow="'fadeAnimation'" :news="appStore.bigTalk" title="大话世界杯" />
+      <NewsSmallVue v-lazyShow="'fadeAnimation'" :news="appStore.godReplies" title="世界杯神回复" />
+      <DailyVue v-lazyShow="'fadeAnimation'" :news="appStore.daily" />
+      <NewsSmallVue v-lazyShow="'fadeAnimation'" :news="appStore.expressReport" title="比分速报" />
     </div>
   </div>
 </template>

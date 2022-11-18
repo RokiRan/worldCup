@@ -53,7 +53,7 @@ function moveBar() {
 #navBlock {
   top: -1px;
   position: sticky;
-  z-index: 1;
+  z-index: 999;
   /*底部阴影*/
   box-shadow: 0 0 6px #00000050;
   .navLine {

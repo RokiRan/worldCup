@@ -79,7 +79,7 @@ const debounceLoadMore = _.debounce(checkBottom, 100);
   <div>
     <BlockVue :title="title" @touchmove="debounceLoadMore">
       <div v-for="news in newsList" :key="news.id">
-        <BigImgNewsItemVue v-if="news.showType === 3" :news="news" @click="openPage(news)" />
+        <BigImgNewsItemVue v-if="news.showType === 2" :news="news" @click="openPage(news)" />
         <SmallImgNewsItemVue v-else :news="news" style="margin-top: .3rem;" @click="openPage(news)" />
       </div>
       <Empty v-show="newsList.length === 0 && loaded" />

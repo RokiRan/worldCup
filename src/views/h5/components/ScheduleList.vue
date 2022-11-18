@@ -33,11 +33,29 @@ onMounted(() => {
   getSchedule().then((res) => {
     const { data } = res;
     if (data) {
-      schedule.value = data;
+      schedule.value = data.sort((a: any, b: any) => dayjs(a.createTime).isBefore(b.createTime) ? -1 : 1);
     }
-    // 移动到当前日期
-    tabScrollTo(currentTab.value);
-    scrollTo(currentTab.value);
+
+    const list = schedule.value || [];
+
+    const first = dayjs(list[0].createTime).format("MM-DD");
+    const last = dayjs(list[list.length - 1].createTime).format("MM-DD");
+    // 是否未开始
+    if (dayjs().isBefore(list[0].createTime)) {
+      tabScrollTo(first);
+      scrollTo(first);
+    } else if (dayjs().isAfter(dayjs(list[list.length - 1].createTime))) {
+      tabScrollTo(last);
+      scrollTo(last);
+    } else {
+      // 比赛中 移动到最近的一天
+      const today = dayjs().format("MM-DD");
+      const index = list.findIndex(t => dayjs(t.createTime).format("MM-DD") === today || dayjs(t.createTime).isAfter(dayjs()));
+      const date = dayjs(list[index].createTime).format("MM-DD");
+      tabScrollTo(date);
+      scrollTo(date);
+      currentTab.value = date;
+    }
   });
 });
 
@@ -121,6 +139,7 @@ function tabScrollTo(key: string) {
                 white-space: nowrap;
                 min-width: 4rem;
                 overflow-x: scroll;
+                padding: .02rem 0;
 
                 .date {
                     font-size: 14px;
@@ -161,7 +180,7 @@ function tabScrollTo(key: string) {
         bottom: 50%;
     }
     .scheduleContainer{
-      height: 100vh;
+      max-height: 25rem;
       overflow-y: scroll;
       position: relative;
       .oneDay {

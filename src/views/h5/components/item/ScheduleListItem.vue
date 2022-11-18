@@ -13,11 +13,16 @@ defineProps<{
       {{ dayjs($props.item?.createTime).format("HH:mm") }}
     </div>
     <div class="group">
+      <!-- <template v-if="$props.item?.sessions.indexOf(' ') > -1">
+        <div class="groupA">
+          {{ $props.item?.sessions.slice(0, $props.item?.sessions.length - 3) }}
+        </div>
+        <div class="groupA">
+          {{ $props.item?.sessions.slice($props.item?.sessions.lastIndexOf(' '), 20) }}
+        </div>
+      </template> -->
       <div class="groupA">
-        {{ $props.item?.sessions.slice(0, $props.item?.sessions.length - 3) }}
-      </div>
-      <div class="groupA">
-        {{ $props.item?.sessions.slice($props.item?.sessions.lastIndexOf(' '), 20) }}
+        {{ $props.item?.sessions }}
       </div>
     </div>
     <div class="flag">
@@ -60,13 +65,14 @@ defineProps<{
   .time{
     font-size: .8rem;
     color: #fff;
-    margin-right: 1rem;
+    margin-right: .5rem;
   }
   .group{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    max-width: 6rem;
     .groupA{
       font-size: .8rem;
       color: #fff;
@@ -96,7 +102,8 @@ defineProps<{
     }
   }
   .score{
-    font-size: 1.2rem;
+    font-size: .8rem;
+    font-weight: bolder;
     color: #fff;
     display: flex;
   }

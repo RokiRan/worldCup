@@ -16,7 +16,7 @@ const imgs = computed(() => {
 </script>
 
 <template>
-  <div class="smallNews" @click="openPage(props.news)">
+  <div class="cursor-pointer smallNews" @click="openPage(props.news)">
     <div class="title line-clamp-2">
       {{ $props.news?.title }}
     </div>

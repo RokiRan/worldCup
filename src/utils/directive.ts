@@ -24,7 +24,37 @@ export const faseAnimate: Directive = {
     window.removeEventListener("scroll", binding.addClass);
   },
 };
+// h5 组件换入
+export const lazy: Directive = {
+  created(el: HTMLElement, binding: any) {
+    // 聚焦元素
+    binding.addClass = () => {
+      const { top } = el.getBoundingClientRect();
+      const height = el.clientHeight;
+      // console.log(top, height);
 
+      const h = document.documentElement.clientHeight || document.body.clientHeight;
+      if (top < h + 150 && (top + height) > 0) { // 减去200刚好，否则刚露头就执行
+        el.className = binding.value;
+        if (binding.addClass) {
+          window.removeEventListener("scroll", binding.addClass);
+        }
+      } else if (el.classList.contains(binding.value)) {
+        // el.className = el.className.replace(binding.value, "");
+      }
+    };
+
+    window.addEventListener("scroll", binding.addClass, true);
+
+    binding.addClass();
+  },
+  unmounted(el: HTMLElement, binding: any) {
+    if (binding.addClass) {
+      window.removeEventListener("scroll", binding.addClass);
+      console.log("取消事件绑定");
+    }
+  },
+};
 // 图片失效 加载默认图片
 export const loadErrImg: Directive = {
 

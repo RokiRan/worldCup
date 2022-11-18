@@ -20,7 +20,7 @@ defineProps<{
     <div class="contBox">
       <ul>
         <li v-for="item, key in $props.items" :key="key">
-          <span>{{ key }}</span>
+          <span>{{ item.ranking }}</span>
           <div class="flag-icon">
             <img v-loadFail :src="item.teamCover">
           </div>
@@ -28,7 +28,7 @@ defineProps<{
             {{ item.team }}
           </div>
           <div class="flagNub">
-            {{ item.ranking }}
+            {{ item.source }}
           </div>
         </li>
       </ul>

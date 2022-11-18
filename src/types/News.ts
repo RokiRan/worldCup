@@ -47,7 +47,7 @@ export interface Shooter {
 }
 
 export interface AppState {
-  schedule: []; // 赛程
+  schedule: ScheduleItem[]; // 赛程
   titleNews: NewsItem[];
   source: Record<string, OneGroup[]>; // 积分
   card: NewsItem[];

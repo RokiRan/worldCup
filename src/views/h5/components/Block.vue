@@ -76,14 +76,14 @@ export default {
         }
 
         .block-title-text {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             // font-weight: bold;
             font-family: HeadFont;
         }
 
         .block-dot {
             display: flex;
-            margin-left: .5rem;
+            margin-left: .4rem;
             align-items: center;
             .dot {
                 width: .4rem;

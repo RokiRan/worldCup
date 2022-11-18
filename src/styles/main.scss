@@ -34,3 +34,11 @@ html.light {
   animation: bottomMoveTop 1.6s cubic-bezier(.5,1,.89,1);
   animation-fill-mode: forwards;
 }
+
+/*点击抓取鼠标*/
+.grab {
+  cursor: grab;
+}
+.grab:active{
+  cursor: grabbing !important;
+}

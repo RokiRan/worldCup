@@ -14,12 +14,12 @@ defineProps({
 <template>
   <div class="smallImgNews" @click="openPage($props.news)">
     <div class="title">
-      <div class="line-clamp-2">
+      <div class="line-clamp-3">
         {{ $props.news?.title }}
       </div>
     </div>
     <div class="img">
-      <img v-loadFail :src="newsImgFmt($props.news!)" alt="">
+      <img v-loadFail class="img_" :src="newsImgFmt($props.news!)" alt="">
       <span v-if="$props.news?.isVideo" class="video" />
     </div>
   </div>
@@ -42,12 +42,13 @@ defineProps({
         }
     }
     .img{
-        width: 15rem;
+        // width: 15rem;
         position: relative;
-        // padding: .3rem;
-        img{
+        width: 12.15rem;
+        height: 5rem;
+        .img_{
             width: 100%;
-            height: 5rem;
+            height: 100%;
             object-fit: cover;
             border-radius: .4rem;
         }

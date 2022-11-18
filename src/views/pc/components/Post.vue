@@ -6,110 +6,91 @@ import type { PostItem } from "~/types/News";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 
 const props = defineProps<{
-  images: {
-    type: PostItem[];
-  };
+  images: PostItem[];
 }>();
-
-const imageArr = computed(() => {
-  // reduce 一位数组转二维数组
-  return props.images.reduce((acc: PostItem[], cur: PostItem, index: number) => {
-    const page = Math.floor(index / 4);
-    if (!acc[page]) {
-      acc[page] = [];
-    }
-    acc[page].push(cur);
-    return acc;
-  }, []);
-});
 </script>
 
 <template>
-  <div class="container5">
-    <div class="columnBox">
+  <div class="postContainer">
+    <div class="content">
       <SubTitileVue title="赛果海报" @more="null" />
-      <div class="groupingPosetion">
-        <div class="grouping5">
-          <div class="groupingInfo">
-            <Swiper slides-per-view="auto" :space-between="2" :navigation="true" :modules="[Navigation]" class="postSlider">
-              <SwiperSlide v-for="item in imageArr" :key="item">
-                <div class="flex imgWarp">
-                  <PostItemVue v-for="item_ in item" :key="`${item_}`" :post="item_" />
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </div>
+      <div class="swiperContainer">
+        <div class="swiper-button-next2 sbtn" />
+        <Swiper
+          :slides-per-view="4" :space-between="12" :navigation="{
+            prevEl: '.swiper-button-next2',
+            nextEl: '.swiper-button-prev2',
+          }" :modules="[Navigation]" class="postSlider"
+        >
+          <SwiperSlide v-for="item in props.images" :key="item.id" class="grab">
+            <PostItemVue :post="item" />
+          </SwiperSlide>
+        </Swiper>
+        <div class="swiper-button-prev2 sbtn" />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container5 {
+.postContainer{
   background-image: url(/src/assets/bg3.png);
-  background-size: cover;
   background-repeat: no-repeat;
-
-  .columnBox {
-    .groupingPosetion {
+  background-size: cover;
+  .content{
+    width: 1320px;
+    margin: 0 auto;
+    .swiperContainer{
+      display: flex;
+      padding: 20px 0 40px 0;
       position: relative;
-      width: 100%;
-      height: 660px;
-      margin: 20px auto;
-
-      .grouping5 {
-        width: 1256px;
-        margin: 0 auto;
-        overflow: hidden;
-        position: relative;
-
-        .groupingInfo {
-          :deep(.postSlider) {
-            padding: 0 26px;
-            .swiper-wrapper {
-
-              .swiper-slide {
-                width: 1229px !important;
-                .imgWarp{
-                  width: 1200px;
-                  justify-content: space-between;
-                }
-              }
-            }
-            .swiper-button-prev{
-              left: 0;
-            }
-            .swiper-button-prev::after {
-              content: "";
-              display: inline-block;
-              width: 2.5rem;
-              height: 2.5rem;
-              background: url("/src/assets/leftSmallBt2.png") no-repeat;
-              background-size: 100% 100%;
-              transform: translateY(50%);
-              position: absolute;
-              left: 0;
-              bottom: 50%;
-              z-index: 999999;
-            }
-
-            .swiper-button-next::after {
-              content: "";
-              display: inline-block;
-              width: 2.5rem;
-              height: 2.5rem;
-              background: url("/src/assets/leftSmallBt2.png") no-repeat;
-              transform-origin: center 50%;
-              transform: rotate(180deg) translateY(-50%);
-              background-size: 100% 100%;
-              position: absolute;
-              right: -6px;
-              bottom: 50%;
-              z-index: 999999;
-            }
+      .postSlider{
+        width: 1200px;
+        .swiper-wrapper{
+          .swiper-slide{
+            // width: 300px;
           }
         }
+      }
+      // .sbtn{
+      //   justify-content: center;
+      //   align-items: center;
+      //   height: 100%;
+      //   margin-top: 250px;
+      //   width: 50px;
+      //   img{
+      //     width: 30px;
+      //     height: 40px;
+      //     margin-right: -10px;
+      //     padding-right: -10px;
+      //   }
+      // }
+      .swiper-button-next2 {
+        position: absolute;
+        top: 40%;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        background: url(/src/assets/arr-left-big.png) no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        z-index: 999999;
+      }
+
+      .swiper-button-prev2 {
+        position: absolute;
+        top: 40%;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        background: url(/src/assets/leftSmallBt2.png) no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        z-index: 10;
+        // translate: rotate(180deg);
+        transform: rotate(180deg);
       }
     }
   }

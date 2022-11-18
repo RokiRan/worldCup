@@ -29,13 +29,27 @@ export default {
   computed: {
     cardOne() {
       if (this.$props?.card?.length > 0) {
-        return this.$props?.card[0];
+        const card = this.$props?.card.filter(t => t.showType === 2);
+        if (card.length > 0) {
+          return card[0];
+        }
+        return null;
       } else {
         return null;
       }
     },
     cards() {
-      return this.$props?.card?.slice(1, 4) || [];
+      const cards = this.$props?.card.filter(t => t.showType !== 2); // 非大图
+      if (cards.length > 0) {
+        return cards.slice(0, 3) || [];
+      } else {
+        const cardBig = this.$props?.card.filter(t => t.showType === 2);
+        if (cardBig.length > 1) {
+          return cardBig.slice(1, 4) || [];
+        } else {
+          return [];
+        }
+      }
     },
   },
 };
@@ -48,6 +62,7 @@ export default {
       <div v-if="cardOne" class="contentBoxAT">
         <div class="contentATRigth">
           <SmallImgVue v-for="item, ind in cards" :key="ind" :image="item" />
+          <EmptyVue v-if="cards.length === 0" class="h-full m-auto" />
         </div>
         <BigImgVue :image="cardOne" />
       </div>

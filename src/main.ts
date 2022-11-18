@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 
 import { createPinia } from "pinia";
-import { faseAnimate, loadErrImg } from "./utils/directive";
+import { faseAnimate, lazy, lazyLoad, loadErrImg } from "./utils/directive";
 // Vue Router
 import index from "./router";
 // import Toast from "./components/Toast";
@@ -17,6 +17,8 @@ app.use(createPinia());
 // app.use(Toast); // 插件的方式引用Toast
 app.directive("animate", faseAnimate);
 app.directive("loadFail", loadErrImg);
+app.directive("lazyShow", lazy);
+// app.directive("lazyLoad", lazyLoad);
 
 registerStore();
 

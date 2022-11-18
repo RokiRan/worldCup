@@ -2,7 +2,8 @@
 import { type PropType } from "vue";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { EffectCoverflow, FreeMode, Navigation, Thumbs } from "swiper";
+import { EffectCoverflow, FreeMode, Navigation, type Swiper as SwiperType, Thumbs } from "swiper";
+
 // Import Swiper styles
 import "swiper/css";
 import { newsImgFmt } from "~/utils/image";
@@ -25,9 +26,18 @@ const props = defineProps({
   },
 });
 
-const thumbsSwiper = ref(null);
-function setThumbsSwiper(swiper: any) {
+const thumbsSwiper = ref<SwiperType>();
+function setThumbsSwiper(swiper: SwiperType) {
   thumbsSwiper.value = swiper;
+  nextTick(() => {
+    setTimeout(() => {
+      document.querySelector(".mySwiperSmall .swiper-slide-thumb-active")?.classList.remove("swiper-slide-thumb-active");
+      document.querySelector(".mySwiperSmall .swiper-slide-active")?.classList.add("swiper-slide-thumb-active");
+    }, 500);
+  });
+}
+function update(swiper: SwiperType) {
+
 }
 const effect = {
   rotate: 10, // 滑动时旋转角度
@@ -46,7 +56,7 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
         '--swiper-navigation-color': 'red',
         '--swiper-pagination-color': 'red',
       }" :coverflow-effect="effect" effect="coverflow" :grab-cursor="true" :loop="true" :space-between="10"
-      :navigation="true" :thumbs="{ swiper: thumbsSwiper }" :modules="modules" class="mySwiperBig"
+      :navigation="true" :thumbs="{ swiper: thumbsSwiper }" :modules="modules" class="mySwiperBig" @swiper="update"
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">
         <div class="myImg" @click="openPage(img)">

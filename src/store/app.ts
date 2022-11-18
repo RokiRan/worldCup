@@ -1,13 +1,12 @@
 import { defineStore } from "pinia";
 import { getHome } from "~/http";
-import type { AppState } from "~/types/News";
-
+import type { AppState, ScheduleItem } from "~/types/News";
 export const useAppStore = defineStore({
   id: "app",
   state: (): AppState => ({
     schedule: [],
     titleNews: [],
-    source: [],
+    source: {},
     card: [],
     poster: [],
     hot: [],
@@ -22,7 +21,6 @@ export const useAppStore = defineStore({
     async getHome() {
       const res = await getHome();
       const data = res.data;
-      this.schedule = data.schedule;
       this.titleNews = data.titleNews;
       this.source = data.source;
       this.card = data.card;
@@ -34,6 +32,7 @@ export const useAppStore = defineStore({
       this.daily = data.daily;
       this.expressReport = data.expressReport;
       this.shooter = data.shooter;
+      this.schedule = data.schedule as ScheduleItem[];
     },
   },
 });

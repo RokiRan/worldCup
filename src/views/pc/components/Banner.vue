@@ -27,13 +27,13 @@ onMounted(() => {
       <li class="layer" data-depth="0">
         <div class="layer3">
           <div class="logo animation-fadeInQuickInv">
-            <img src="/src/assets/2022Logo.png">
+            <img v-animate="'fadeAnimation'" src="/src/assets/2022Logo.png">
           </div>
         </div>
       </li>
     </ul>
     <div class="desertImg animation-desert">
-      <img src="/src/assets/shamojianzhu.png">
+      <img v-animate="'fadeAnimation'" src="/src/assets/shamojianzhu.png">
     </div>
   </div>
 </template>

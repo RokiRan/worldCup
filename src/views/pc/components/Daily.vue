@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation, Pagination } from "swiper";
 import DailyItem from "~/components/swiper/DailyItem.vue";
 import EmptyVue from "~/components/layout/Empty/index.vue";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import type { NewsItem } from "~/types/News";
+import { openPage } from "~/utils/menu";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 const props = defineProps<{
   news: NewsItem[];
 }>();
@@ -33,21 +38,27 @@ const change = (index: number) => {
       <div class="groupingPosetion3">
         <div class="grouping">
           <div class="groupingInfo">
-            <Swiper
-              ref="ReditSwiper"
-              :slides-per-view="1"
-              :space-between="2"
-              :navigation="false"
-              next-el=".groupingBtNext"
-              prev-el=".groupingBtPrev"
-            >
-              <SwiperSlide v-for="item, inde in imageArr" :key="inde">
-                <div class="flex">
-                  <DailyItem v-for="item_, ind in item" :key="`${ind}daily`" :news="item_" />
-                </div>
-              </SwiperSlide>
-            </Swiper>
             <EmptyVue v-if="imageArr.length === 0" />
+            <template v-else>
+              <div class="groupingBtPrev" />
+              <Swiper
+                ref="ReditSwiper" class="dailySwiper" :slides-per-view="1" :space-between="2"
+                :navigation="{
+                  prevEl: '.groupingBtPrev',
+                  nextEl: '.groupingBtNext',
+                }"
+                :modules="[Pagination, Navigation]" :pagination="{
+                  dynamicBullets: true,
+                }"
+              >
+                <SwiperSlide v-for="item, inde in imageArr" :key="inde" class="grab">
+                  <div class="flex">
+                    <DailyItem v-for="item_, ind in item" :key="`${ind}daily`" :news="item_" @click="openPage(item_)" />
+                  </div>
+                </SwiperSlide>
+              </Swiper>
+              <div class="groupingBtNext" />
+            </template>
           </div>
         </div>
       </div>
@@ -63,19 +74,73 @@ const change = (index: number) => {
   margin-right: auto;
 }
 
-.container4{
+.container4 {}
 
-}
 .groupingPosetion3 {
   position: relative;
   width: 100%;
-  margin: 20px auto;
+  margin: 20px auto 0 auto;
+
+  .grouping {
+    width: 1300px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    padding-left: 50px;
+    padding-right: 50px;
+    .groupingInfo {
+      position: relative;
+
+      .groupingBtPrev {
+        position: absolute;
+        top: 40%;
+        left: -44px;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        background: url(/src/assets/arr-left-big.png) no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        z-index: 999999;
+      }
+
+      .groupingBtNext {
+        position: absolute;
+        top: 40%;
+        right: -44px;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        background: url(/src/assets/leftSmallBt2.png) no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        z-index: 10;
+        // translate: rotate(180deg);
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
 
-.grouping {
-  width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
+:deep(.dailySwiper) {
+  padding-bottom: 30px;
+
+  .swiper-pagination {
+    bottom: -20 !important;
+
+    .swiper-pagination-bullet {
+      width: 10px;
+      border-radius: 5px;
+      height: 10px;
+      background: red;
+      opacity: 0.5;
+
+      &.swiper-pagination-bullet-active {
+        background: #fff;
+        width: 40px;
+        height: 10px;
+      }
+    }
+  }
 }
 </style>

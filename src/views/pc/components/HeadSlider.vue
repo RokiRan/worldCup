@@ -37,6 +37,12 @@ export default {
       ScheduleSwiper,
     };
   },
+  computed: {
+    scheduleList() {
+      const list = shallowReactive(this.$props?.schedule || []);
+      return list.sort((a, b) => dayjs(a.createTime).isBefore(b.createTime) ? -1 : 1);
+    },
+  },
   methods: {
     showSchedule() {
       this.$emit("showSchedule");
@@ -44,12 +50,28 @@ export default {
     setSwiper(swiper: SwiperType) {
       this.ScheduleSwiper = swiper;
       const today = dayjs().format("MM-DD");
-      this.schedule.forEach((item, index) => {
-        const target = dayjs(item.createTime).format("MM-DD");
-        if (target === today) {
-          return swiper.slideTo(index);
+      const list = this.scheduleList || [];
+      if (list.length === 0) {
+        return;
+      }
+      const index = list.findIndex(t => dayjs(t.createTime).format("MM-DD") === today);
+      // 是否未开始
+      if (dayjs().isBefore(dayjs(list[0].createTime))) {
+        swiper.slideTo(0);
+      } else if (dayjs().isAfter(dayjs(list[list.length - 1].createTime))) {
+        swiper.slideTo(list.length - 1);
+      } else if (index > -1) {
+        swiper.slideTo(index);
+      } else {
+        // 比赛中 需要找到最近的比赛
+        const now = dayjs();
+        const index = list.findIndex(t => now.isBefore(dayjs(t.createTime)));
+        if (index > -1) {
+          swiper.slideTo(index);
+        } else {
+          swiper.slideTo(list.length - 1);
         }
-      });
+      }
     },
   },
 };
@@ -58,9 +80,12 @@ export default {
 <template>
   <div class="bg">
     <div class="contentArea">
-      <Swiper slides-per-view="auto" :space-between="10" :navigation="true" :modules="[Navigation]" class="headSwiper" @swiper="setSwiper">
-        <SwiperSlide v-for="item in $props.schedule" :key="item.sessions">
+      <Swiper slides-per-view="auto" :space-between="10" :navigation="true" :free-mode="true" :modules="[Navigation]" class="headSwiper" @swiper="setSwiper">
+        <SwiperSlide v-for="item in scheduleList" :key="item.sessions" class="grab">
           <HeadSliderItemVue :item="item" />
+        </SwiperSlide>
+        <SwiperSlide v-for="i in 4" :key="i" class="black grab">
+          <div class="w-1 h-1 opacity-0" />
         </SwiperSlide>
       </Swiper>
       <div class="groupmore">
@@ -131,6 +156,9 @@ export default {
   background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
   border-radius: 0px 20px 0px 0px;
   opacity: 1;
+}
+.black{
+  visibility: hidden !important;
 }
 
 .groupmore {
@@ -237,7 +265,7 @@ export default {
     display: inline-block;
     width: 2.5rem;
     height: 2.5rem;
-    background: url("/src/assets/leftSmallBt2.png") no-repeat;
+    background: url("/src/assets/arr-left-big.png") no-repeat;
     background-size: 100% 100%;
     transform: translateY(50%);
     position: absolute;
@@ -251,7 +279,7 @@ export default {
     display: inline-block;
     width: 2.5rem;
     height: 2.5rem;
-    background: url("/src/assets/leftSmallBt2.png") no-repeat;
+    background: url("/src/assets/arr-left-big.png") no-repeat;
     transform-origin: center 50%;
     transform: rotate(180deg) translateY(-50%);
     background-size: 100% 100%;

@@ -112,7 +112,7 @@ const emits = defineEmits(["close"]);
                     justify-content: center;
                     align-items: center;
                     font-size: 1rem;
-                    padding: .9rem;
+                    padding: .5rem;
                     color: #FAE6AE;
                     font-weight: bold;
                 }
@@ -120,7 +120,7 @@ const emits = defineEmits(["close"]);
             .tbody{
                 width: 100%;
                 overflow-y: scroll;
-                height: 15rem;
+                max-height: 15rem;
                 .line{
                     width: 100%;
                     display: flex;

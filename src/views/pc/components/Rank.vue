@@ -8,12 +8,14 @@ const showRankPop = ref(false);
 const toggleRankPop = () => {
   showRankPop.value = !showRankPop.value;
 };
+
+const getName = (item: Shooter) => {
+  return item.team.length > 5 ? `${item.team.slice(0, 5)}...` : item.team;
+};
 </script>
 
 <template>
   <div class="rankDing">
-    <img src="/src/assets/rank.png" alt="" srcset="" class="bigBtn" @click="toggleRankPop">
-    <div class="cursor-pointer arror" :class="showRankPop ? 'arrReverse' : ''" @click.stop="toggleRankPop" />
     <div class="rankList" :class="!showRankPop ? 'rankListHide' : ''">
       <div class="rankItem">
         <div class="rankNum">
@@ -31,26 +33,29 @@ const toggleRankPop = () => {
           <span class="num line-clamp-1">{{ item.name }}</span>
         </div>
         <div class="rankName">
-          <span class="name line-clamp-1">{{ item.team }}</span>
+          <span class="name line-clamp-1">{{ getName(item) }}</span>
         </div>
         <div class="rankScore">
           <span class="score">{{ item.goals }}</span>
         </div>
       </div>
     </div>
+    <img src="/src/assets/rank.png" alt="" srcset="" class="bigBtn" @click="toggleRankPop">
+    <div class="cursor-pointer arror" :class="showRankPop ? 'arrReverse' : ''" @click.stop="toggleRankPop" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .rankDing {
   position: fixed;
-  right: .1rem;
+  right: 1px;
   top: 40%;
   z-index: 9999;
+  font-size: 14px;
   .arror{
     position: absolute;
     top: 144px;
-    right: 53px;
+    right: 58px;
     width: 14px;
     height: 14px;
     /*朝左的三角形*/
@@ -79,8 +84,8 @@ const toggleRankPop = () => {
   .rankList {
     position: absolute;
     top: 0;
-    right: 75px;
-    width: 250px;
+    right: 82px;
+    width: 262px;
     max-height: 400px;
     overflow-y: scroll;
     background-color: #8F0F36;
@@ -118,7 +123,7 @@ const toggleRankPop = () => {
       }
 
       .rankName {
-        width: 25%;
+        width: 35%;
         text-align: center;
 
         .name {
@@ -129,7 +134,7 @@ const toggleRankPop = () => {
 
       .rankScore {
         text-align: center;
-        width: 25%;
+        width: 15%;
         .score {
           font-size: .8rem;
           color: #fff;

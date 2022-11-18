@@ -117,7 +117,7 @@ export default defineComponent({
     <div v-if="loaded">
       <div v-show="!isShowSchedule && !isShowNesList">
         <HeadSliderVue
-          v-animate="'fadeAnimation'" :slider="titleNews" :schedule="schedule"
+          :slider="titleNews" :schedule="schedule"
           @showSchedule="toggleSchedule"
         />
         <CreditsVue v-animate="'fadeAnimation'" :source="source" />

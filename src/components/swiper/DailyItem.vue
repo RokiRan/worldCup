@@ -10,6 +10,7 @@ defineProps<{
   <div class="postItem">
     <div class="image">
       <img v-loadFail :src="newsImgFmt($props.news)" alt="" srcset="">
+      <i v-if="$props.news?.isVideo" class="v-icon" />
     </div>
     <div class="title">
       <div class="text line-clamp-2">
@@ -28,11 +29,25 @@ defineProps<{
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  .image img {
-    width: 288px;
-    height: 137px;
-    object-fit: cover;
+
+  .image {
+    position: relative;
+    img {
+      width: 288px;
+      height: 137px;
+      object-fit: cover;
+    }
+
+    .v-icon {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      background: url(/src/assets/vIcon.png) no-repeat;
+      right: 12px;
+      bottom: 12px;
+    }
   }
+
   .title {
     font-size: 14px;
     color: rgb(243, 235, 235);
@@ -42,7 +57,8 @@ defineProps<{
     text-align: left;
     padding: 8px;
     background: linear-gradient(180deg, #B70A3F 0%, #871034 100%);
-    .text{
+
+    .text {
       height: 42px;
     }
   }

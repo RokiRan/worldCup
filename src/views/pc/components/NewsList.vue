@@ -74,7 +74,7 @@ onMounted(async () => {
       <div class="itemList">
         <div ref="newsListDom" class="container" @mousemove="debounceLoadMore">
           <div v-for="news in newsList" :key="news.id">
-            <ListItemBigVue v-if="news.showType === 3" :news="news" />
+            <ListItemBigVue v-if="news.showType === 2" :news="news" />
             <ListItemSmallVue v-else :news="news" style="margin-top: .3rem;" />
           </div>
           <Empty v-show="newsList.length === 0 && loaded" />

@@ -6,11 +6,14 @@ export default {
 
 <template>
   <footer
-    class="bottom-0 px-4 py-10 pt-2 border-t footer footer-center border-base-100 bg-base-200 text-base-content opacity-90"
+    class="bottom-0 px-4 py-3 footer footer-center " style="background-color: #323232;"
   >
-    <div class="flex flex-row items-center justify-center w-full max-w-6xl gap-6">
-      网站首页 | 广告价格 <br>
-      渝ICP备12004790号-1 公安部门备案编号：5000085100200005 ©2018 上游新闻
+    <div class="flex flex-col items-center justify-center w-full text-white">
+      <div><a href="https://www.cqcb.com">网站首页</a> | <a href="https://www.cqcb.com/baojia/"> 广告价格</a> </div>
+      <p>
+        渝ICP备12004790号-1 渝公网安备 50011202500859号 <br> 网络出版服务许可证：（署）网出证（渝）字第008号  互联网新闻信息服务许可证号： 50120180002 2022 上游新闻
+        互联网违法和不良信息举报电话：023-966966
+      </p>
     </div>
   </footer>
 </template>
