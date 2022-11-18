@@ -48,8 +48,7 @@ const imgs = computed(() => {
 .smallNews {
     display: flex;
     padding: 20px 0;
-    background-color: #8F0F36;
-    border-bottom: 1px solid #F4A1A1;
+    border-bottom: 1px solid #AB0F3D;
     .left {
         width: 80%;
         .title {
@@ -82,7 +81,7 @@ const imgs = computed(() => {
         }
     }
     .right {
-        width: 20%;
+        // max-width: 20%;
         position: relative;
         .img {
             width: 226px;

@@ -68,7 +68,7 @@ const modules = [FreeMode, Navigation, Thumbs, EffectCoverflow];
       </SwiperSlide>
     </Swiper>
     <Swiper
-      ref="thumbsSwiper" :space-between="10" :slides-per-view="4" :free-mode="false" :watch-slides-progress="true"
+      ref="thumbsSwiper" :space-between="10" :slides-per-view="5" :free-mode="false" :watch-slides-progress="true"
       :modules="modules" class="mySwiperSmall" @swiper="setThumbsSwiper"
     >
       <SwiperSlide v-for="img in props.sliderItems" :key="img.id">

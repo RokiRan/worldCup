@@ -15,7 +15,7 @@ const props = defineProps<{
     <div class="content">
       <SubTitileVue title="世界杯海报" @more="null" />
       <div class="swiperContainer">
-        <div class="swiper-button-next2 sbtn" />
+        <div class="swiper-button-next2" />
         <Swiper
           :slides-per-view="4" :space-between="12" :navigation="{
             prevEl: '.swiper-button-next2',
@@ -26,7 +26,7 @@ const props = defineProps<{
             <PostItemVue :post="item" />
           </SwiperSlide>
         </Swiper>
-        <div class="swiper-button-prev2 sbtn" />
+        <div class="swiper-button-prev2" />
       </div>
     </div>
   </div>
@@ -52,19 +52,6 @@ const props = defineProps<{
           }
         }
       }
-      // .sbtn{
-      //   justify-content: center;
-      //   align-items: center;
-      //   height: 100%;
-      //   margin-top: 250px;
-      //   width: 50px;
-      //   img{
-      //     width: 30px;
-      //     height: 40px;
-      //     margin-right: -10px;
-      //     padding-right: -10px;
-      //   }
-      // }
       .swiper-button-next2 {
         position: absolute;
         top: 40%;

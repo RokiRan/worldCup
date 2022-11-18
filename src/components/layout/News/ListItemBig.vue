@@ -25,6 +25,7 @@ const imgs = computed(() => {
       <div v-if="news.isVideo" class="time">
         {{ news.videoTime }}
       </div>
+      <div v-if="news.isVideo" class="vIcon" />
     </div>
     <div class="left">
       <div class="desc">
@@ -45,8 +46,7 @@ const imgs = computed(() => {
 <style lang="scss" scoped>
 .smallNews {
   padding: 20px 0;
-  background-color: #8F0F36;
-  border-bottom: 1px solid #F4A1A1;
+  border-bottom: 1px solid #AB0F3D;
 
   .title {
     font-size: 18px;
@@ -80,6 +80,16 @@ const imgs = computed(() => {
       background-color: #00000090;
       border-radius: 8px;
       padding: 0 4px;
+    }
+    .vIcon{
+      position: absolute;
+      bottom: 50%;
+      right: 50%;
+      width: 64px;
+      height: 64px;
+      background: url(/src/assets/vIcon.png) no-repeat;
+      background-size: 100% 100%;
+      translate: 50% 50%;
     }
   }
 

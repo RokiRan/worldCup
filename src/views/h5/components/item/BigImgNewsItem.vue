@@ -30,10 +30,11 @@ const imgs = computed(() => {
 
 <style lang="scss">
 .bigImgNews {
-  padding: .4rem 0 0 0;
+  // padding: .4rem 0 0 0;
   border-radius: .3rem;
   overflow: hidden;
-  margin-bottom: .7rem;
+  margin-bottom: 10px;
+
   .big {
     width: 100%;
     position: relative;

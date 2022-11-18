@@ -92,6 +92,9 @@ function setSwiper(swiper: SwiperType) {
         .swiper-slide {
             width: 60%;
             overflow: hidden;
+            &:last-child{
+              // filter: ;
+            }
         }
     }
 }

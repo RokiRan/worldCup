@@ -86,14 +86,14 @@ onMounted(async () => {
 
 <style lang="scss">
 .newsListPage {
-    width: 100vw;
+    // width: 100vw;
     margin: 0 auto;
-    background-color: #56031A;
+    background-color: #810D2D;
     .newsListCtn{
       width: 1200px;
       margin: 0 auto;
       .container{
-        padding: 10px 80px;
+        padding: 10px 120px;
         background-color: #8F0F36;
         margin: 0 auto;
         margin-top: 20px;

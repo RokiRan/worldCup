@@ -1,35 +1,38 @@
 <script lang="ts" setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper";
+import { Navigation, type Swiper as SwiperType } from "swiper";
 import CreditItemVue from "~/components/swiper/CreditItem.vue";
-// Import Swiper styles
-import "swiper/css";
 import SubTitileVue from "~/components/layout/Title/SubTitile.vue";
 import type { OneGroup } from "~/types/News";
+
 defineProps<{
   source: Record<string, OneGroup[]>;
 }>();
+
+const sliderInstance = ref<SwiperType>();
+const updateSwiper = (swiper: SwiperType) => {
+  sliderInstance.value = swiper;
+};
 </script>
 
 <template>
   <div class="creditContainier">
-    <SubTitileVue title="小组赛分组/积分" @more="null" />
-    <div class="content">
-      <div class="groupingBtPrev" />
+    <SubTitileVue title="小组赛分组/积分" />
+    <div class="creditContent">
+      <div class="swiper-button-prev3" @click="sliderInstance?.slideNext()" />
       <Swiper
-        class="creditSwiper"
         :slides-per-view="4" :space-between="2" :navigation="{
-          prevEl: '.groupingBtPrev',
-          nextEl: '.groupingBtNext',
-        }" :modules="[Navigation]" :pagination="{
-          dynamicBullets: true,
-        }"
+          prevEl: '.swiper-button-next3',
+          nextEl: '.swiper-button-prev3',
+        }" :modules="[Navigation]"
+        class="creditSwiper"
+        @swiper="updateSwiper"
       >
-        <SwiperSlide v-for="(item, key, index) in $props.source" :key="key" class="grab">
+        <SwiperSlide v-for="(item, key, index) in $props.source" :key="`${key}credite`" class="grab">
           <CreditItemVue :key="index" :items="item" :group="key" />
         </SwiperSlide>
       </Swiper>
-      <div class="groupingBtNext" />
+      <div class="swiper-button-next3" @click="sliderInstance?.slidePrev()" />
     </div>
   </div>
 </template>
@@ -41,7 +44,7 @@ defineProps<{
   background-size: cover;
   background-repeat: no-repeat;
 
-  .content{
+  .creditContent{
     width: 1300px;
     margin: 20px auto 0 auto;
     position: relative;
@@ -49,7 +52,7 @@ defineProps<{
     .creditSwiper{
       width: 1210px;
     }
-    .groupingBtPrev {
+    .swiper-button-next3 {
       position: absolute;
       top: 40%;
       left: 12px;
@@ -62,19 +65,17 @@ defineProps<{
       z-index: 999999;
     }
 
-    .groupingBtNext {
+    .swiper-button-prev3 {
       position: absolute;
       top: 40%;
       right: 12px;
       width: 40px;
       height: 40px;
       margin-top: -20px;
-      background: url(/src/assets/leftSmallBt2.png) no-repeat;
+      background: url(/src/assets/arr-right-big.png) no-repeat;
       background-size: 100% 100%;
       cursor: pointer;
       z-index: 10;
-      // translate: rotate(180deg);
-      transform: rotate(180deg);
     }
   }
 }
