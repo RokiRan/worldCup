@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
-
 // 判断是否是移动端
 import { isMobile } from "~/utils/isMobile";
+const isProduction = process.env.NODE_ENV === "production";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const index = createRouter({
-  history: createWebHistory("/worldCup"),
+  history: createWebHistory(isProduction ? "/shangyou_activity/worldCup" : "/worldCup"),
   routes,
 });
 index.beforeEach(() => {

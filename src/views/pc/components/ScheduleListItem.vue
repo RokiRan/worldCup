@@ -75,14 +75,16 @@ defineProps<{
     }
   }
   .flag{
-    width: 30%;
+    width: 356px;
+    min-width: 100px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+    padding-left: 100px;
     img{
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 44px;
+      height: 44px;
       object-fit: cover;
       margin-right: 10px;
     }

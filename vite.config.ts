@@ -3,10 +3,10 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import Components from "unplugin-vue-components/vite";
 import AutoImport from "unplugin-auto-import/vite";
-
+const isProduction = process.env.NODE_ENV === "production";
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "worldCup",
+  base: isProduction ? "/shangyou_activity/worldCup" : "/worldCup",
   server: {
     host: "",
     port: 8888,

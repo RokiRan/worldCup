@@ -13,7 +13,7 @@ const props = defineProps<{
 <template>
   <div class="postContainer">
     <div class="content">
-      <SubTitileVue title="赛果海报" @more="null" />
+      <SubTitileVue title="世界杯海报" @more="null" />
       <div class="swiperContainer">
         <div class="swiper-button-next2 sbtn" />
         <Swiper

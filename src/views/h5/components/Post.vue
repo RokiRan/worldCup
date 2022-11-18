@@ -14,7 +14,7 @@ defineProps<{
 
 <template>
   <div>
-    <BlockVue title="赛果海报">
+    <BlockVue title="世界杯海报">
       <Swiper slides-per-view="auto" :space-between="10" class="mySwiper">
         <SwiperSlide v-for="item in $props.images" :key="item.id">
           <PostItemVue :post="item" />

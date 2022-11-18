@@ -14,11 +14,11 @@ export default {
 .rankDing{
     position: fixed;
     right: 1px;
-    top: 40%;
+    top: 45%;
     z-index: 9999;
     img{
-        width: 5.5rem;
-        height: 10rem;
+        width: 2.75rem;
+        height: 100%;
         object-fit: contain;
         /*透明图片阴影*/
         filter: drop-shadow(0 0 0.1rem #00000050);

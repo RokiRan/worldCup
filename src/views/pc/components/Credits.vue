@@ -38,7 +38,7 @@ defineProps<{
 .creditContainier {
   background-image: url(/src/assets/groupBJ.png);
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 
   .content{

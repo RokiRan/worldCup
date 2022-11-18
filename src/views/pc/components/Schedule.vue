@@ -77,6 +77,23 @@ onMounted(() =>
     }
   }),
 );
+// 绑定拖拽事件
+function bindDrag(e: MouseEvent) {
+  e.preventDefault();
+  const { clientX } = e;
+  const left = document.querySelector("#dateNav")?.scrollLeft || 0;
+  const move = (e: MouseEvent) => {
+    const { clientX: x } = e;
+    const offset = clientX - x;
+    dateNav.value?.scrollTo({ left: left + offset, behavior: "smooth" });
+  };
+  const up = (e: MouseEvent) => {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", up);
+  };
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", up);
+}
 function chooseTab(date: string) {
   currentTab.value = date;
   scrollTo(date);
@@ -121,10 +138,10 @@ function right() {
         <div class="flex w-full mt-4 mb-1">
           <img src="/src/assets/arr.png" alt="" class="h-12 cursor-pointer" @click="left">
           <div class="relative flex flex-1 overflow-hidden">
-            <div ref="dateNav" class="flex w-full overflow-x-scroll hideBar flex-nowrap">
+            <div id="dateNav" ref="dateNav" class="flex w-full overflow-x-scroll hideBar flex-nowrap active:cursor-grabbing">
               <div
-                v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}pcDate`" :archdate="item[0]" class="dateItem"
-                :class="currentTab === item[0] ? 'dataActive' : ''" @click="chooseTab(item[0])"
+                v-for="item in scheduleList.dateWeekMap" :key="`${item[0]}pcDate`" :archdate="item[0]" class="select-none dateItem"
+                :class="currentTab === item[0] ? 'dataActive' : ''" @click.stop.prevent="chooseTab(item[0])" @mousedown="bindDrag"
               >
                 <div class="date">
                   {{ item[0] }}
@@ -224,7 +241,6 @@ function right() {
   padding: 0 30px;
 
 }
-
 .dateItem {
   min-width: 140px;
   display: inline-flex;
@@ -232,7 +248,6 @@ function right() {
   justify-content: center;
   align-items: center;
   background-color: #8F0F36;
-  cursor: pointer;
   padding: 5px 0;
 
   .date {
