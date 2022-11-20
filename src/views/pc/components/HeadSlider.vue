@@ -98,7 +98,7 @@ export default {
         <div class="Dot" />
       </div>
     </div>
-    <div v-if="slider.length" class="bigImg">
+    <div v-if="slider.length">
       <BigImgVue :slider-items="slider" />
     </div>
   </div>

@@ -16,12 +16,12 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/pc",
     name: "Pc",
-    component: () => import("~/views/pc/index.vue"),
+    component: whereToGo(),
   },
   {
     path: "/h5",
     name: "H5",
-    component: () => import("~/views/h5/index.vue"),
+    component: whereToGo(),
     redirect: "/h5/home",
     children: [
       {

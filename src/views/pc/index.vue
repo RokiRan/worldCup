@@ -89,7 +89,7 @@ export default defineComponent({
     });
   },
   beforeCreate() {
-    isMobile() && window.location.replace("/h5/home");
+    // isMobile() && window.location.replace("/h5/home");
   },
   methods: {
     scrollTo(key: number) {

@@ -43,7 +43,7 @@ export default {
     },
   },
   beforeCreate() {
-    !isMobile() && window.location.replace("/");
+    // !isMobile() && window.location.replace("/");
     if (this.route.path === "/") {
       this.router.push({
         name: "Home",
