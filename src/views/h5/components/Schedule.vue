@@ -51,11 +51,12 @@ function setSwiper(swiper: SwiperType) {
     swiper.slideTo(index);
   }
 }
+const title = ref("123");
 </script>
 
 <template>
   <div>
-    <BlockVue title="赛程" :show="true" @more="sendEvent()">
+    <BlockVue v-model:title="title" :show="true" @more="sendEvent()">
       <div>
         <Swiper slides-per-view="auto" :space-between="10" class="mySwiper" @swiper="setSwiper">
           <SwiperSlide v-for="item in $props.schedule" :key="item.teamOne">

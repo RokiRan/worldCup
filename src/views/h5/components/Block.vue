@@ -13,11 +13,11 @@ export default {
   },
   emits: ["more"],
   setup(props) {
-    const { title } = toRefs(props);
-    return {
-      // eslint-disable-next-line vue/no-dupe-keys
-      title,
-    };
+    // const { title } = toRefs(props);
+    // return {
+    //   // eslint-disable-next-line vue/no-dupe-keys
+    //   title,
+    // };
   },
   methods: {
     more() {
@@ -45,6 +45,7 @@ export default {
       </div>
     </div>
     <div class="block-content">
+      <input v-model.sync:value="title" type="text">
       <slot />
     </div>
   </div>
